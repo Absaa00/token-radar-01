@@ -1,47 +1,68 @@
-# Token Radar — what this board is and how to read it
+# Token Radar — ringkasan
 
-178 pre-token protocols from the DefiLlama index (snapshot 2026-11-14), ranked by what a
-token launch would be worth if each protocol's record stayed as it is. 40 are the watchlist
-(every protocol with $50M+ TVL and no token on record); 138 are the early radar below that
-floor. The board is a model, not a prediction that any token launches.
+Radar nilai implisit untuk 178 protokol pra-token dari snapshot DefiLlama 14 November 2026
+(758 protokol, floor watchlist $50.000.000). Board memuat seluruh 40 protokol
+watchlist house ditambah 138 protokol pra-token di bawah floor yang lolos filter
+house — bukan bridge, liquid staking/restaking, atau CEX; bukan nama berversi,
+wrapped, atau staked; bukan nama exchange. Protokol di atas floor yang tidak
+masuk watchlist tidak dimasukkan.
 
-## The model (radar-2)
+## Model: radar-2
 
-implied = TVL x category multiple x growth x maturity x breadth. The category multiple is
-the MEDIAN market-cap / TVL of the live-token protocols in that category (3+ comparables,
-clamped 0.08–0.90); a category with fewer live comparables uses the global median 0.214
-across all 128 live protocols. Growth is 1 + clamp(7d change, -40%, +60%) / 100 x 0.5.
-Maturity is 0.7 + min(age, 1095d) / 1095 x 0.3 (unknown age = 365d). Breadth is
-1 + 0.02 x min(chains - 1, 10). No protocol name is special-cased; the same function scores
-every row, and each detail view shows its four factors. Wrapped, staked and bridged products
-of tokens that already trade are excluded, as are exchanges and versioned pools.
+Nilai implisit = TVL × multiple kategori × growth × maturity × breadth.
 
-## Top 10 by implied value
+- **Multiple kategori** — median mcap/TVL protokol live per kategori, minimal
+  3 protokol live, dijepit 0,08–0,90. Kategori dengan kurang dari 3 protokol
+  live memakai median global 0,2138 dari 128 protokol live (protokol live =
+  snapshot mencatat kapitalisasi pasar di atas nol).
+- **Growth** — 1 + perubahan TVL 7 hari (dijepit −40% sampai +60%) × 0,5.
+  Tanpa data 7 hari dihitung 0%.
+- **Maturity** — 0,7 + min(umur, 1095 hari) / 1095 × 0,3. Tanpa tanggal
+  listing dihitung 365 hari.
+- **Breadth** — 1 + 0,02 × min(jumlah chain − 1, 10).
+- Tidak ada nama protokol yang diistimewakan: semua angka dihitung dari
+  snapshot saat program berjalan.
 
-1. Steakhouse Financial — $593M (Risk Curators, TVL $2.75B, Base+10 chains)
-2. Gauntlet — $353M (Risk Curators, TVL $1.58B, Base+13 chains)
-3. Veda — $336M (Onchain Capital Allocator, TVL $1.56B, Ink+12 chains)
-4. USDD — $158M (CDP, TVL $1.06B, Tron+2 chains)
-5. Upshift — $119M (Onchain Capital Allocator, TVL $499M, Ethereum+14 chains)
-6. Bittensor dTAO — $89M (Dexs, TVL $376M, Bittensor)
-7. Nonce Capital — $76M (Risk Curators, TVL $514M)
-8. OnRe — $71M (RWA, TVL $309M, Solana)
-9. OpenTrade — $61M (RWA, TVL $242M)
-10. Plume Vaults — $56M (RWA, TVL $212M)
+Multiple yang dipakai per kategori (minimal 3 live): Lending 0,1324 (15 live),
+Dexs 0,3424 (11), Liquid Staking 0,0800 (9), Yield 0,1914 (9), CEX 0,0800 (9),
+RWA 0,2748 (9), Canonical Bridge 0,7464 (8), Basis Trading 0,6544 (7),
+Bridge 0,5567 (6), Cross Chain Bridge 0,9000 (4), Yield Aggregator 0,1510 (4),
+Indexes 0,1477 (3), CDP 0,1687 (3), Privacy 0,9000 (3). Total nilai implisit
+board $3.155.981.574 atas TVL $15.410.003.598; median nilai implisit
+$3.596.243.
 
-Risk curators dominate: 33 of 178 rows. Their multiple is the global median (only 1 live
-comparable), so their rank comes from sheer TVL and age, not a generous multiple.
+## Top 10
 
-## How to use it
+| # | Protokol | Kategori | TVL | Nilai implisit |
+|---|----------|----------|-----|----------------|
+| 1 | Steakhouse Financial | Risk Curators | $2.753.981.495 | $593.137.929 |
+| 2 | Gauntlet | Risk Curators | $1.577.685.462 | $353.258.563 |
+| 3 | Veda | Onchain Capital Allocator | $1.563.415.482 | $335.717.823 |
+| 4 | USDD | CDP | $1.055.793.606 | $158.420.774 |
+| 5 | Upshift | Onchain Capital Allocator | $499.083.733 | $119.300.694 |
+| 6 | Bittensor dTAO | Dexs | $376.026.255 | $89.089.824 |
+| 7 | Nonce Capital | Risk Curators | $513.783.671 | $75.927.311 |
+| 8 | OnRe | RWA | $308.882.355 | $70.798.208 |
+| 9 | OpenTrade | RWA | $241.501.527 | $61.190.267 |
+| 10 | Plume Vaults | RWA | $211.537.977 | $55.950.258 |
 
-Search, filter by category, main chain or minimum TVL, sort by implied value, TVL, 7-day
-growth, age or name. Select any row for its model breakdown and a 6-step farm plan (fresh
-wallet, the category's main action, one qualifying action a week, hold 30–60 days, claim
-only from the protocol's own links, keep a farm log). The Live token tab shows the 24
-largest live-token protocols whose market caps calibrate the multiples.
+Kategori terbesar di board: Risk Curators (33 protokol), Dexs (20), RWA (15),
+Yield (15), Onchain Capital Allocator (14), Lending (14).
 
-## Caveats
+## Cara memakai dashboard
 
-"Records no token" means the snapshot carries none; a protocol may still have a token its
-record does not carry. Implied values are the entry's own claim, never a price. Never pay
-anyone to claim for you.
+Hero dan empat kartu stat memberi gambaran board; Top 10 spotlight menyorot
+puncak; bar kategori membandingkan kategori; filter mencari nama/slug,
+kategori, chain, TVL minimum, dan urutan. Tab Pre-token menampilkan board
+lengkap, tab Live token menampilkan tabel asal multiple. Klik baris mana pun
+untuk dialog detail: uraian lengkap model (TVL, multiple, growth, maturity,
+breadth) dan 6 langkah farming dengan biaya dan waktu tiap langkah.
+
+## Batasan
+
+Nilai implisit adalah klaim entri ini, bukan prediksi harga dan bukan janji
+token akan diterbitkan. "Tidak tercatat memiliki token" berarti snapshot
+tidak mencatat tokennya — bukan bukti protokol itu tidak punya token.
+Rencana farm bersifat umum (pelajari dokumen resmi, mulai kecil, pantau
+tiap minggu, verifikasi kontrak dari kanal resmi sebelum klaim) dan tidak
+pernah meminta persetujuan tanpa batas.

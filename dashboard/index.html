@@ -1,14 +1,99 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar — pre-token protocols ranked by implied value</title>
-<meta name="description" content="178 pre-token protocols from the DefiLlama index, ranked by what their launch would be worth, each with a farm plan.">
+<title>Token Radar — 178 protokol pra-token diperingkat nilai implisit</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
-<main id="board" tabindex="-1" aria-busy="true"></main>
+<header class="hero">
+  <p class="kicker">Token launch radar · snapshot 14 Nov 2026</p>
+  <h1>Protokol pra-token apa yang tokennya paling berharga?</h1>
+  <p class="lede">Radar ini membaca snapshot DefiLlama, menghitung nilai implisit tiap protokol dari TVL, pertumbuhan 7 hari, umur, dan jangkauan chain — lalu menunjukkan cara farming tiap protokol sebelum tokennya lahir.</p>
+  <p class="meta" id="heroMeta"></p>
+</header>
+<main>
+  <section class="stats" aria-label="Ringkasan">
+    <div class="stat"><span class="num" id="statTotal">–</span><span class="lbl">Protokol di board</span></div>
+    <div class="stat"><span class="num" id="statWatch">–</span><span class="lbl">Watchlist house · floor $50 jt</span></div>
+    <div class="stat"><span class="num" id="statMedian">–</span><span class="lbl">Nilai implisit median</span></div>
+    <div class="stat"><span class="num" id="statTop">–</span><span class="lbl">Nilai implisit tertinggi</span></div>
+  </section>
+
+  <section>
+    <h2>Top 10 spotlight</h2>
+    <p class="hint">Sepuluh protokol dengan nilai implisit tertinggi. Klik baris mana pun untuk detail dan rencana farm-nya.</p>
+    <table class="board">
+      <thead><tr><th>#</th><th>Protokol</th><th>Kategori</th><th>TVL</th><th>Nilai implisit</th></tr></thead>
+      <tbody id="top10Body"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Board menurut kategori</h2>
+    <p class="hint">Jumlah protokol dan total nilai implisit per kategori.</p>
+    <div class="bars" id="catBars"></div>
+  </section>
+
+  <section class="controls" id="controls">
+    <h2>Board lengkap</h2>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Cari nama atau slug…" aria-label="Cari protokol">
+      <select id="catSel" aria-label="Kategori"></select>
+      <select id="chainSel" aria-label="Chain"></select>
+      <select id="tvlSel" aria-label="TVL minimum">
+        <option value="0">TVL apa saja</option>
+        <option value="10000000">TVL ≥ $10 jt</option>
+        <option value="25000000">TVL ≥ $25 jt</option>
+        <option value="50000000">TVL ≥ $50 jt</option>
+        <option value="100000000">TVL ≥ $100 jt</option>
+      </select>
+      <select id="sortSel" aria-label="Urutkan">
+        <option value="rank">Nilai implisit tertinggi</option>
+        <option value="tvl">TVL tertinggi</option>
+        <option value="name">Nama A–Z</option>
+        <option value="age">Paling lama berjalan</option>
+        <option value="mult">Multiple tertinggi</option>
+      </select>
+    </div>
+    <div class="tabs" role="tablist">
+      <button id="tabBoard" role="tab" aria-selected="true">Pre-token</button>
+      <button id="tabLive" role="tab" aria-selected="false">Live token · asal multiple</button>
+    </div>
+    <p class="hint" id="boardCount"></p>
+    <div id="boardTab">
+      <table class="board">
+        <thead><tr><th>#</th><th>Protokol</th><th>Kategori</th><th>Chain</th><th>TVL</th><th>7h</th><th>Umur</th><th>Multiple</th><th>Nilai implisit</th></tr></thead>
+        <tbody id="boardBody"></tbody>
+      </table>
+    </div>
+    <div id="liveTab" hidden>
+      <table class="board">
+        <thead><tr><th>Kategori</th><th>Protokol live</th><th>Median mcap/TVL</th><th>Multiple dipakai</th><th>Contoh</th></tr></thead>
+        <tbody id="liveBody"></tbody>
+      </table>
+      <p class="hint" id="liveHint"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Metodologi</h2>
+    <p>Nilai implisit tiap protokol dihitung dari angka snapshot itu sendiri, tanpa nama yang diistimewakan:</p>
+    <ul class="method">
+      <li><b>Multiple kategori</b> — median mcap/TVL protokol live di kategori itu, minimal 3 protokol live, dijepit 0,08–0,90. Kategori dengan kurang dari 3 protokol live memakai median global.</li>
+      <li><b>Growth</b> — 1 + perubahan TVL 7 hari (dijepit −40% sampai +60%) × 0,5. Protokol tanpa data 7 hari dihitung 0%.</li>
+      <li><b>Maturity</b> — 0,7 + min(umur, 1095 hari) / 1095 × 0,3. Protokol tanpa tanggal listing dihitung berumur 365 hari.</li>
+      <li><b>Breadth</b> — 1 + 0,02 × min(jumlah chain − 1, 10). Hadir di banyak chain menaikkan nilai.</li>
+      <li><b>Board</b> — 40 protokol watchlist (TVL ≥ $50 jt, tidak tercatat punya token) ditambah 138 protokol pra-token di bawah floor yang lolos filter house: bukan bridge, liquid staking/restaking, atau CEX; bukan nama berversi, wrapped, atau staked; bukan nama exchange.</li>
+    </ul>
+    <p class="hint">Nilai implisit adalah klaim entri ini, bukan prediksi harga dan bukan janji token akan diterbitkan. “Tidak tercatat memiliki token” berarti snapshot DefiLlama tidak mencatat tokennya — bukan bukti protokol itu tidak punya token.</p>
+  </section>
+</main>
+<dialog id="detail">
+  <div id="detailBody"></div>
+  <p class="dlg-actions"><button id="detailClose">Tutup</button></p>
+</dialog>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

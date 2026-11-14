@@ -1,63 +1,67 @@
-// Renders the dashboard's three screenshots with headless Chromium (Playwright).
-//   node tools/shoot.mjs <outDir> <screenshotsDir>
-// outDir holds the graded output (dashboard/ + data.js); screenshotsDir receives the JPEGs.
-// 1440x900, JPEG quality 80: each shot must stay under the 512 KiB cap (aim 300-350 KB).
-import { readdirSync, statSync } from 'node:fs';
-import { join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { homedir } from 'node:os';
+// Screenshots for token-radar-01: three 1440x900 JPEG (quality 80) captures
+// of the built dashboard, taken with Playwright Chromium.
+//
+//   node tools/shoot.mjs [outDir] [destDir]
+//
+// outDir holds the dashboard built by main.ts (default "out"); destDir is
+// where the JPGs land (default "screenshots", the repository folder main.ts
+// copies into the next build). Run main.ts again after shooting so the
+// dossier is rebuilt from the new screenshots.
+//
+//   1-board.jpg    — the board, default view, scrolled to the table
+//   2-detail.jpg   — the detail dialog for Steakhouse Financial
+//   3-filtered.jpg — the board filtered to the Risk Curators category
 
-// playwright-core lives under the home workspace (persisted); /tmp is a fallback.
-let chromium;
-try {
-  ({ chromium } = await import('/tmp/node_modules/playwright-core/index.mjs'));
-} catch {
-  ({ chromium } = await import(`${homedir()}/workspace/makefun/playwright-core/index.mjs`));
-}
+import { readdirSync, existsSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { homedir } from "node:os";
+import { chromium } from "/home/hatch/workspace/makefun/playwright-core/index.mjs";
 
-const outDir = process.argv[2];
-const shotDir = process.argv[3];
-if (!outDir || !shotDir) {
-  process.stderr.write('usage: node tools/shoot.mjs <outDir> <screenshotsDir>\n');
-  process.exit(2);
-}
+const outDir = resolve(process.argv[2] ?? "out");
+const destDir = resolve(process.argv[3] ?? "screenshots");
+const pageUrl = "file://" + join(outDir, "dashboard", "index.html");
 
-// Find the Chromium binary Playwright installed (no bundled browser in playwright-core).
-const home = process.env.HOME ?? '';
-const cache = join(home, '.cache', 'ms-playwright');
-let executablePath = null;
-for (const d of readdirSync(cache)) {
-  for (const sub of ['chrome-linux', 'chrome-linux64']) {
-    const p = join(cache, d, sub, 'chrome');
-    try {
-      if (statSync(p).isFile()) executablePath = p;
-    } catch { /* not this one */ }
+function chromiumPath() {
+  const base = join(homedir(), ".cache", "ms-playwright");
+  for (const d of readdirSync(base)) {
+    if (!d.startsWith("chromium-")) continue;
+    for (const sub of ["chrome-linux64/chrome", "chrome-linux/chrome"]) {
+      const exe = join(base, d, sub);
+      if (existsSync(exe)) return exe;
+    }
   }
-}
-if (!executablePath) {
-  process.stderr.write('shoot: no Chromium under ~/.cache/ms-playwright: run the install first\n');
-  process.exit(2);
+  throw new Error("no Chromium executable under " + base);
 }
 
-const page = resolve(outDir, 'dashboard', 'index.html');
-const base = `file://${page}`;
-const browser = await chromium.launch({ executablePath, args: ['--no-sandbox'] });
-const shots = [
-  { file: '1-board.jpg', hash: '', scroll: '.controls' },
-  { file: '2-detail.jpg', hash: '#p=steakhouse-financial', scroll: null },
-  { file: '3-filtered.jpg', hash: '#category=Risk%20Curators', scroll: '.controls' },
-];
-for (const s of shots) {
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const pg = await ctx.newPage();
-  await pg.goto(base + s.hash, { waitUntil: 'load' });
-  await pg.waitForTimeout(600);
-  if (s.scroll) {
-    await pg.evaluate((sel) => { document.querySelector(sel)?.scrollIntoView(); }, s.scroll);
-    await pg.waitForTimeout(300);
+const browser = await chromium.launch({
+  executablePath: chromiumPath(),
+  args: ["--no-sandbox"],
+});
+
+async function shot(name, url, scrollTo) {
+  // A fresh page per shot: navigating to the same file URL with only the
+  // hash changed is a same-document navigation and would not re-run the app.
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.goto(url, { waitUntil: "load" });
+  await page.waitForSelector("#boardBody tr", { timeout: 15000 });
+  if (scrollTo) {
+    await page.evaluate((sel) => {
+      document.querySelector(sel)?.scrollIntoView({ block: "start" });
+      window.scrollBy(0, -10);
+    }, scrollTo);
+    await page.waitForTimeout(300);
+  } else {
+    await page.waitForTimeout(400);
   }
-  await pg.screenshot({ path: join(shotDir, s.file), type: 'jpeg', quality: 80 });
-  await ctx.close();
-  console.log(`shoot: wrote ${s.file}`);
+  const file = join(destDir, name);
+  await page.screenshot({ path: file, type: "jpeg", quality: 80 });
+  console.log("wrote", file);
+  await page.close();
 }
+
+await shot("1-board.jpg", pageUrl, "#controls");
+await shot("2-detail.jpg", pageUrl + "#p=steakhouse-financial", null);
+await shot("3-filtered.jpg", pageUrl + "#category=Risk+Curators", "#controls");
+
 await browser.close();
+console.log("done");

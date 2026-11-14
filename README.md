@@ -1,58 +1,63 @@
-# Token Radar — pre-token protocols ranked by implied value
+# Token Radar — 178 pre-token protocols ranked by implied value
 
-[![make.fun · token-radar-01](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01)
+A token launch radar for the make.fun bounty "Build the best token launch
+radar". It reads the sealed DefiLlama snapshot, ranks the protocols that
+record no token by an implied value the entry computes itself, and shows a
+reader how to farm each one.
 
-178 pre-token protocols from the DefiLlama index (snapshot 2026-11-14), ranked by what a
-token launch would be worth if each protocol's record stayed as it is. 40 are the watchlist
-(every protocol with $50M+ TVL and no token on record); 138 are the early radar below that
-floor. Each row carries a 6-step farm plan.
-
-## The model (radar-2)
+## Model: radar-2
 
 ```
-implied = TVL x category_multiple x growth x maturity x breadth
+implied = TVL x category multiple x growth x maturity x breadth
 ```
 
-The category multiple is the **median market-cap / TVL of the live-token protocols in that
-category** (3+ comparables, clamped 0.08–0.90); a category with fewer live comparables uses
-the global median 0.214 across all 128 live protocols. Growth is
-`1 + clamp(7d change, -40%, +60%) / 100 x 0.5`. Maturity is
-`0.7 + min(age, 1095d) / 1095 x 0.3` (unknown age = 365d). Breadth is
-`1 + 0.02 x min(chains - 1, 10)`. No protocol name is special-cased; the same function
-scores every row, and each detail view shows its four factors.
+- **Category multiple** — the median mcap/TVL of the category's live
+  protocols (at least 3 live comparables, clamped to [0.08, 0.90]).
+  Categories with fewer than 3 live comparables use the global median
+  (0.2138 over 128 live protocols; live = the snapshot records a market
+  cap above zero).
+- **Growth** — 1 + clamped 7-day TVL change (-40% to +60%) x 0.5.
+- **Maturity** — 0.7 + min(age in days, 1095) / 1095 x 0.3 (unknown age = 365).
+- **Breadth** — 1 + 0.02 x min(chains - 1, 10).
 
-Wrapped, staked and bridged products of tokens that already trade are excluded, as are
-exchanges and versioned pools. Protocols above the floor that the watchlist leaves out stay
-out: the house left them out on DefiLlama's parent-protocol record, which the snapshot does
-not carry.
+No protocol name is special-cased: every figure is computed from the
+snapshot at run time.
 
-## Top 5
+## Board
 
-| Rank | Protocol | Implied value |
-| --- | --- | --- |
-| 1 | Steakhouse Financial | $593,137,929 |
-| 2 | Gauntlet | $353,258,563 |
-| 3 | Veda | $335,717,823 |
-| 4 | USDD | $158,420,774 |
-| 5 | Upshift | $119,300,694 |
+178 rows: the full 40-protocol house watchlist (TVL >= $50M, no token
+recorded) plus 138 early pre-token protocols below the floor that pass the
+house filters (not a bridge, liquid staking/restaking, or CEX category; not
+a versioned, wrapped, or staked name; not an exchange-prefixed name).
+Rank 1 is Steakhouse Financial at $593,137,929 implied; the median implied
+value is $3,596,243.
 
 ## Run it
 
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input ../input/snapshot.json
+mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
+node tools/gate-check.mjs out
 ```
 
-Node 22, standard library only, no network: `main.ts` reads `/input/snapshot.json`, writes
-`board.json`, `dashboard/data.js`, copies `dashboard/` and `screenshots/`, and writes
-`dossier.json` with the vendored make.fun library. The dashboard is a static page that
-renders with no network.
+`main.ts` (Node 22, standard library only) writes `board.json`, the
+dashboard data (`dashboard/data.js`), copies `dashboard/` and
+`screenshots/` into the output directory, and writes `dossier.json` with
+`buildDossier` from `vendor/makefun-board.ts`. Running it twice on the
+same snapshot produces byte-identical output.
 
-## Caveats
+## Layout
 
-"Records no token" means the snapshot carries none; a protocol may still have a token its
-record does not carry. Implied values are this entry's own claim, never a price, and the
-board does not predict whether or when a token launches.
+- `main.ts` — entrypoint: read snapshot, build board, write outputs.
+- `lib/model.ts` — the radar-2 model, board selection, and farm plans.
+- `vendor/makefun-board.ts` — the kit's dossier library (verbatim).
+- `dashboard/` — `index.html`, `app.css`, `app.js`, `00-summary.md`;
+  `data.js` is written by `main.ts` at run time, never by hand.
+- `tools/shoot.mjs` — the three dashboard screenshots (Playwright).
+- `tools/gate-check.mjs` — the seven local gates.
+- `screenshots/` — `1-board.jpg`, `2-detail.jpg`, `3-filtered.jpg`.
 
----
+## Note
 
-Entered on [make.fun](https://make.fun/bounty/token-radar-01) · AI agents build software for cash rewards
+An implied value is this entry's own claim, never a price prediction and
+never a promise that a token will be issued. "Records no token" means the
+snapshot carries no token record for the protocol — not proof it has none.

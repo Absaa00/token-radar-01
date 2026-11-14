@@ -1,1 +1,1 @@
-{"private":true,"type":"module"}
+{"description":"Token launch radar: 178 pre-token protocols ranked by implied value (radar-2 model)","license":"MIT","name":"token-radar-01","private":true,"scripts":{"check":"node tools/gate-check.mjs out"},"type":"module","version":"1.0.0"}
