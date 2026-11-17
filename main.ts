@@ -1,104 +1,169 @@
-// Token launch radar — entrypoint.
+// radar-3 entrypoint: read the sealed snapshot, fit the value model,
+// rank the pre-token board, and write the graded output.
 //
-// Reads the sealed snapshot, ranks every watchlist protocol plus the early
-// pre-token protocols below the floor, and writes the board, the dashboard
-// data, the dashboard files, the screenshots and the dossier into the
-// output directory. Standard library only, no network, deterministic:
-// the same snapshot bytes always produce the same output bytes.
+// Usage (from the repo root):
+//   MAKEFUN_OUTPUT_DIR=out node main.ts --input <kit>/input/snapshot.json
 //
-//   node main.ts --input <snapshot.json>
-//   MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
+// What it writes:
+//   <out>/board.json            the ranked board (gate reads this)
+//   dashboard/data.js           compact board + live comparables + fit summary
+//   <out>/dashboard/            copy of the dashboard files
+//   <out>/screenshots/          copy of screenshots/ when present
+//   <out>/dossier.json          buildDossier of <out> (needs screenshots first)
 //
-// At grading time the snapshot is /input/snapshot.json and the output
-// directory is /output; both defaults below match that layout.
+// Run order: run this once (writes board.json + data.js), take the
+// screenshots with tools/shoot.mjs, then run this again so the dossier
+// includes the screenshots. The run is deterministic: same snapshot in,
+// same bytes out.
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, copyFileSync, rmSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildBoard, buildLiveTable, buildMultiples, median } from "./lib/model.ts";
 import { buildDossier } from "./vendor/makefun-board.ts";
+import {
+  fitModel,
+  buildBoard,
+  liveSet,
+  type Snapshot,
+  type BoardRow,
+} from "./lib/model.ts";
 
-const root = dirname(fileURLToPath(import.meta.url));
+const HERE = dirname(fileURLToPath(import.meta.url));
+const REPO = HERE;
 
-function flag(name: string, fallback: string): string {
-  const at = process.argv.indexOf(name);
-  return at >= 0 && process.argv[at + 1] ? process.argv[at + 1] : fallback;
+function arg(name: string, fallback: string): string {
+  const i = process.argv.indexOf(name);
+  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
 }
 
-const inputPath = flag("--input", "/input/snapshot.json");
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const inputPath = resolve(arg("--input", "input/snapshot.json"));
+const outDir = resolve(
+  arg("--out", process.env.MAKEFUN_OUTPUT_DIR ?? "out"),
+);
 
-const snap = JSON.parse(readFileSync(inputPath, "utf8"));
-const rows = buildBoard(snap);
-const liveCats = buildLiveTable(snap);
-const mults = buildMultiples(snap.protocols);
+const snapshot = JSON.parse(readFileSync(inputPath, "utf8")) as Snapshot;
+const fit = fitModel(snapshot);
+const rows = buildBoard(snapshot, fit);
 
-mkdirSync(outDir, { recursive: true });
-// Clear the generated subdirectories first: a file removed from the
-// repository must not linger in an old output and leak into the dossier.
-rmSync(join(outDir, "dashboard"), { recursive: true, force: true });
-rmSync(join(outDir, "screenshots"), { recursive: true, force: true });
-mkdirSync(join(outDir, "dashboard"), { recursive: true });
-mkdirSync(join(outDir, "screenshots"), { recursive: true });
+// Live comparables for the dashboard's second tab: top 30 by TVL.
+const live = liveSet(snapshot.protocols)
+  .map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    tvl: p.tvl_usd as number,
+    mcap: p.mcap_usd as number,
+    mult: (p.mcap_usd as number) / (p.tvl_usd as number),
+  }))
+  .sort((a, b) => b.tvl - a.tvl)
+  .slice(0, 30);
 
-// board.json — the ranked board the gate checks.
-writeFileSync(join(outDir, "board.json"), JSON.stringify({ rows }, null, 2) + "\n");
-
-// dashboard/data.js — the whole board in compact rows, written by this run
-// so the page and the board can never drift apart. Row layout:
-// [rank, slug, name, category, chains, tvl, change_7d, age_days, multiple,
-//  implied_value_usd, watchlist]. Live table rows are
-// [category, count, median_raw, multiple_used, example].
-const compactRows = rows.map((r) => [
+// Compact row: [rank, slug, name, category, chain, tvl, implied, multiple, deposit, [cTvl, cGrowth, cAge, cChains]]
+const compactRows = rows.map((r: BoardRow) => [
   r.rank,
   r.slug,
   r.name,
   r.category,
-  r.chains,
+  r.chain,
   r.tvl_usd,
-  r.change_7d,
-  r.age_days,
-  Number(r.multiple.toFixed(6)),
   r.implied_value_usd,
-  r.watchlist ? 1 : 0,
+  Math.round(r.multiple * 1000) / 1000,
+  r.deposit_usd,
+  [
+    Math.round(r.contrib.tvl * 100) / 100,
+    Math.round(r.contrib.growth * 100) / 100,
+    Math.round(r.contrib.age * 100) / 100,
+    Math.round(r.contrib.chains * 100) / 100,
+  ],
 ]);
-const compactLive = liveCats.map((c) => [
-  c.category,
-  c.count,
-  Number(c.medianRaw.toFixed(6)),
-  Number(c.multipleUsed.toFixed(6)),
-  c.example,
-]);
-const dashboardData = {
-  asOf: snap.as_of,
-  floor: snap.floor_usd,
-  globalMult: Number(mults.global.toFixed(6)),
-  watchlist: snap.watchlist.length,
-  medianImplied: median(rows.map((r) => r.implied_value_usd)),
-  topImplied: rows[0].implied_value_usd,
+
+// Full farm steps for the Top 6 only (the dossier text cap is 65,536 bytes;
+// the other rows' steps are rendered from the same templates in app.js).
+const stepsTop: Record<string, string[]> = {};
+for (const r of rows.slice(0, 6)) stepsTop[r.slug] = r.farm_steps;
+
+// Category totals for the dashboard's bar chart.
+const catTotals = new Map<string, { n: number; value: number }>();
+for (const r of rows) {
+  const c = catTotals.get(r.category) ?? { n: 0, value: 0 };
+  c.n += 1;
+  c.value += r.implied_value_usd;
+  catTotals.set(r.category, c);
+}
+const categories = [...catTotals.entries()]
+  .map(([name, v]) => [name, v.n, v.value])
+  .sort((a, b) => (b[2] as number) - (a[2] as number));
+
+const data = {
+  asOf: snapshot.as_of,
+  floorUsd: snapshot.floor_usd,
+  nRows: rows.length,
+  nWatch: snapshot.watchlist.length,
+  fit: {
+    beta: fit.beta.map((b) => Math.round(b * 1000) / 1000),
+    nLive: fit.nLive,
+    looMedian: Math.round(fit.looMedian * 1000) / 1000,
+    looMean: Math.round(fit.looMean * 1000) / 1000,
+    medLooMedian: Math.round(fit.medianHeuristicLooMedian * 1000) / 1000,
+    medLooMean: Math.round(fit.medianHeuristicLooMean * 1000) / 1000,
+    liveMedianMultiple: Math.round(fit.liveMedianMultiple * 1000) / 1000,
+  },
   rows: compactRows,
-  liveCats: compactLive,
+  stepsTop,
+  live,
+  categories,
 };
-writeFileSync(join(outDir, "dashboard", "data.js"), "window.RADAR = " + JSON.stringify(dashboardData) + ";\n");
 
-// dashboard/ — the page sources, copied in sorted order for determinism.
-for (const f of readdirSync(join(root, "dashboard")).sort()) {
-  if (f === "data.js") continue;
-  copyFileSync(join(root, "dashboard", f), join(outDir, "dashboard", f));
+mkdirSync(outDir, { recursive: true });
+mkdirSync(join(REPO, "dashboard"), { recursive: true });
+
+const boardJson = {
+  rows: rows.map((r: BoardRow) => ({
+    slug: r.slug,
+    name: r.name,
+    rank: r.rank,
+    implied_value_usd: r.implied_value_usd,
+    farm_steps: r.farm_steps,
+    category: r.category,
+    chain: r.chain,
+    tvl_usd: r.tvl_usd,
+    multiple: Math.round(r.multiple * 10000) / 10000,
+    deposit_usd: r.deposit_usd,
+  })),
+};
+writeFileSync(join(outDir, "board.json"), JSON.stringify(boardJson, null, 2) + "\n");
+
+const dataJs =
+  "window.RADAR_DATA = " + JSON.stringify(data) + ";\n";
+writeFileSync(join(REPO, "dashboard", "data.js"), dataJs);
+
+// Stage the dashboard and the screenshots into the output dir, then build
+// the dossier from them. Screenshots come from tools/shoot.mjs; without
+// them the dossier is skipped and this run only refreshes board + data.
+cpSync(join(REPO, "dashboard"), join(outDir, "dashboard"), { recursive: true });
+const shotsDir = join(REPO, "screenshots");
+let dossierBytes = 0;
+if (existsSync(shotsDir)) {
+  cpSync(shotsDir, join(outDir, "screenshots"), { recursive: true });
+  const dossier = buildDossier(outDir, { text_max_bytes: 65536 });
+  writeFileSync(join(outDir, "dossier.json"), dossier);
+  dossierBytes = dossier.length;
 }
 
-// screenshots/ — the three captures of the dashboard.
-for (const f of readdirSync(join(root, "screenshots")).sort()) {
-  copyFileSync(join(root, "screenshots", f), join(outDir, "screenshots", f));
-}
-
-// dossier.json — byte for byte what the library writes from dashboard/ and
-// screenshots/, so the gate's dossier_matches check can only agree.
-const dossier = await buildDossier(outDir, { text_max_bytes: 65536 });
-writeFileSync(join(outDir, "dossier.json"), dossier);
-
-console.log(
-  `token-radar-01: ${rows.length} rows (${snap.watchlist.length} watchlist + ${
-    rows.length - snap.watchlist.length
-  } early), top ${rows[0].name} $${rows[0].implied_value_usd.toLocaleString("en-US")} -> ${outDir}`,
+const top5 = rows.slice(0, 5).map(
+  (r) => `#${r.rank} ${r.name} $${r.implied_value_usd.toLocaleString("en-US")}`,
 );
+const medImplied = rows.map((r) => r.implied_value_usd).sort((a, b) => a - b)[
+  Math.floor(rows.length / 2)
+];
+console.log(`rows: ${rows.length} (watchlist ${snapshot.watchlist.length} + early ${rows.length - snapshot.watchlist.length})`);
+console.log(`fit: beta=[${fit.beta.map((b) => b.toFixed(3)).join(", ")}] on ${fit.nLive} live protocols`);
+console.log(
+  `LOO median |log err|: fitted ${fit.looMedian.toFixed(3)} vs median heuristic ${fit.medianHeuristicLooMedian.toFixed(3)}`,
+);
+console.log(`median implied: $${medImplied.toLocaleString("en-US")}`);
+console.log(`top 5: ${top5.join(" | ")}`);
+console.log(`data.js: ${dataJs.length} bytes; dossier.json: ${dossierBytes} bytes`);
+if (dossierBytes === 0) {
+  console.log("NOTE: no screenshots/ yet — run tools/shoot.mjs, then run main.ts again for the dossier.");
+}

@@ -1,67 +1,55 @@
-// Screenshots for token-radar-01: three 1440x900 JPEG (quality 80) captures
-// of the built dashboard, taken with Playwright Chromium.
+// Three screenshots of the dashboard, 1440x900 JPEG quality 90.
+// Usage: node tools/shoot.mjs
+//   1-board.jpg    the board, default view
+//   2-detail.jpg   the detail dialog of the rank-1 protocol
+//   3-filtered.jpg the board filtered to the Risk Curators category
 //
-//   node tools/shoot.mjs [outDir] [destDir]
-//
-// outDir holds the dashboard built by main.ts (default "out"); destDir is
-// where the JPGs land (default "screenshots", the repository folder main.ts
-// copies into the next build). Run main.ts again after shooting so the
-// dossier is rebuilt from the new screenshots.
-//
-//   1-board.jpg    — the board, default view, scrolled to the table
-//   2-detail.jpg   — the detail dialog for Steakhouse Financial
-//   3-filtered.jpg — the board filtered to the Risk Curators category
+// Serves the dashboard over a local file URL and screenshots it with
+// headless Chromium (Playwright). No network: the page loads only local files.
 
-import { readdirSync, existsSync } from "node:fs";
-import { join, resolve } from "node:path";
-import { homedir } from "node:os";
-import { chromium } from "/home/hatch/workspace/makefun/playwright-core/index.mjs";
+import { chromium } from "../../../playwright-core/index.mjs";
+import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-const outDir = resolve(process.argv[2] ?? "out");
-const destDir = resolve(process.argv[3] ?? "screenshots");
-const pageUrl = "file://" + join(outDir, "dashboard", "index.html");
+const REPO = join(dirname(fileURLToPath(import.meta.url)), "..");
+const SHOTS = join(REPO, "screenshots");
+mkdirSync(SHOTS, { recursive: true });
 
-function chromiumPath() {
-  const base = join(homedir(), ".cache", "ms-playwright");
-  for (const d of readdirSync(base)) {
-    if (!d.startsWith("chromium-")) continue;
-    for (const sub of ["chrome-linux64/chrome", "chrome-linux/chrome"]) {
-      const exe = join(base, d, sub);
-      if (existsSync(exe)) return exe;
-    }
-  }
-  throw new Error("no Chromium executable under " + base);
-}
+const data = JSON.parse(
+  (await import("node:fs")).readFileSync(join(REPO, "out", "board.json"), "utf8"),
+);
+const top1 = data.rows[0].slug;
 
-const browser = await chromium.launch({
-  executablePath: chromiumPath(),
-  args: ["--no-sandbox"],
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const url = pathToFileURL(join(REPO, "dashboard", "index.html")).href;
+
+await page.goto(url, { waitUntil: "load" });
+await page.waitForTimeout(600);
+await page.evaluate(() => {
+  document.querySelector(".board").scrollIntoView();
+  window.scrollBy(0, -140);
 });
+await page.waitForTimeout(300);
+writeFileSync(join(SHOTS, "1-board.jpg"), await page.screenshot({ type: "jpeg", quality: 90 }));
 
-async function shot(name, url, scrollTo) {
-  // A fresh page per shot: navigating to the same file URL with only the
-  // hash changed is a same-document navigation and would not re-run the app.
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  await page.goto(url, { waitUntil: "load" });
-  await page.waitForSelector("#boardBody tr", { timeout: 15000 });
-  if (scrollTo) {
-    await page.evaluate((sel) => {
-      document.querySelector(sel)?.scrollIntoView({ block: "start" });
-      window.scrollBy(0, -10);
-    }, scrollTo);
-    await page.waitForTimeout(300);
-  } else {
-    await page.waitForTimeout(400);
-  }
-  const file = join(destDir, name);
-  await page.screenshot({ path: file, type: "jpeg", quality: 80 });
-  console.log("wrote", file);
-  await page.close();
-}
+await page.evaluate((slug) => { location.hash = "#p=" + slug; }, top1);
+await page.waitForTimeout(600);
+writeFileSync(join(SHOTS, "2-detail.jpg"), await page.screenshot({ type: "jpeg", quality: 90 }));
 
-await shot("1-board.jpg", pageUrl, "#controls");
-await shot("2-detail.jpg", pageUrl + "#p=steakhouse-financial", null);
-await shot("3-filtered.jpg", pageUrl + "#category=Risk+Curators", "#controls");
+await page.evaluate(() => { location.hash = "#category=Risk Curators"; });
+await page.waitForTimeout(600);
+await page.evaluate(() => {
+  document.querySelector(".board").scrollIntoView();
+  window.scrollBy(0, -140);
+});
+await page.waitForTimeout(300);
+writeFileSync(join(SHOTS, "3-filtered.jpg"), await page.screenshot({ type: "jpeg", quality: 90 }));
 
 await browser.close();
-console.log("done");
+for (const f of ["1-board.jpg", "2-detail.jpg", "3-filtered.jpg"]) {
+  const st = (await import("node:fs")).statSync(join(SHOTS, f));
+  console.log(f, `${(st.size / 1024).toFixed(0)} KiB`);
+}
+console.log("screenshots done — re-run main.ts so the dossier includes them.");

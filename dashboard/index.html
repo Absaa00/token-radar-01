@@ -1,99 +1,113 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Radar — 178 protokol pra-token diperingkat nilai implisit</title>
+<title>Token Launch Radar — radar-3</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="hero">
-  <p class="kicker">Token launch radar · snapshot 14 Nov 2026</p>
-  <h1>Protokol pra-token apa yang tokennya paling berharga?</h1>
-  <p class="lede">Radar ini membaca snapshot DefiLlama, menghitung nilai implisit tiap protokol dari TVL, pertumbuhan 7 hari, umur, dan jangkauan chain — lalu menunjukkan cara farming tiap protokol sebelum tokennya lahir.</p>
-  <p class="meta" id="heroMeta"></p>
+  <div class="hero-inner">
+    <p class="kicker">MAKE.FUN BOUNTY &middot; TOKEN LAUNCH RADAR</p>
+    <h1>Token Launch Radar</h1>
+    <p class="lede">Every pre-token protocol on the snapshot, ranked by an implied
+    value that is <strong>fitted</strong> from the protocols whose tokens
+    already trade — not guessed, not a hardcoded list of names.</p>
+    <p class="meta" id="asof">Snapshot loading&hellip;</p>
+  </div>
 </header>
+
 <main>
-  <section class="stats" aria-label="Ringkasan">
-    <div class="stat"><span class="num" id="statTotal">–</span><span class="lbl">Protokol di board</span></div>
-    <div class="stat"><span class="num" id="statWatch">–</span><span class="lbl">Watchlist house · floor $50 jt</span></div>
-    <div class="stat"><span class="num" id="statMedian">–</span><span class="lbl">Nilai implisit median</span></div>
-    <div class="stat"><span class="num" id="statTop">–</span><span class="lbl">Nilai implisit tertinggi</span></div>
+  <section class="stats" id="stats" aria-label="Radar at a glance"></section>
+
+  <section class="model card">
+    <h2>How the value is fitted</h2>
+    <p class="formula">log(mcap / TVL) = b0 + b1&middot;log(TVL) + b2&middot;change<sub>7d</sub> + b3&middot;age + b4&middot;log(chains)</p>
+    <p>Ordinary least squares on the snapshot&rsquo;s live-token protocols.
+    The 7-day change is winsorized to &plusmn;15% and the predicted multiple
+    is clamped to [0.02, 1.5], so no single wild week and no outlier can
+    put a protocol on top. Every coefficient is computed from the snapshot
+    at run time.</p>
+    <table class="coefs" id="coefs"></table>
+    <p class="valid" id="valid"></p>
   </section>
 
-  <section>
-    <h2>Top 10 spotlight</h2>
-    <p class="hint">Sepuluh protokol dengan nilai implisit tertinggi. Klik baris mana pun untuk detail dan rencana farm-nya.</p>
-    <table class="board">
-      <thead><tr><th>#</th><th>Protokol</th><th>Kategori</th><th>TVL</th><th>Nilai implisit</th></tr></thead>
-      <tbody id="top10Body"></tbody>
-    </table>
+  <section class="card">
+    <h2>Top 10 by implied value</h2>
+    <ol class="top10" id="top10"></ol>
   </section>
 
-  <section>
-    <h2>Board menurut kategori</h2>
-    <p class="hint">Jumlah protokol dan total nilai implisit per kategori.</p>
-    <div class="bars" id="catBars"></div>
+  <section class="card">
+    <h2>Value by category</h2>
+    <div class="bars" id="catbars"></div>
   </section>
 
-  <section class="controls" id="controls">
-    <h2>Board lengkap</h2>
-    <div class="filters">
-      <input id="q" type="search" placeholder="Cari nama atau slug…" aria-label="Cari protokol">
-      <select id="catSel" aria-label="Kategori"></select>
-      <select id="chainSel" aria-label="Chain"></select>
-      <select id="tvlSel" aria-label="TVL minimum">
-        <option value="0">TVL apa saja</option>
-        <option value="10000000">TVL ≥ $10 jt</option>
-        <option value="25000000">TVL ≥ $25 jt</option>
-        <option value="50000000">TVL ≥ $50 jt</option>
-        <option value="100000000">TVL ≥ $100 jt</option>
+  <section class="card">
+    <h2>The board</h2>
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search a protocol&hellip;" aria-label="Search">
+      <select id="fcat" aria-label="Category"><option value="">All categories</option></select>
+      <select id="fchain" aria-label="Chain"><option value="">All chains</option></select>
+      <select id="fmin" aria-label="Minimum TVL">
+        <option value="0">Any TVL</option>
+        <option value="10000000">TVL &ge; $10M</option>
+        <option value="100000000">TVL &ge; $100M</option>
+        <option value="500000000">TVL &ge; $500M</option>
       </select>
-      <select id="sortSel" aria-label="Urutkan">
-        <option value="rank">Nilai implisit tertinggi</option>
-        <option value="tvl">TVL tertinggi</option>
-        <option value="name">Nama A–Z</option>
-        <option value="age">Paling lama berjalan</option>
-        <option value="mult">Multiple tertinggi</option>
+      <select id="fsort" aria-label="Sort">
+        <option value="rank">Sort: rank</option>
+        <option value="implied">Sort: implied value</option>
+        <option value="tvl">Sort: TVL</option>
+        <option value="mult">Sort: multiple</option>
       </select>
+      <div class="tabs" role="tablist">
+        <button id="tab-pre" class="tab active" role="tab">Pre-token</button>
+        <button id="tab-live" class="tab" role="tab">Live token</button>
+      </div>
     </div>
-    <div class="tabs" role="tablist">
-      <button id="tabBoard" role="tab" aria-selected="true">Pre-token</button>
-      <button id="tabLive" role="tab" aria-selected="false">Live token · asal multiple</button>
-    </div>
-    <p class="hint" id="boardCount"></p>
-    <div id="boardTab">
+    <p class="count" id="count"></p>
+    <div class="tablewrap">
       <table class="board">
-        <thead><tr><th>#</th><th>Protokol</th><th>Kategori</th><th>Chain</th><th>TVL</th><th>7h</th><th>Umur</th><th>Multiple</th><th>Nilai implisit</th></tr></thead>
-        <tbody id="boardBody"></tbody>
+        <thead><tr>
+          <th>#</th><th>Protocol</th><th>Category</th><th>Chain</th>
+          <th class="num">TVL</th><th class="num">Multiple</th>
+          <th class="num">Implied value</th><th class="num">Farm deposit</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
       </table>
     </div>
-    <div id="liveTab" hidden>
-      <table class="board">
-        <thead><tr><th>Kategori</th><th>Protokol live</th><th>Median mcap/TVL</th><th>Multiple dipakai</th><th>Contoh</th></tr></thead>
-        <tbody id="liveBody"></tbody>
-      </table>
-      <p class="hint" id="liveHint"></p>
-    </div>
+    <p class="hint">Click any row for the model breakdown and the six-step farm plan.</p>
   </section>
 
-  <section>
-    <h2>Metodologi</h2>
-    <p>Nilai implisit tiap protokol dihitung dari angka snapshot itu sendiri, tanpa nama yang diistimewakan:</p>
-    <ul class="method">
-      <li><b>Multiple kategori</b> — median mcap/TVL protokol live di kategori itu, minimal 3 protokol live, dijepit 0,08–0,90. Kategori dengan kurang dari 3 protokol live memakai median global.</li>
-      <li><b>Growth</b> — 1 + perubahan TVL 7 hari (dijepit −40% sampai +60%) × 0,5. Protokol tanpa data 7 hari dihitung 0%.</li>
-      <li><b>Maturity</b> — 0,7 + min(umur, 1095 hari) / 1095 × 0,3. Protokol tanpa tanggal listing dihitung berumur 365 hari.</li>
-      <li><b>Breadth</b> — 1 + 0,02 × min(jumlah chain − 1, 10). Hadir di banyak chain menaikkan nilai.</li>
-      <li><b>Board</b> — 40 protokol watchlist (TVL ≥ $50 jt, tidak tercatat punya token) ditambah 138 protokol pra-token di bawah floor yang lolos filter house: bukan bridge, liquid staking/restaking, atau CEX; bukan nama berversi, wrapped, atau staked; bukan nama exchange.</li>
-    </ul>
-    <p class="hint">Nilai implisit adalah klaim entri ini, bukan prediksi harga dan bukan janji token akan diterbitkan. “Tidak tercatat memiliki token” berarti snapshot DefiLlama tidak mencatat tokennya — bukan bukti protokol itu tidak punya token.</p>
+  <section class="card">
+    <h2>Methodology, in short</h2>
+    <p>Coverage: every protocol on the snapshot&rsquo;s watchlist is ranked,
+    plus pre-token protocols below the $50M floor with at least $10M TVL
+    that pass the house filter (no bridges, no liquid staking or restaking,
+    no CEX, no wrapped / staked / versioned names). Protocols above the
+    floor enter only through the watchlist. Live-token protocols are not
+    board rows; they are the comparables the model is fitted on, shown in
+    the Live token tab.</p>
+    <p>The model reads four facts per protocol — TVL, seven-day change, age
+    since listing, chain count — and nothing else. No protocol name ever
+    enters the fit. The fitted multiple is TVL&rsquo;s own story: bigger
+    protocols carry smaller multiples, fast weekly growth predicts a
+    smaller multiple, older and multi-chain protocols carry slightly larger
+    ones. The full validation is in 00-summary.md.</p>
   </section>
 </main>
+
 <dialog id="detail">
-  <div id="detailBody"></div>
-  <p class="dlg-actions"><button id="detailClose">Tutup</button></p>
+  <form method="dialog"><button class="close" aria-label="Close">&times;</button></form>
+  <div id="detail-body"></div>
 </dialog>
+
+<footer>
+  <p>radar-3 &middot; deterministic: the same snapshot always builds the same board.
+  Built for the make.fun token-radar-01 bounty.</p>
+</footer>
+
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

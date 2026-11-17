@@ -1,219 +1,204 @@
-(function () {
-  var R = window.RADAR;
-  var rows = R.rows; // [rank, slug, name, cat, chains, tvl, chg7d, age, mult, imp, watch]
-  var liveCats = R.liveCats; // [category, count, medianRaw, multUsed, example]
+// Token Launch Radar dashboard — renders window.RADAR_DATA.
+//
+// The board rows arrive compact: [rank, slug, name, category, chain, tvl,
+// implied, multiple, deposit, [cTvl, cGrowth, cAge, cChains]]. Farm steps
+// for the Top 6 ship verbatim in data.stepsTop; every other row's steps
+// are rendered from the same six templates the model uses in lib/model.ts.
 
-  function $(id) { return document.getElementById(id); }
-  function esc(s) {
-    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const D = window.RADAR_DATA;
+const $ = (id) => document.getElementById(id);
+
+const usd = (n) =>
+  "$" + Math.round(n).toLocaleString("en-US");
+const usdShort = (n) => {
+  if (n >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
+  if (n >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
+  return "$" + Math.round(n);
+};
+const esc = (s) =>
+  String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const [B0, B1, B2, B3, B4] = D.fit.beta;
+const ROWS = D.rows;
+const bySlug = new Map(ROWS.map((r) => [r[1], r]));
+
+function coreAction(category) {
+  switch (category) {
+    case "Lending":
+      return "supply the deposit to the lending market and borrow a small amount against it so the position counts as active";
+    case "Dexs":
+      return "add the deposit as liquidity to the deepest pool on the venue";
+    case "Yield":
+    case "Yield Aggregator":
+      return "deposit into the flagship yield vault";
+    case "RWA":
+      return "buy the tokenized asset position the protocol issues";
+    case "CDP":
+      return "lock the deposit as collateral and mint the protocol stablecoin";
+    case "Derivatives":
+      return "open a small hedged position on the derivatives market";
+    case "Risk Curators":
+      return "deposit into the curated vault run by the protocol";
+    case "Liquid Restaking":
+      return "restake the deposit through the protocol's restaking vault";
+    default:
+      return "deposit into the protocol's main vault or pool";
   }
-  function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
-  function mult(n) { return n.toFixed(4); }
-  function chg(n) {
-    if (n == null) return "–";
-    var v = (n >= 0 ? "+" : "") + n.toFixed(1) + "%";
-    return '<span class="' + (n >= 0 ? "up" : "down") + '">' + v + "</span>";
+}
+
+function stepTemplates(r) {
+  const name = r[2];
+  const chain = r[4];
+  const dep = "$" + r[8].toLocaleString("en-US");
+  return [
+    `Fund a fresh wallet on ${chain} with ${dep} plus a $30 gas reserve, on a new address. Cost about $1, time 10 minutes.`,
+    `Bridge ${dep} to ${chain} through the official bridge and save the receipt hash; never trust a bridge link from a chat. Cost about $8 to $15, time 10 to 20 minutes.`,
+    `On ${chain}, ${coreAction(r[3])} with the full ${dep}. Confirm the deposit receipt and position ID on the explorer. Cost about $5 to $10 in gas, time 5 minutes.`,
+    `If ${name} runs a points program, stake the receipt token in its rewards contract; otherwise leave the deposit in the vault. Cost about $5 to $8 in gas, time 5 minutes.`,
+    `Check the position weekly and compound rewards back into the vault; top up gas when the chain is congested. Cost about $5 a week, time 15 minutes a week.`,
+    `Plan the exit before the token launches: unstake, withdraw deposit plus rewards, and bridge home in one session. Cost about $10 to $20, time 30 minutes.`,
+  ];
+}
+
+// ---------------------------------------------------------------- header
+$("asof").textContent =
+  `Snapshot ${D.asOf} · floor $${D.floorUsd.toLocaleString("en-US")} · ${D.nRows} protocols ranked · watchlist ${D.nWatch}/${D.nWatch} covered`;
+
+const medImplied = [...ROWS].map((r) => r[6]).sort((a, b) => a - b)[Math.floor(ROWS.length / 2)];
+$("stats").innerHTML = [
+  [ROWS.length, "protocols ranked"],
+  [`${D.nWatch}/${D.nWatch}`, "watchlist covered"],
+  [usdShort(medImplied), "median implied value"],
+  [`${D.fit.looMedian} vs ${D.fit.medLooMedian}`, "LOO error: fitted vs median"],
+].map(([v, l]) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+$("coefs").innerHTML =
+  `<tr><th>Term</th><th>Coefficient</th><th>What it means</th></tr>` +
+  [
+    ["Intercept", B0, "baseline log multiple"],
+    ["log(TVL)", B1, "bigger protocols carry smaller multiples"],
+    ["7-day change", B2, "fast weekly growth predicts a smaller multiple"],
+    ["Age (years)", B3, "older protocols carry a slightly smaller multiple"],
+    ["log(chains)", B4, "multi-chain protocols carry a slightly larger multiple"],
+  ].map(([t, b, m]) => `<tr><td>${t}</td><td>${Number(b).toFixed(3)}</td><td>${m}</td></tr>`).join("");
+
+$("valid").textContent =
+  `Leave-one-out on ${D.fit.nLive} live protocols: fitted model median |log error| ${D.fit.looMedian} ` +
+  `(mean ${D.fit.looMean}); category-median heuristic ${D.fit.medLooMedian} (mean ${D.fit.medLooMean}). ` +
+  `The fitted model is about a fifth more accurate out of sample. Live median multiple ${D.fit.liveMedianMultiple}.`;
+
+// ---------------------------------------------------------------- top 10
+$("top10").innerHTML = ROWS.slice(0, 10).map((r) =>
+  `<li><a href="#p=${r[1]}">${esc(r[2])}</a> <span class="cat">${esc(r[3])} &middot; ${esc(r[4])}</span><span class="val">${usd(r[6])}</span></li>`
+).join("");
+
+// ---------------------------------------------------------------- categories
+const maxCat = Math.max(...D.categories.map((c) => c[2]));
+$("catbars").innerHTML = D.categories.slice(0, 8).map(([name, n, value]) =>
+  `<div class="bar"><span>${esc(name)} (${n})</span><span class="track"><span class="fill" style="display:block;width:${Math.max(2, (value / maxCat) * 100).toFixed(1)}%"></span></span><span class="n">${usdShort(value)}</span></div>`
+).join("");
+
+// ---------------------------------------------------------------- filters
+const cats = [...new Set(ROWS.map((r) => r[3]))].sort();
+const chains = [...new Set(ROWS.map((r) => r[4]))].sort();
+$("fcat").innerHTML = `<option value="">All categories</option>` + cats.map((c) => `<option>${esc(c)}</option>`).join("");
+$("fchain").innerHTML = `<option value="">All chains</option>` + chains.map((c) => `<option>${esc(c)}</option>`).join("");
+
+let tab = "pre";
+function currentRows() {
+  const q = $("q").value.trim().toLowerCase();
+  const fc = $("fcat").value;
+  const fch = $("fchain").value;
+  const fmin = Number($("fmin").value);
+  const sort = $("fsort").value;
+  let list = ROWS.filter((r) =>
+    (!q || r[2].toLowerCase().includes(q) || r[1].includes(q)) &&
+    (!fc || r[3] === fc) &&
+    (!fch || r[4] === fch) &&
+    r[5] >= fmin
+  );
+  if (sort === "implied" || sort === "rank") list = [...list].sort((a, b) => b[6] - a[6]);
+  if (sort === "tvl") list = [...list].sort((a, b) => b[5] - a[5]);
+  if (sort === "mult") list = [...list].sort((a, b) => b[7] - a[7]);
+  return list;
+}
+
+function render() {
+  const body = $("rows");
+  if (tab === "live") {
+    $("count").textContent = `${D.live.length} live-token comparables — the protocols the model is fitted on (top 30 by TVL).`;
+    body.innerHTML = D.live.map((p, i) =>
+      `<tr><td>${i + 1}</td><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td></td>` +
+      `<td class="num">${usdShort(p.tvl)}</td><td class="num">${p.mult.toFixed(3)}&times;</td>` +
+      `<td class="num">${usdShort(p.mcap)}</td><td class="num">&mdash;</td></tr>`
+    ).join("");
+    return;
   }
-  function catLabel(c) { return c == null ? "Tanpa kategori" : c; }
+  const list = currentRows();
+  $("count").textContent = `${list.length} of ${ROWS.length} pre-token protocols shown.`;
+  body.innerHTML = list.map((r) =>
+    `<tr data-slug="${r[1]}"><td>${r[0]}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td>` +
+    `<td class="num">${usdShort(r[5])}</td><td class="num">${r[7].toFixed(3)}&times;</td>` +
+    `<td class="num">${usd(r[6])}</td><td class="num">$${r[8].toLocaleString("en-US")}</td></tr>`
+  ).join("");
+  body.querySelectorAll("tr[data-slug]").forEach((tr) =>
+    tr.addEventListener("click", () => openDetail(tr.dataset.slug))
+  );
+}
 
-  // ---- farm steps: the same six templates the board generator uses, so a
-  // detail view shows exactly the steps board.json carries for the row.
-  var VERBS = {
-    Lending: "Sediakan aset sebagai pemberi pinjaman dan coba pinjam dalam jumlah kecil",
-    Dexs: "Tukar aset dan sediakan likuiditas di pasangan utama",
-    Yield: "Setor ke vault dan panen hasilnya secara berkala",
-    RWA: "Setor ke vault aset dunia nyata dan tahan posisinya",
-    "Risk Curators": "Setor ke vault kurator dan pantau kinerjanya",
-    "Onchain Capital Allocator": "Alokasikan modal ke vault pengelola dan pantau hasilnya",
-    CDP: "Buka posisi utang beragun dan jaga rasio agunannya",
-    Derivatives: "Buka posisi kecil di pasar derivatif dan kelola risikonya",
-    "Yield Aggregator": "Setor ke agregator dan panen hasilnya secara berkala"
-  };
-  function farmSteps(name, category, chain0, tvlUsd) {
-    var cat = category == null ? "kategori ini" : category;
-    var verb = (category && VERBS[category]) || "Gunakan produk utama dan ulangi aktivitas intinya";
-    var tvl = tvlUsd.toLocaleString("en-US");
-    return [
-      "Buka situs resmi " + name + " dan baca dokumennya; hubungkan wallet di jaringan " + chain0 + " dan pastikan alamat kontrak sesuai pengumuman resmi. Biaya: tanpa biaya, hanya gas saat transaksi. Waktu: 10 menit.",
-      "Siapkan aset di " + chain0 + " untuk dipakai di " + name + " (" + cat + "); mulai dari nominal kecil untuk menguji alur setor dan tarik sebelum menambah. Biaya: gas jaringan saja. Waktu: 15 menit.",
-      verb + " di " + name + " secara berkala — ulangi tiap minggu agar aktivitas tercatat konsisten, bukan sekali besar lalu berhenti. Biaya: gas per transaksi. Waktu: 20 menit per sesi.",
-      "Pantau posisi dan TVL " + name + " (kini $" + tvl + ") tiap minggu; tambah aktivitas saat TVL tumbuh dan kurangi saat TVL turun tajam. Biaya: tanpa biaya. Waktu: 10 menit per minggu.",
-      "Ikuti kanal resmi " + name + " untuk pengumuman token dan syarat kelayakan; simpan hash tiap transaksi sebagai bukti aktivitas. Biaya: tanpa biaya. Waktu: 5 menit per minggu.",
-      "Saat " + name + " mengumumkan token, verifikasi alamat kontrak dari kanal resminya sebelum klaim; jangan pernah menandatangani persetujuan tanpa batas. Biaya: gas klaim saja. Waktu: 15 menit."
-    ];
+$("tab-pre").addEventListener("click", () => {
+  tab = "pre";
+  $("tab-pre").classList.add("active");
+  $("tab-live").classList.remove("active");
+  render();
+});
+$("tab-live").addEventListener("click", () => {
+  tab = "live";
+  $("tab-live").classList.add("active");
+  $("tab-pre").classList.remove("active");
+  render();
+});
+for (const id of ["q", "fcat", "fchain", "fmin", "fsort"]) {
+  $(id).addEventListener("input", render);
+}
+
+// ---------------------------------------------------------------- detail
+function openDetail(slug) {
+  const r = bySlug.get(slug);
+  if (!r) return;
+  const [rank, , name, cat, chain, tvl, implied, mult, dep, contrib] = r;
+  const steps = D.stepsTop[slug] || stepTemplates(r);
+  const math =
+    `implied = TVL x fitted multiple\n` +
+    `        = ${usd(tvl)} x ${mult.toFixed(3)} = ${usd(implied)}\n\n` +
+    `log(multiple) = ${B0.toFixed(3)} (intercept)\n` +
+    `  ${contrib[0] >= 0 ? "+" : ""}${contrib[0].toFixed(2)} from log(TVL)\n` +
+    `  ${contrib[1] >= 0 ? "+" : ""}${contrib[1].toFixed(2)} from 7-day change\n` +
+    `  ${contrib[2] >= 0 ? "+" : ""}${contrib[2].toFixed(2)} from age\n` +
+    `  ${contrib[3] >= 0 ? "+" : ""}${contrib[3].toFixed(2)} from chain count`;
+  $("detail-body").innerHTML =
+    `<h3>#${rank} ${esc(name)}</h3>` +
+    `<p class="sub">${esc(cat)} &middot; ${esc(chain)} &middot; TVL ${usd(tvl)}</p>` +
+    `<h4>How the value is computed</h4><div class="math">${esc(math)}</div>` +
+    `<h4>Farm plan — deposit $${dep.toLocaleString("en-US")}</h4>` +
+    `<ol class="steps">${steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>` +
+    `<p class="totals">Setup about $45 in gas and 60 minutes; then about $5 a week and 15 minutes a week.</p>`;
+  const dlg = $("detail");
+  if (!dlg.open) dlg.showModal();
+  history.replaceState(null, "", `#p=${slug}`);
+}
+
+function route() {
+  const h = new URLSearchParams(location.hash.slice(1));
+  const dlg = $("detail");
+  if (h.has("p")) { openDetail(h.get("p")); return; }
+  if (dlg.open) dlg.close();
+  if (h.has("category")) {
+    const c = h.get("category");
+    if ([...$("fcat").options].some((o) => o.value === c)) { $("fcat").value = c; render(); }
   }
-
-  // ---- header + stats
-  $("heroMeta").textContent =
-    "Snapshot " + R.asOf + " · " + rows.length + " protokol · floor watchlist $" +
-    Math.round(R.floor).toLocaleString("en-US") + " · multiple global " + R.globalMult.toFixed(4);
-  $("statTotal").textContent = rows.length;
-  $("statWatch").textContent = R.watchlist;
-  $("statMedian").textContent = money(R.medianImplied);
-  $("statTop").textContent = money(R.topImplied);
-
-  // ---- top 10 spotlight
-  $("top10Body").innerHTML = rows.slice(0, 10).map(function (r) {
-    return "<tr data-slug=\"" + esc(r[1]) + "\" tabindex=\"0\"><td>" + r[0] + "</td><td>" + esc(r[2]) +
-      (r[10] ? '<span class="badge">watchlist</span>' : "") + "</td><td>" + esc(catLabel(r[3])) +
-      "</td><td class=\"num\">" + money(r[5]) + "</td><td class=\"num\">" + money(r[9]) + "</td></tr>";
-  }).join("");
-
-  // ---- category bars (count + total implied per category, top 12)
-  var byCat = {};
-  rows.forEach(function (r) {
-    var c = catLabel(r[3]);
-    byCat[c] = byCat[c] || { n: 0, sum: 0 };
-    byCat[c].n += 1;
-    byCat[c].sum += r[9];
-  });
-  var catList = Object.keys(byCat).map(function (c) {
-    return { c: c, n: byCat[c].n, sum: byCat[c].sum };
-  }).sort(function (a, b) { return b.sum - a.sum; }).slice(0, 12);
-  var maxSum = catList.length ? catList[0].sum : 1;
-  $("catBars").innerHTML = catList.map(function (x) {
-    var w = Math.max(2, Math.round((x.sum / maxSum) * 100));
-    return "<div class=\"bar-row\"><span>" + esc(x.c) + "</span>" +
-      "<div class=\"bar-track\"><div class=\"bar-fill\" style=\"width:" + w + "%\"></div></div>" +
-      "<span class=\"bar-val\">" + x.n + " · " + money(x.sum) + "</span></div>";
-  }).join("");
-
-  // ---- filters
-  var cats = [];
-  var chains = [];
-  rows.forEach(function (r) {
-    if (cats.indexOf(r[3]) < 0) cats.push(r[3]);
-    r[4].forEach(function (ch) { if (chains.indexOf(ch) < 0) chains.push(ch); });
-  });
-  cats.sort();
-  chains.sort();
-  $("catSel").innerHTML = "<option value=\"\">Semua kategori</option>" +
-    cats.map(function (c) { return "<option>" + esc(catLabel(c)) + "</option>"; }).join("");
-  $("chainSel").innerHTML = "<option value=\"\">Semua chain</option>" +
-    chains.map(function (c) { return "<option>" + esc(c) + "</option>"; }).join("");
-
-  var state = { q: "", cat: "", chain: "", minTvl: 0, sort: "rank" };
-  function visible() {
-    var q = state.q.toLowerCase();
-    var list = rows.filter(function (r) {
-      if (q && r[2].toLowerCase().indexOf(q) < 0 && r[1].toLowerCase().indexOf(q) < 0) return false;
-      if (state.cat && catLabel(r[3]) !== state.cat) return false;
-      if (state.chain && r[4].indexOf(state.chain) < 0) return false;
-      if (r[5] < state.minTvl) return false;
-      return true;
-    });
-    var by = {
-      rank: function (a, b) { return a[0] - b[0]; },
-      tvl: function (a, b) { return b[5] - a[5]; },
-      name: function (a, b) { return a[2].localeCompare(b[2]); },
-      age: function (a, b) { return b[7] - a[7]; },
-      mult: function (a, b) { return b[8] - a[8]; }
-    }[state.sort];
-    return list.sort(by);
-  }
-  function renderBoard() {
-    var list = visible();
-    $("boardCount").textContent = "Menampilkan " + list.length + " dari " + rows.length + " protokol.";
-    $("boardBody").innerHTML = list.map(function (r) {
-      return "<tr data-slug=\"" + esc(r[1]) + "\" tabindex=\"0\"><td>" + r[0] + "</td><td>" + esc(r[2]) +
-        (r[10] ? '<span class="badge">watchlist</span>' : "") + "</td><td>" + esc(catLabel(r[3])) +
-        "</td><td>" + esc(r[4].slice(0, 3).join(", ")) + (r[4].length > 3 ? " +" + (r[4].length - 3) : "") +
-        "</td><td class=\"num\">" + money(r[5]) + "</td><td class=\"num\">" + chg(r[6]) +
-        "</td><td class=\"num\">" + r[7] + " hari</td><td class=\"num\">" + mult(r[8]) +
-        "</td><td class=\"num\">" + money(r[9]) + "</td></tr>";
-    }).join("");
-  }
-  $("q").addEventListener("input", function (e) { state.q = e.target.value; renderBoard(); });
-  $("catSel").addEventListener("change", function (e) { state.cat = e.target.value; renderBoard(); });
-  $("chainSel").addEventListener("change", function (e) { state.chain = e.target.value; renderBoard(); });
-  $("tvlSel").addEventListener("change", function (e) { state.minTvl = Number(e.target.value); renderBoard(); });
-  $("sortSel").addEventListener("change", function (e) { state.sort = e.target.value; renderBoard(); });
-  renderBoard();
-
-  // ---- live token tab: where each multiple comes from
-  $("liveBody").innerHTML = liveCats.map(function (c) {
-    return "<tr><td>" + esc(c[0]) + "</td><td class=\"num\">" + c[1] +
-      "</td><td class=\"num\">" + c[2].toFixed(4) + "</td><td class=\"num\">" + c[3].toFixed(4) +
-      "</td><td>" + esc(c[4]) + "</td></tr>";
-  }).join("");
-  $("liveHint").textContent =
-    "Multiple tiap kategori adalah median mcap/TVL protokol live di kategori itu (minimal 3 protokol, " +
-    "dijepit 0,08–0,90). Kategori dengan kurang dari 3 protokol live memakai median global " +
-    R.globalMult.toFixed(4) + " dari 128 protokol live.";
-
-  // ---- tabs
-  function showTab(live) {
-    $("tabBoard").setAttribute("aria-selected", live ? "false" : "true");
-    $("tabLive").setAttribute("aria-selected", live ? "true" : "false");
-    $("boardTab").hidden = live;
-    $("liveTab").hidden = !live;
-  }
-  $("tabBoard").addEventListener("click", function () { showTab(false); });
-  $("tabLive").addEventListener("click", function () { showTab(true); });
-
-  // ---- detail dialog
-  var dlg = $("detail");
-  function growthOf(r) {
-    var c = r[6] == null ? 0 : Math.min(60, Math.max(-40, r[6]));
-    return 1 + (c / 100) * 0.5;
-  }
-  function maturityOf(r) { return 0.7 + (Math.min(r[7], 1095) / 1095) * 0.3; }
-  function breadthOf(r) { return 1 + 0.02 * Math.min(r[4].length - 1, 10); }
-  function openDetail(slug) {
-    var r = null;
-    for (var i = 0; i < rows.length; i++) if (rows[i][1] === slug) { r = rows[i]; break; }
-    if (!r) return;
-    var steps = farmSteps(r[2], r[3], r[4][0] || "Ethereum", r[5]);
-    var multSrc = (r[3] && liveCats.some(function (c) { return c[0] === r[3] && c[1] >= 3; }))
-      ? "median kategori " + catLabel(r[3]) : "median global (kategori < 3 live)";
-    $("detailBody").innerHTML =
-      "<h3>" + esc(r[2]) + "</h3>" +
-      "<p class=\"sub\">Peringkat #" + r[0] + " · " + esc(catLabel(r[3])) + " · " + esc(r[4].join(", ")) +
-      (r[10] ? ' · <span class="badge">watchlist</span>' : "") + "</p>" +
-      "<h4>Nilai implisit: " + money(r[9]) + "</h4>" +
-      "<table class=\"kv\"><tbody>" +
-      "<tr><td>TVL</td><td>" + money(r[5]) + "</td></tr>" +
-      "<tr><td>Multiple (" + esc(multSrc) + ")</td><td>" + mult(r[8]) + "</td></tr>" +
-      "<tr><td>Growth (7 hari " + (r[6] == null ? "tidak tercatat" : r[6].toFixed(1) + "%") + ")</td><td>" + growthOf(r).toFixed(4) + "</td></tr>" +
-      "<tr><td>Maturity (" + r[7] + " hari)</td><td>" + maturityOf(r).toFixed(4) + "</td></tr>" +
-      "<tr><td>Breadth (" + r[4].length + " chain)</td><td>" + breadthOf(r).toFixed(4) + "</td></tr>" +
-      "<tr><td><b>Nilai implisit</b></td><td><b>" + money(r[9]) + "</b></td></tr>" +
-      "</tbody></table>" +
-      "<h4>Cara farming (6 langkah)</h4><ol>" +
-      steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>";
-    if (typeof dlg.showModal === "function") {
-      dlg.showModal();
-      // showModal focuses the dialog's first focusable control (the close
-      // button at the bottom), which scrolls the tall content down and
-      // hides the title. Pin the scroll back to the top.
-      dlg.scrollTop = 0;
-      requestAnimationFrame(function () { dlg.scrollTop = 0; });
-    }
-  }
-  document.addEventListener("click", function (e) {
-    var tr = e.target.closest ? e.target.closest("tr[data-slug]") : null;
-    if (tr) openDetail(tr.getAttribute("data-slug"));
-  });
-  document.addEventListener("keydown", function (e) {
-    if ((e.key === "Enter" || e.key === " ") && e.target && e.target.matches("tr[data-slug]")) {
-      e.preventDefault();
-      openDetail(e.target.getAttribute("data-slug"));
-    }
-  });
-  $("detailClose").addEventListener("click", function () { dlg.close(); });
-  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-
-  // ---- deep links: #p=<slug> opens a detail, #category=<name> filters
-  var hash = new URLSearchParams(window.location.hash.slice(1));
-  var p = hash.get("p");
-  var cat = hash.get("category");
-  if (cat) {
-    state.cat = cat;
-    var sel = $("catSel");
-    for (var i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value === cat) { sel.selectedIndex = i; break; }
-    }
-    renderBoard();
-  }
-  if (p) openDetail(p);
-})();
+}
+window.addEventListener("hashchange", route);
+render();
+route();

@@ -1,63 +1,58 @@
-# Token Radar — 178 pre-token protocols ranked by implied value
+# Token Launch Radar — radar-3
 
-A token launch radar for the make.fun bounty "Build the best token launch
-radar". It reads the sealed DefiLlama snapshot, ranks the protocols that
-record no token by an implied value the entry computes itself, and shows a
-reader how to farm each one.
+A radar for the make.fun `token-radar-01` bounty: 194 pre-token protocols
+ranked by an implied value that is **fitted** from the snapshot's own
+live-token protocols.
 
-## Model: radar-2
+## The model
 
 ```
-implied = TVL x category multiple x growth x maturity x breadth
+log(mcap / TVL) ~ b0 + b1*log(TVL) + b2*change_7d + b3*age_years + b4*log(chains)
 ```
 
-- **Category multiple** — the median mcap/TVL of the category's live
-  protocols (at least 3 live comparables, clamped to [0.08, 0.90]).
-  Categories with fewer than 3 live comparables use the global median
-  (0.2138 over 128 live protocols; live = the snapshot records a market
-  cap above zero).
-- **Growth** — 1 + clamped 7-day TVL change (-40% to +60%) x 0.5.
-- **Maturity** — 0.7 + min(age in days, 1095) / 1095 x 0.3 (unknown age = 365).
-- **Breadth** — 1 + 0.02 x min(chains - 1, 10).
+Ordinary least squares, solved in-process at run time on the snapshot's
+live protocols (128 of them). No coefficient is hardcoded. The 7-day change
+is winsorized to ±15% and the predicted multiple is clamped to [0.02, 1.5].
 
-No protocol name is special-cased: every figure is computed from the
-snapshot at run time.
+Validation is leave-one-out on the live set, run by the same program that
+builds the board, with the naive category-median heuristic scored in the
+same loop for comparison. On this snapshot the fitted model scores a median
+|log error| of 1.32 against 1.63 for the median heuristic — about a fifth
+better out of sample.
 
-## Board
+## Coverage
 
-178 rows: the full 40-protocol house watchlist (TVL >= $50M, no token
-recorded) plus 138 early pre-token protocols below the floor that pass the
-house filters (not a bridge, liquid staking/restaking, or CEX category; not
-a versioned, wrapped, or staked name; not an exchange-prefixed name).
-Rank 1 is Steakhouse Financial at $593,137,929 implied; the median implied
-value is $3,596,243.
+Every protocol on the snapshot's watchlist (40) is ranked, plus pre-token
+protocols below the $50M floor with at least $10M TVL that pass the house
+filter (no bridges, no liquid staking or restaking, no CEX, no wrapped /
+staked / versioned names). Protocols above the floor enter only through the
+watchlist. Live-token protocols are the fitting set, shown in the dashboard's
+Live token tab.
 
-## Run it
+## Farm plans
+
+Each row carries six concrete steps with cost and time, and a deposit sized
+to the protocol: $5,000 / $2,000 / $1,000 / $500 by implied value. Setup is
+about $45 in gas and 60 minutes; upkeep about $5 a week and 15 minutes a
+week.
+
+## Run
 
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
+MAKEFUN_OUTPUT_DIR=out node main.ts --input <kit>/input/snapshot.json
 node tools/gate-check.mjs out
 ```
 
-`main.ts` (Node 22, standard library only) writes `board.json`, the
-dashboard data (`dashboard/data.js`), copies `dashboard/` and
-`screenshots/` into the output directory, and writes `dossier.json` with
-`buildDossier` from `vendor/makefun-board.ts`. Running it twice on the
-same snapshot produces byte-identical output.
+Run order: run `main.ts` once (writes `out/board.json` and
+`dashboard/data.js`), take the screenshots with `tools/shoot.mjs`, then run
+`main.ts` again so `out/dossier.json` includes the screenshots. The run is
+deterministic — the same snapshot always builds the same board.
 
-## Layout
+## Files
 
-- `main.ts` — entrypoint: read snapshot, build board, write outputs.
-- `lib/model.ts` — the radar-2 model, board selection, and farm plans.
-- `vendor/makefun-board.ts` — the kit's dossier library (verbatim).
-- `dashboard/` — `index.html`, `app.css`, `app.js`, `00-summary.md`;
-  `data.js` is written by `main.ts` at run time, never by hand.
-- `tools/shoot.mjs` — the three dashboard screenshots (Playwright).
-- `tools/gate-check.mjs` — the seven local gates.
-- `screenshots/` — `1-board.jpg`, `2-detail.jpg`, `3-filtered.jpg`.
-
-## Note
-
-An implied value is this entry's own claim, never a price prediction and
-never a promise that a token will be issued. "Records no token" means the
-snapshot carries no token record for the protocol — not proof it has none.
+- `main.ts` — entrypoint: fit, rank, write board + data + dossier
+- `lib/model.ts` — the fitted model, LOO validation, board selection, farm steps
+- `dashboard/` — the page (index.html, app.css, app.js, 00-summary.md, data.js)
+- `vendor/makefun-board.ts` — the kit's dossier library, verbatim
+- `tools/gate-check.mjs` — the seven scorer rows, checked locally
+- `tools/shoot.mjs` — the three screenshots (Playwright, 1440x900 JPEG)
