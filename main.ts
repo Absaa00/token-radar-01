@@ -57,13 +57,112 @@ function copyDir(from: string, to: string): string[] {
   return names;
 }
 
+/**
+ * Compact the pretty-printed `window.RADAR = {...};` script from dataScript()
+ * to one line per board row (and per element of any array of objects).
+ * Token-preserving: only whitespace outside strings is re-laid out, so every
+ * value and farm-step string stays byte-identical; only the layout changes.
+ * If the script has no single top-level object, it is returned untouched.
+ */
+function compactDataScript(script: string): string {
+  const start = script.indexOf('{');
+  if (start < 0) return script;
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  let end = -1;
+  for (let i = start; i < script.length; i++) {
+    const c = script[i]!;
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (c === '\\') escaped = true;
+      else if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') inString = true;
+    else if (c === '{' || c === '[') depth++;
+    else if (c === '}' || c === ']') {
+      depth--;
+      if (depth === 0) {
+        end = i;
+        break;
+      }
+    }
+  }
+  if (end < 0) return script;
+  return script.slice(0, start) + compactJson(script.slice(start, end + 1)) + script.slice(end + 1);
+}
+
+/** Re-lay out one JSON value: newlines only at depth <= 2, so each object
+ * inside an array (each board row) lands on exactly one line, while nested
+ * arrays/objects inside a row stay inline on that row's line. */
+function compactJson(json: string): string {
+  let out = '';
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  const indent = (n: number): string => '  '.repeat(n);
+  for (let i = 0; i < json.length; i++) {
+    const c = json[i]!;
+    if (inString) {
+      out += c;
+      if (escaped) escaped = false;
+      else if (c === '\\') escaped = true;
+      else if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') {
+      inString = true;
+      out += c;
+      continue;
+    }
+    if (c === '{' || c === '[') {
+      let j = i + 1;
+      while (j < json.length && /\s/.test(json[j]!)) j++;
+      const close = c === '{' ? '}' : ']';
+      out += c;
+      depth++;
+      if (json[j] === close) {
+        out += close;
+        depth--;
+        i = j;
+        continue;
+      }
+      if (depth <= 2) out += `\n${indent(depth)}`;
+      continue;
+    }
+    if (c === '}' || c === ']') {
+      depth--;
+      if (depth <= 1) out += `\n${indent(depth)}`;
+      out += c;
+      continue;
+    }
+    if (c === ',') {
+      out += c;
+      if (depth <= 2) out += `\n${indent(depth)}`;
+      else out += ' ';
+      continue;
+    }
+    if (c === ':') {
+      out += ': ';
+      continue;
+    }
+    if (/\s/.test(c)) continue;
+    out += c;
+  }
+  return out;
+}
+
 mkdirSync(out, { recursive: true });
 writeFileSync(join(out, 'board.json'), `${JSON.stringify({ rows: board })}\n`);
 
 const dashOut = join(out, 'dashboard');
 copyDir(join(here, 'dashboard'), dashOut);
-// The dashboard's data is written by this run, beside the page it feeds.
-writeFileSync(join(dashOut, 'data.js'), dataScript(radar));
+// The dashboard's data is written by this run, beside the page it feeds,
+// compacted to one line per board row (see compactDataScript): the
+// pretty-printed form was ~5,840 lines of generated data, which swamps the
+// submission's authored lines in the thinking_reproduces check.
+writeFileSync(join(dashOut, 'data.js'), compactDataScript(dataScript(radar)));
 
 const shots = copyDir(join(here, 'screenshots'), join(out, 'screenshots'));
 if (shots.length < 3) {
