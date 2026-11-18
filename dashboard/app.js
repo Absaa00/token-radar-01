@@ -1,204 +1,174 @@
-// Token Launch Radar dashboard — renders window.RADAR_DATA.
-//
-// The board rows arrive compact: [rank, slug, name, category, chain, tvl,
-// implied, multiple, deposit, [cTvl, cGrowth, cAge, cChains]]. Farm steps
-// for the Top 6 ship verbatim in data.stepsTop; every other row's steps
-// are rendered from the same six templates the model uses in lib/model.ts.
+// Token launch radar dashboard (radar-4). Reads window.RADAR from data.js:
+// rows are positional arrays [rank, slug, name, category, chains, tvl, ch7d,
+// ageDays, implied, logMultiple]; live rows are [slug, name, category, chains,
+// tvl, mcap, ch7d]. No network, no fetch.
+(function () {
+  var D = window.RADAR;
+  var rows = D.rows.map(function (r) {
+    return { rank: r[0], slug: r[1], name: r[2], cat: r[3], chains: r[4], tvl: r[5], ch: r[6], age: r[7], implied: r[8], logMult: r[9] };
+  });
+  var live = D.live.map(function (r) {
+    return { slug: r[0], name: r[1], cat: r[2], chains: r[3], tvl: r[4], mcap: r[5], ch: r[6] };
+  });
+  var beta = D.model.beta;
 
-const D = window.RADAR_DATA;
-const $ = (id) => document.getElementById(id);
-
-const usd = (n) =>
-  "$" + Math.round(n).toLocaleString("en-US");
-const usdShort = (n) => {
-  if (n >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
-  if (n >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
-  if (n >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
-  return "$" + Math.round(n);
-};
-const esc = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-
-const [B0, B1, B2, B3, B4] = D.fit.beta;
-const ROWS = D.rows;
-const bySlug = new Map(ROWS.map((r) => [r[1], r]));
-
-function coreAction(category) {
-  switch (category) {
-    case "Lending":
-      return "supply the deposit to the lending market and borrow a small amount against it so the position counts as active";
-    case "Dexs":
-      return "add the deposit as liquidity to the deepest pool on the venue";
-    case "Yield":
-    case "Yield Aggregator":
-      return "deposit into the flagship yield vault";
-    case "RWA":
-      return "buy the tokenized asset position the protocol issues";
-    case "CDP":
-      return "lock the deposit as collateral and mint the protocol stablecoin";
-    case "Derivatives":
-      return "open a small hedged position on the derivatives market";
-    case "Risk Curators":
-      return "deposit into the curated vault run by the protocol";
-    case "Liquid Restaking":
-      return "restake the deposit through the protocol's restaking vault";
-    default:
-      return "deposit into the protocol's main vault or pool";
+  function $(id) { return document.getElementById(id); }
+  function money(n) {
+    if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
+    return '$' + n;
   }
-}
+  function pct(c) { return c === null || c === undefined ? '—' : (c > 0 ? '+' : '') + c.toFixed(1) + '%'; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
-function stepTemplates(r) {
-  const name = r[2];
-  const chain = r[4];
-  const dep = "$" + r[8].toLocaleString("en-US");
-  return [
-    `Fund a fresh wallet on ${chain} with ${dep} plus a $30 gas reserve, on a new address. Cost about $1, time 10 minutes.`,
-    `Bridge ${dep} to ${chain} through the official bridge and save the receipt hash; never trust a bridge link from a chat. Cost about $8 to $15, time 10 to 20 minutes.`,
-    `On ${chain}, ${coreAction(r[3])} with the full ${dep}. Confirm the deposit receipt and position ID on the explorer. Cost about $5 to $10 in gas, time 5 minutes.`,
-    `If ${name} runs a points program, stake the receipt token in its rewards contract; otherwise leave the deposit in the vault. Cost about $5 to $8 in gas, time 5 minutes.`,
-    `Check the position weekly and compound rewards back into the vault; top up gas when the chain is congested. Cost about $5 a week, time 15 minutes a week.`,
-    `Plan the exit before the token launches: unstake, withdraw deposit plus rewards, and bridge home in one session. Cost about $10 to $20, time 30 minutes.`,
-  ];
-}
+  // ---- stats + spotlight ----
+  var top = rows.slice(0, 10);
+  var med = rows.map(function (r) { return r.implied; }).sort(function (a, b) { return a - b; })[Math.floor(rows.length / 2)];
+  $('stats').innerHTML =
+    '<div class="stat"><b>' + rows.length + '</b><span>protocols ranked</span></div>' +
+    '<div class="stat"><b>' + D.watchlist_size + '</b><span>watchlist covered</span></div>' +
+    '<div class="stat"><b>' + money(rows[0].implied) + '</b><span>top implied value</span></div>' +
+    '<div class="stat"><b>' + money(med) + '</b><span>median implied value</span></div>' +
+    '<div class="stat"><b>' + D.validation.loo_median_abs_log_err + '</b><span>LOO median |log err| (' + D.validation.n_live + ' live)</span></div>';
+  $('spotlight').innerHTML = top.map(function (r) {
+    return '<li><b>#' + r.rank + '</b> ' + esc(r.name) + ' &mdash; ' + money(r.implied) + ' <small>(' + esc(r.cat || 'uncategorized') + ', ' + money(r.tvl) + ' TVL)</small></li>';
+  }).join('');
+  $('looMed').textContent = D.validation.loo_median_abs_log_err + ' (mean ' + D.validation.loo_mean_abs_log_err + ')';
+  $('looHeu').textContent = D.validation.heuristic_median_abs_log_err + ' (mean ' + D.validation.heuristic_mean_abs_log_err + ')';
+  $('asof').textContent = D.as_of;
+  $('coefs').querySelector('tbody').innerHTML = D.model.features.map(function (f, i) {
+    return '<tr><td>' + esc(f) + '</td><td class="num">' + beta[i].toFixed(4) + '</td></tr>';
+  }).join('');
 
-// ---------------------------------------------------------------- header
-$("asof").textContent =
-  `Snapshot ${D.asOf} · floor $${D.floorUsd.toLocaleString("en-US")} · ${D.nRows} protocols ranked · watchlist ${D.nWatch}/${D.nWatch} covered`;
+  // ---- filters ----
+  var cats = [...new Set(rows.map(function (r) { return r.cat || 'Uncategorized'; }))].sort();
+  var chains = [...new Set(rows.flatMap(function (r) { return r.chains; }))].sort();
+  cats.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; $('cat').appendChild(o); });
+  chains.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; $('chain').appendChild(o); });
 
-const medImplied = [...ROWS].map((r) => r[6]).sort((a, b) => a - b)[Math.floor(ROWS.length / 2)];
-$("stats").innerHTML = [
-  [ROWS.length, "protocols ranked"],
-  [`${D.nWatch}/${D.nWatch}`, "watchlist covered"],
-  [usdShort(medImplied), "median implied value"],
-  [`${D.fit.looMedian} vs ${D.fit.medLooMedian}`, "LOO error: fitted vs median"],
-].map(([v, l]) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
-
-$("coefs").innerHTML =
-  `<tr><th>Term</th><th>Coefficient</th><th>What it means</th></tr>` +
-  [
-    ["Intercept", B0, "baseline log multiple"],
-    ["log(TVL)", B1, "bigger protocols carry smaller multiples"],
-    ["7-day change", B2, "fast weekly growth predicts a smaller multiple"],
-    ["Age (years)", B3, "older protocols carry a slightly smaller multiple"],
-    ["log(chains)", B4, "multi-chain protocols carry a slightly larger multiple"],
-  ].map(([t, b, m]) => `<tr><td>${t}</td><td>${Number(b).toFixed(3)}</td><td>${m}</td></tr>`).join("");
-
-$("valid").textContent =
-  `Leave-one-out on ${D.fit.nLive} live protocols: fitted model median |log error| ${D.fit.looMedian} ` +
-  `(mean ${D.fit.looMean}); category-median heuristic ${D.fit.medLooMedian} (mean ${D.fit.medLooMean}). ` +
-  `The fitted model is about a fifth more accurate out of sample. Live median multiple ${D.fit.liveMedianMultiple}.`;
-
-// ---------------------------------------------------------------- top 10
-$("top10").innerHTML = ROWS.slice(0, 10).map((r) =>
-  `<li><a href="#p=${r[1]}">${esc(r[2])}</a> <span class="cat">${esc(r[3])} &middot; ${esc(r[4])}</span><span class="val">${usd(r[6])}</span></li>`
-).join("");
-
-// ---------------------------------------------------------------- categories
-const maxCat = Math.max(...D.categories.map((c) => c[2]));
-$("catbars").innerHTML = D.categories.slice(0, 8).map(([name, n, value]) =>
-  `<div class="bar"><span>${esc(name)} (${n})</span><span class="track"><span class="fill" style="display:block;width:${Math.max(2, (value / maxCat) * 100).toFixed(1)}%"></span></span><span class="n">${usdShort(value)}</span></div>`
-).join("");
-
-// ---------------------------------------------------------------- filters
-const cats = [...new Set(ROWS.map((r) => r[3]))].sort();
-const chains = [...new Set(ROWS.map((r) => r[4]))].sort();
-$("fcat").innerHTML = `<option value="">All categories</option>` + cats.map((c) => `<option>${esc(c)}</option>`).join("");
-$("fchain").innerHTML = `<option value="">All chains</option>` + chains.map((c) => `<option>${esc(c)}</option>`).join("");
-
-let tab = "pre";
-function currentRows() {
-  const q = $("q").value.trim().toLowerCase();
-  const fc = $("fcat").value;
-  const fch = $("fchain").value;
-  const fmin = Number($("fmin").value);
-  const sort = $("fsort").value;
-  let list = ROWS.filter((r) =>
-    (!q || r[2].toLowerCase().includes(q) || r[1].includes(q)) &&
-    (!fc || r[3] === fc) &&
-    (!fch || r[4] === fch) &&
-    r[5] >= fmin
-  );
-  if (sort === "implied" || sort === "rank") list = [...list].sort((a, b) => b[6] - a[6]);
-  if (sort === "tvl") list = [...list].sort((a, b) => b[5] - a[5]);
-  if (sort === "mult") list = [...list].sort((a, b) => b[7] - a[7]);
-  return list;
-}
-
-function render() {
-  const body = $("rows");
-  if (tab === "live") {
-    $("count").textContent = `${D.live.length} live-token comparables — the protocols the model is fitted on (top 30 by TVL).`;
-    body.innerHTML = D.live.map((p, i) =>
-      `<tr><td>${i + 1}</td><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td></td>` +
-      `<td class="num">${usdShort(p.tvl)}</td><td class="num">${p.mult.toFixed(3)}&times;</td>` +
-      `<td class="num">${usdShort(p.mcap)}</td><td class="num">&mdash;</td></tr>`
-    ).join("");
-    return;
+  function filtered() {
+    var q = $('q').value.trim().toLowerCase();
+    var cat = $('cat').value, ch = $('chain').value, min = parseFloat($('minTvl').value) || 0;
+    var list = rows.filter(function (r) {
+      return (!q || r.name.toLowerCase().includes(q) || r.slug.includes(q)) &&
+        (!cat || (r.cat || 'Uncategorized') === cat) &&
+        (!ch || r.chains.includes(ch)) && r.tvl >= min;
+    });
+    var s = $('sort').value;
+    if (s === 'tvl') list.sort(function (a, b) { return b.tvl - a.tvl; });
+    else if (s === 'mult') list.sort(function (a, b) { return b.logMult - a.logMult; });
+    else if (s === 'ch') list.sort(function (a, b) { return (b.ch || 0) - (a.ch || 0); });
+    else if (s === 'age') list.sort(function (a, b) { return (b.age || 0) - (a.age || 0); });
+    else list.sort(function (a, b) { return a.rank - b.rank; });
+    return list;
   }
-  const list = currentRows();
-  $("count").textContent = `${list.length} of ${ROWS.length} pre-token protocols shown.`;
-  body.innerHTML = list.map((r) =>
-    `<tr data-slug="${r[1]}"><td>${r[0]}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td>` +
-    `<td class="num">${usdShort(r[5])}</td><td class="num">${r[7].toFixed(3)}&times;</td>` +
-    `<td class="num">${usd(r[6])}</td><td class="num">$${r[8].toLocaleString("en-US")}</td></tr>`
-  ).join("");
-  body.querySelectorAll("tr[data-slug]").forEach((tr) =>
-    tr.addEventListener("click", () => openDetail(tr.dataset.slug))
-  );
-}
-
-$("tab-pre").addEventListener("click", () => {
-  tab = "pre";
-  $("tab-pre").classList.add("active");
-  $("tab-live").classList.remove("active");
+  function render() {
+    var list = filtered();
+    $('count').textContent = list.length + ' of ' + rows.length + ' shown';
+    $('board').querySelector('tbody').innerHTML = list.map(function (r) {
+      return '<tr data-slug="' + esc(r.slug) + '"><td>' + r.rank + '</td><td>' + esc(r.name) + '</td><td>' +
+        esc(r.cat || '—') + '</td><td>' + esc(r.chains.slice(0, 3).join(', ')) + (r.chains.length > 3 ? ' +' + (r.chains.length - 3) : '') +
+        '</td><td class="num">' + money(r.tvl) + '</td><td class="num">' + pct(r.ch) + '</td><td class="num">' +
+        Math.exp(r.logMult).toFixed(3) + 'x</td><td class="num"><b>' + money(r.implied) + '</b></td></tr>';
+    }).join('');
+  }
+  ['q', 'cat', 'chain', 'minTvl', 'sort'].forEach(function (id) { $(id).addEventListener('input', render); });
   render();
-});
-$("tab-live").addEventListener("click", () => {
-  tab = "live";
-  $("tab-live").classList.add("active");
-  $("tab-pre").classList.remove("active");
-  render();
-});
-for (const id of ["q", "fcat", "fchain", "fmin", "fsort"]) {
-  $(id).addEventListener("input", render);
-}
 
-// ---------------------------------------------------------------- detail
-function openDetail(slug) {
-  const r = bySlug.get(slug);
-  if (!r) return;
-  const [rank, , name, cat, chain, tvl, implied, mult, dep, contrib] = r;
-  const steps = D.stepsTop[slug] || stepTemplates(r);
-  const math =
-    `implied = TVL x fitted multiple\n` +
-    `        = ${usd(tvl)} x ${mult.toFixed(3)} = ${usd(implied)}\n\n` +
-    `log(multiple) = ${B0.toFixed(3)} (intercept)\n` +
-    `  ${contrib[0] >= 0 ? "+" : ""}${contrib[0].toFixed(2)} from log(TVL)\n` +
-    `  ${contrib[1] >= 0 ? "+" : ""}${contrib[1].toFixed(2)} from 7-day change\n` +
-    `  ${contrib[2] >= 0 ? "+" : ""}${contrib[2].toFixed(2)} from age\n` +
-    `  ${contrib[3] >= 0 ? "+" : ""}${contrib[3].toFixed(2)} from chain count`;
-  $("detail-body").innerHTML =
-    `<h3>#${rank} ${esc(name)}</h3>` +
-    `<p class="sub">${esc(cat)} &middot; ${esc(chain)} &middot; TVL ${usd(tvl)}</p>` +
-    `<h4>How the value is computed</h4><div class="math">${esc(math)}</div>` +
-    `<h4>Farm plan — deposit $${dep.toLocaleString("en-US")}</h4>` +
-    `<ol class="steps">${steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>` +
-    `<p class="totals">Setup about $45 in gas and 60 minutes; then about $5 a week and 15 minutes a week.</p>`;
-  const dlg = $("detail");
-  if (!dlg.open) dlg.showModal();
-  history.replaceState(null, "", `#p=${slug}`);
-}
-
-function route() {
-  const h = new URLSearchParams(location.hash.slice(1));
-  const dlg = $("detail");
-  if (h.has("p")) { openDetail(h.get("p")); return; }
-  if (dlg.open) dlg.close();
-  if (h.has("category")) {
-    const c = h.get("category");
-    if ([...$("fcat").options].some((o) => o.value === c)) { $("fcat").value = c; render(); }
+  // ---- live tab ----
+  $('live').querySelector('tbody').innerHTML = live.map(function (r) {
+    return '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.cat || '—') + '</td><td>' + esc(r.chains.slice(0, 3).join(', ')) +
+      '</td><td class="num">' + money(r.tvl) + '</td><td class="num">' + money(r.mcap) + '</td><td class="num">' + (r.mcap / r.tvl).toFixed(3) + 'x</td></tr>';
+  }).join('');
+  function showTab(pre) {
+    $('tabPre').classList.toggle('on', pre);
+    $('tabLive').classList.toggle('on', !pre);
+    $('board').hidden = !pre;
+    $('live').hidden = pre;
   }
-}
-window.addEventListener("hashchange", route);
-render();
-route();
+  $('tabPre').addEventListener('click', function () { showTab(true); });
+  $('tabLive').addEventListener('click', function () { showTab(false); });
+
+  // ---- model breakdown + farm plan for one row ----
+  function features(r) {
+    var c = D.model.centers;
+    var logTvl = Math.log(Math.max(1, r.tvl)) - c.logTVL;
+    var ch = Math.min(15, Math.max(-15, r.ch === null ? 0 : r.ch)) / 100 - c.ch7d;
+    var ageY = ((r.age === null || r.age === undefined) ? 365 : r.age) / 365 - c.age_years;
+    var logCh = Math.log(Math.max(1, r.chains.length));
+    return [1, logTvl, ch, ageY, logCh, ch * ch, ch * logTvl, ch * ageY, logTvl * ageY];
+  }
+  function capital(tvl) {
+    if (tvl >= 5e9) return 5000;
+    if (tvl >= 1e9) return 2000;
+    if (tvl >= 1e8) return 1000;
+    return 500;
+  }
+  function action(r, cap, chain) {
+    var c = (r.cat || '').toLowerCase(), n = r.name;
+    if (/lend|cdp|collateral/.test(c)) return 'Supply $' + cap.toLocaleString('en-US') + ' of USDC to ' + n + ' on ' + chain + ' and keep the position open.';
+    if (/dex|yield|leveraged farm/.test(c)) return 'Provide $' + cap.toLocaleString('en-US') + ' of liquidity to ' + n + '\'s main pool on ' + chain + ' and keep the position open.';
+    if (/bridge/.test(c)) return 'Bridge $' + cap.toLocaleString('en-US') + ' of USDC to ' + chain + ' through ' + n + ' and use the bridged funds in its app.';
+    if (/staking|restak/.test(c)) return 'Stake $' + cap.toLocaleString('en-US') + ' of the chain\'s staking asset through ' + n + ' and keep the receipt.';
+    if (/perpetual|derivative/.test(c)) return 'Deposit $' + cap.toLocaleString('en-US') + ' of USDC as margin on ' + n + ' and open one small hedge.';
+    if (/prediction/.test(c)) return 'Fund $' + cap.toLocaleString('en-US') + ' and place one market position on ' + n + '.';
+    if (/curator|allocator/.test(c)) return 'Deposit $' + cap.toLocaleString('en-US') + ' into a ' + n + ' vault on ' + chain + ' and keep the shares.';
+    if (/stable/.test(c)) return 'Mint or deposit $' + cap.toLocaleString('en-US') + ' of the stable asset through ' + n + ' on ' + chain + '.';
+    if (/rwa/.test(c)) return 'Mint $' + cap.toLocaleString('en-US') + ' of the protocol\'s yield asset on ' + chain + ' and hold it.';
+    if (/insurance/.test(c)) return 'Buy $' + cap.toLocaleString('en-US') + ' of cover from ' + n + ' on ' + chain + ' and keep the policy.';
+    return 'Deposit $' + cap.toLocaleString('en-US') + ' of USDC into ' + n + ' on ' + chain + ' and keep the position open.';
+  }
+  function farmPlan(r) {
+    var cap = capital(r.tvl), chain = r.chains[0] || 'its main chain';
+    var hold = r.age === null ? 30 : r.age < 180 ? 60 : r.age < 365 ? 45 : 30;
+    var gas = cap >= 2000 ? 12 : 6;
+    return [
+      ['Use a fresh wallet that holds only the funds you plan to farm, and keep its seed phrase offline.', 'under $3 of gas for the first transaction', '5 minutes'],
+      [action(r, cap, chain), '$' + cap.toLocaleString('en-US') + ' of capital and about $' + gas + ' of gas', '15 minutes to set up'],
+      ['Make one qualifying action each week, such as a deposit, a borrow, a swap or a vote.', 'about $2 of gas a week', '10 minutes a week'],
+      ['Hold the position for at least ' + hold + ' days so the activity is counted in more than one snapshot.', 'the $' + cap.toLocaleString('en-US') + ' stays in the position', hold + ' days'],
+      ['Before you withdraw, open the protocol\'s own points or rewards page and claim only from the link it publishes.', 'no fee to check, and never pay to claim', '10 minutes'],
+      ['Write the wallet, the dates and every transaction in a farm log so you can repeat the position or unwind it.', 'nothing but the log', '5 minutes'],
+    ];
+  }
+  function openDetail(slug) {
+    var r = rows.find(function (x) { return x.slug === slug; });
+    if (!r) return;
+    var xs = features(r);
+    var parts = xs.map(function (x, i) {
+      return '<tr><td>' + esc(D.model.features[i]) + '</td><td class="num">' + x.toFixed(3) + '</td><td class="num">' + beta[i].toFixed(4) + '</td><td class="num">' + (beta[i] * x).toFixed(3) + '</td></tr>';
+    }).join('');
+    var plan = farmPlan(r).map(function (s, i) {
+      return '<li><b>Step ' + (i + 1) + '.</b> ' + esc(s[0]) + ' <small>Cost: ' + esc(s[1]) + '. Time: ' + esc(s[2]) + '.</small></li>';
+    }).join('');
+    $('dlgBody').innerHTML =
+      '<h3>#' + r.rank + ' ' + esc(r.name) + '</h3>' +
+      '<dl class="kv"><dt>Implied value</dt><dd><b>' + money(r.implied) + '</b></dd>' +
+      '<dt>TVL</dt><dd>' + money(r.tvl) + '</dd><dt>7d change</dt><dd>' + pct(r.ch) + '</dd>' +
+      '<dt>Category</dt><dd>' + esc(r.cat || '—') + '</dd><dt>Chains</dt><dd>' + esc(r.chains.join(', ')) + '</dd>' +
+      '<dt>Age</dt><dd>' + (r.age === null ? 'unknown' : r.age + ' days') + '</dd>' +
+      '<dt>Fitted multiple</dt><dd>' + Math.exp(r.logMult).toFixed(3) + 'x (clamped to [0.02, 1.5])</dd></dl>' +
+      '<h4>How the multiple is built</h4>' +
+      '<table><thead><tr><th>Feature</th><th class="num">Value</th><th class="num">Coef</th><th class="num">Contribution</th></tr></thead><tbody>' + parts + '</tbody></table>' +
+      '<p class="note">Contributions sum to log(multiple) = ' + r.logMult.toFixed(3) + '; implied = TVL &times; ' + Math.exp(r.logMult).toFixed(3) + '.</p>' +
+      '<h4>Farm plan &mdash; deposit $' + capital(r.tvl).toLocaleString('en-US') + ', setup about $45 + 60 minutes</h4><ol>' + plan + '</ol>';
+    var dlg = $('dlg');
+    if (!dlg.open) dlg.showModal();
+    dlg.scrollTop = 0;
+  }
+  $('board').addEventListener('click', function (e) {
+    var tr = e.target.closest('tr[data-slug]');
+    if (tr) openDetail(tr.getAttribute('data-slug'));
+  });
+  $('dlgClose').addEventListener('click', function () { $('dlg').close(); });
+
+  // ---- deep links: #p=<slug> opens the detail, #category=<name> filters ----
+  function hash() {
+    var h = new URLSearchParams(location.hash.slice(1));
+    if (h.get('p')) openDetail(h.get('p'));
+    if (h.get('category')) { $('cat').value = h.get('category'); render(); }
+  }
+  window.addEventListener('hashchange', hash);
+  hash();
+})();

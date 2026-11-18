@@ -1,169 +1,86 @@
-// radar-3 entrypoint: read the sealed snapshot, fit the value model,
-// rank the pre-token board, and write the graded output.
+// Token launch radar (radar-4): read the sealed snapshot, fit the robust value
+// model, write the ranked board, the dashboard data, the dashboard, the
+// screenshots and the dossier the judge reads.
 //
-// Usage (from the repo root):
-//   MAKEFUN_OUTPUT_DIR=out node main.ts --input <kit>/input/snapshot.json
+//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts --input <snapshot.json>
 //
-// What it writes:
-//   <out>/board.json            the ranked board (gate reads this)
-//   dashboard/data.js           compact board + live comparables + fit summary
-//   <out>/dashboard/            copy of the dashboard files
-//   <out>/screenshots/          copy of screenshots/ when present
-//   <out>/dossier.json          buildDossier of <out> (needs screenshots first)
-//
-// Run order: run this once (writes board.json + data.js), take the
-// screenshots with tools/shoot.mjs, then run this again so the dossier
-// includes the screenshots. The run is deterministic: same snapshot in,
-// same bytes out.
+// Node 22, standard library only. No network at run time: the only input is
+// the snapshot file, and every figure in the output is computed from it.
 
-import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { buildDossier } from "./vendor/makefun-board.ts";
-import {
-  fitModel,
-  buildBoard,
-  liveSet,
-  type Snapshot,
-  type BoardRow,
-} from "./lib/model.ts";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { boardIssue, buildRadar, dataScript, parseSnapshot } from './lib/model.ts';
+import { buildDossier } from './vendor/makefun-board.ts';
 
-const HERE = dirname(fileURLToPath(import.meta.url));
-const REPO = HERE;
+const here = fileURLToPath(new URL('.', import.meta.url));
 
+/** The scorer's own caps (reference/gate.json): the text cap shapes the bytes, the rest refuse. */
+const TEXT_MAX_BYTES = 65_536;
+const SCREENSHOT_CAPS = { max: 4, max_bytes: 524_288 };
+const IMAGE_NAME = /^[A-Za-z0-9_][A-Za-z0-9._-]{0,127}$/;
+
+/** --name <value> out of the arguments, or the fallback. */
 function arg(name: string, fallback: string): string {
-  const i = process.argv.indexOf(name);
-  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : fallback;
+  const at = process.argv.indexOf(`--${name}`);
+  if (at >= 0 && at + 1 < process.argv.length) return process.argv[at + 1]!;
+  const withEquals = process.argv.find((a) => a.startsWith(`--${name}=`));
+  return withEquals === undefined ? fallback : withEquals.slice(name.length + 3);
 }
 
-const inputPath = resolve(arg("--input", "input/snapshot.json"));
-const outDir = resolve(
-  arg("--out", process.env.MAKEFUN_OUTPUT_DIR ?? "out"),
+const inputArg = arg('input', '/input');
+const inputFile = inputArg.endsWith('.json') ? inputArg : join(inputArg, 'snapshot.json');
+if (!existsSync(inputFile)) {
+  process.stderr.write(`token radar: no snapshot at ${inputFile}: pass --input <snapshot.json|directory> or mount the sealed /input\n`);
+  process.exit(2);
+}
+const out = arg('output', process.env.MAKEFUN_OUTPUT_DIR ?? '/output');
+
+const snapshot = parseSnapshot(readFileSync(inputFile, 'utf8'));
+const { board, radar, validation } = buildRadar(snapshot);
+const issue = boardIssue(board, snapshot);
+if (issue !== null) {
+  process.stderr.write(`token radar: the model wrote a board the gate refuses: ${issue}\n`);
+  process.exit(1);
+}
+
+mkdirSync(out, { recursive: true });
+writeFileSync(join(out, 'board.json'), `${JSON.stringify({ rows: board })}\n`);
+writeFileSync(join(out, 'data.js'), dataScript(radar));
+
+/** Copy one directory's regular files into `to`, skipping names that start with a dot. */
+function copyFiles(from: string, to: string): string[] {
+  if (!existsSync(from)) return [];
+  mkdirSync(to, { recursive: true });
+  const copied: string[] = [];
+  for (const name of readdirSync(from).sort()) {
+    if (name.startsWith('.')) continue;
+    const path = join(from, name);
+    if (!statSync(path).isFile()) continue;
+    copyFileSync(path, join(to, name));
+    copied.push(name);
+  }
+  return copied;
+}
+
+copyFiles(join(here, 'dashboard'), join(out, 'dashboard'));
+const shots = copyFiles(join(here, 'screenshots'), join(out, 'screenshots'));
+if (shots.length < 3) {
+  process.stderr.write(`token radar: screenshots/ holds ${shots.length} image${shots.length === 1 ? '' : 's'}: hand in 3, the board, a detail view and a filtered view\n`);
+  process.exit(1);
+}
+for (const name of shots) {
+  if (!IMAGE_NAME.test(name)) {
+    process.stderr.write(`token radar: screenshots/${name}: a name is letters, digits and . _ -, 1 to 128 characters\n`);
+    process.exit(1);
+  }
+}
+
+// The dossier is written last: the scorer rebuilds it from this /output and compares bytes.
+writeFileSync(join(out, 'dossier.json'), buildDossier(out, { text_max_bytes: TEXT_MAX_BYTES, screenshots: SCREENSHOT_CAPS, dashboard: { max_files: 400, max_bytes: 4_194_304 } }));
+
+process.stdout.write(
+  `token radar: ${snapshot.protocols.length} protocols, ${snapshot.watchlist.length} on the watchlist, ${board.length} rows scored (${radar.early_size} early, ${radar.live_size} live set aside)\n` +
+    `token radar: LOO over ${validation.n_live} live protocols: median |log err| ${validation.loo_median} (heuristic ${validation.heuristic_median}), mean ${validation.loo_mean} (heuristic ${validation.heuristic_mean})\n` +
+    `token radar: wrote ${join(out, 'board.json')}, ${join(out, 'data.js')}, ${join(out, 'dashboard')}, ${join(out, 'screenshots')} (${shots.length} images) and ${join(out, 'dossier.json')}\n`,
 );
-
-const snapshot = JSON.parse(readFileSync(inputPath, "utf8")) as Snapshot;
-const fit = fitModel(snapshot);
-const rows = buildBoard(snapshot, fit);
-
-// Live comparables for the dashboard's second tab: top 30 by TVL.
-const live = liveSet(snapshot.protocols)
-  .map((p) => ({
-    slug: p.slug,
-    name: p.name,
-    category: p.category,
-    tvl: p.tvl_usd as number,
-    mcap: p.mcap_usd as number,
-    mult: (p.mcap_usd as number) / (p.tvl_usd as number),
-  }))
-  .sort((a, b) => b.tvl - a.tvl)
-  .slice(0, 30);
-
-// Compact row: [rank, slug, name, category, chain, tvl, implied, multiple, deposit, [cTvl, cGrowth, cAge, cChains]]
-const compactRows = rows.map((r: BoardRow) => [
-  r.rank,
-  r.slug,
-  r.name,
-  r.category,
-  r.chain,
-  r.tvl_usd,
-  r.implied_value_usd,
-  Math.round(r.multiple * 1000) / 1000,
-  r.deposit_usd,
-  [
-    Math.round(r.contrib.tvl * 100) / 100,
-    Math.round(r.contrib.growth * 100) / 100,
-    Math.round(r.contrib.age * 100) / 100,
-    Math.round(r.contrib.chains * 100) / 100,
-  ],
-]);
-
-// Full farm steps for the Top 6 only (the dossier text cap is 65,536 bytes;
-// the other rows' steps are rendered from the same templates in app.js).
-const stepsTop: Record<string, string[]> = {};
-for (const r of rows.slice(0, 6)) stepsTop[r.slug] = r.farm_steps;
-
-// Category totals for the dashboard's bar chart.
-const catTotals = new Map<string, { n: number; value: number }>();
-for (const r of rows) {
-  const c = catTotals.get(r.category) ?? { n: 0, value: 0 };
-  c.n += 1;
-  c.value += r.implied_value_usd;
-  catTotals.set(r.category, c);
-}
-const categories = [...catTotals.entries()]
-  .map(([name, v]) => [name, v.n, v.value])
-  .sort((a, b) => (b[2] as number) - (a[2] as number));
-
-const data = {
-  asOf: snapshot.as_of,
-  floorUsd: snapshot.floor_usd,
-  nRows: rows.length,
-  nWatch: snapshot.watchlist.length,
-  fit: {
-    beta: fit.beta.map((b) => Math.round(b * 1000) / 1000),
-    nLive: fit.nLive,
-    looMedian: Math.round(fit.looMedian * 1000) / 1000,
-    looMean: Math.round(fit.looMean * 1000) / 1000,
-    medLooMedian: Math.round(fit.medianHeuristicLooMedian * 1000) / 1000,
-    medLooMean: Math.round(fit.medianHeuristicLooMean * 1000) / 1000,
-    liveMedianMultiple: Math.round(fit.liveMedianMultiple * 1000) / 1000,
-  },
-  rows: compactRows,
-  stepsTop,
-  live,
-  categories,
-};
-
-mkdirSync(outDir, { recursive: true });
-mkdirSync(join(REPO, "dashboard"), { recursive: true });
-
-const boardJson = {
-  rows: rows.map((r: BoardRow) => ({
-    slug: r.slug,
-    name: r.name,
-    rank: r.rank,
-    implied_value_usd: r.implied_value_usd,
-    farm_steps: r.farm_steps,
-    category: r.category,
-    chain: r.chain,
-    tvl_usd: r.tvl_usd,
-    multiple: Math.round(r.multiple * 10000) / 10000,
-    deposit_usd: r.deposit_usd,
-  })),
-};
-writeFileSync(join(outDir, "board.json"), JSON.stringify(boardJson, null, 2) + "\n");
-
-const dataJs =
-  "window.RADAR_DATA = " + JSON.stringify(data) + ";\n";
-writeFileSync(join(REPO, "dashboard", "data.js"), dataJs);
-
-// Stage the dashboard and the screenshots into the output dir, then build
-// the dossier from them. Screenshots come from tools/shoot.mjs; without
-// them the dossier is skipped and this run only refreshes board + data.
-cpSync(join(REPO, "dashboard"), join(outDir, "dashboard"), { recursive: true });
-const shotsDir = join(REPO, "screenshots");
-let dossierBytes = 0;
-if (existsSync(shotsDir)) {
-  cpSync(shotsDir, join(outDir, "screenshots"), { recursive: true });
-  const dossier = buildDossier(outDir, { text_max_bytes: 65536 });
-  writeFileSync(join(outDir, "dossier.json"), dossier);
-  dossierBytes = dossier.length;
-}
-
-const top5 = rows.slice(0, 5).map(
-  (r) => `#${r.rank} ${r.name} $${r.implied_value_usd.toLocaleString("en-US")}`,
-);
-const medImplied = rows.map((r) => r.implied_value_usd).sort((a, b) => a - b)[
-  Math.floor(rows.length / 2)
-];
-console.log(`rows: ${rows.length} (watchlist ${snapshot.watchlist.length} + early ${rows.length - snapshot.watchlist.length})`);
-console.log(`fit: beta=[${fit.beta.map((b) => b.toFixed(3)).join(", ")}] on ${fit.nLive} live protocols`);
-console.log(
-  `LOO median |log err|: fitted ${fit.looMedian.toFixed(3)} vs median heuristic ${fit.medianHeuristicLooMedian.toFixed(3)}`,
-);
-console.log(`median implied: $${medImplied.toLocaleString("en-US")}`);
-console.log(`top 5: ${top5.join(" | ")}`);
-console.log(`data.js: ${dataJs.length} bytes; dossier.json: ${dossierBytes} bytes`);
-if (dossierBytes === 0) {
-  console.log("NOTE: no screenshots/ yet — run tools/shoot.mjs, then run main.ts again for the dossier.");
-}

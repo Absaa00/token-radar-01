@@ -1,84 +1,56 @@
-# Token Launch Radar — radar-3
+# Token Launch Radar — radar-4
 
-## What this board is
+A radar for the 194 pre-token protocols in the snapshot that matter most: the
+40 on the house watchlist, plus the 154 largest pre-token protocols below the
+$50M floor. Every protocol is ranked by implied value — what its token would
+be worth if it launched today at the multiple the market already pays for
+live tokens like it.
 
-194 pre-token protocols, ranked by an implied value that is **fitted**
-from the snapshot's own live-token protocols. 40 of the rows are the
-snapshot's watchlist, covered in full; the other 154 are pre-token
-protocols below the $50M floor with at least $10M TVL that pass the house
-filter (no bridges, no liquid staking or restaking, no CEX, no wrapped /
-staked / versioned names). Protocols above the floor enter only through
-the watchlist. The 128 live-token protocols are not board rows — they are
-the comparables the model is fitted on, shown in the Live token tab.
+## The model
 
-## The model, and why it beats a median
+Implied value = TVL x fitted multiple. The multiple is fitted, not assumed:
+log(market cap / TVL) is regressed on log TVL, the 7-day TVL change
+(winsorized to +/-15%), age, log chain count, and three interactions, over the
+128 live-token protocols in this snapshot — fitted by Huber regression
+(delta 1.345), which down-weights the few live tokens trading at 20-400x TVL
+instead of letting them drag the fit. log TVL, change and age enter centered
+at their live-set means. The fitted multiple is clamped to [0.02, 1.5].
 
-```
-log(mcap / TVL) = 7.128 - 0.498*log(TVL) - 2.670*change_7d
-                - 0.063*age_years + 0.104*log(chains)
-```
+Validation is leave-one-out over the same 128 live protocols, computed when
+the program runs, with the same clamp: median |log error| **1.198** (mean
+1.642), against **1.623** (mean 1.807) for the median-ratio heuristic — the
+fit is about 26% more accurate than the naive multiple at the median. A
+typical prediction is still off by a factor of about e^1.2 ≈ 3.3x; the board
+is a ranking under uncertainty, not a price forecast, and no protocol is
+guaranteed to issue a token at all.
 
-Ordinary least squares, fitted at run time on the 128 live protocols. No
-coefficient is hardcoded and no protocol name ever enters the fit. The
-7-day change is winsorized to ±15% and the predicted multiple is clamped
-to [0.02, 1.5], so no wild week and no outlier can put a protocol on top.
+## Top 10
 
-What the coefficients say: bigger protocols carry smaller multiples (a
-10x TVL means roughly a 0.32x multiple); fast weekly growth predicts a
-smaller multiple, not a larger one; age barely matters; multi-chain
-protocols carry slightly larger multiples. The live median multiple is
-0.223.
+1. Steakhouse Financial — $154,375,860 (Risk Curators, $2.75B TVL)
+2. Gauntlet — $151,348,738 (Risk Curators, $1.58B TVL)
+3. Upshift — $87,546,033 (Onchain Capital Allocator, $499M TVL)
+4. USDD — $84,283,879 (CDP, $1.06B TVL)
+5. Veda — $82,170,155 (Onchain Capital Allocator, $1.56B TVL)
+6. Lofty — $52,821,507 (RWA, $101M TVL, multiple 0.52x)
+7. Nonce Capital — $40,313,355 (Risk Curators, $514M TVL)
+8. OpenTrade — $34,566,455 (RWA, $242M TVL)
+9. OnRe — $32,587,675 (RWA, $309M TVL)
+10. Plume Vaults — $31,586,779 (RWA, $212M TVL)
 
-Validation is leave-one-out on the live set — each live protocol held out,
-the model refit on the other 127, the error recorded — with the naive
-category-median heuristic scored in the same loop:
+Median implied value across the 194 rows is $6,457,976. Risk curators and
+capital allocators dominate the top: the market pays the highest multiples
+for protocols that allocate other people's capital. RWA vaults punch above
+their TVL on multiples near 0.1-0.5x.
 
-| Model | Median \|log error\| | Mean \|log error\| |
-|---|---|---|
-| Fitted OLS (this board) | 1.321 | 1.638 |
-| Category-median heuristic | 1.633 | 1.929 |
+## How to use it
 
-The fitted model is about a fifth more accurate out of sample. That is
-the whole point of this rebuild: the previous board multiplied a category
-median by hand-picked growth, maturity and breadth factors, and those
-factors pointed the wrong way — the growth factor rewarded fast weekly
-growth while the data says fast growth predicts a *smaller* multiple.
+Open a protocol's row for its model breakdown — the nine fitted
+contributions that build its multiple — and a six-step farm plan with a sized
+deposit ($500-$5,000 by TVL), cost and time. Filter by category, chain, or
+minimum TVL; sort by implied value, TVL, multiple, 7-day change, or age.
+The Live tab shows the 30 largest live-token protocols the model learned
+from, with their actual market caps and mcap/TVL ratios.
 
-## Top 10 by implied value
-
-| # | Protocol | Implied value | TVL | Multiple |
-|---|---|---|---|---|
-| 1 | Steakhouse Financial | $85,415,619 | $2,753,981,495 | 0.031x |
-| 2 | Veda | $75,776,524 | $1,563,415,482 | 0.049x |
-| 3 | Gauntlet | $53,705,575 | $1,577,685,462 | 0.034x |
-| 4 | USDD | $46,290,565 | $1,055,793,606 | 0.044x |
-| 5 | Nonce Capital | $41,016,617 | $513,783,671 | 0.080x |
-| 6 | Bittensor dTAO | $29,908,105 | $376,026,255 | 0.080x |
-| 7 | RockawayX | $29,199,118 | $292,506,628 | 0.100x |
-| 8 | Upshift | $27,447,935 | $499,083,733 | 0.055x |
-| 9 | K3 Capital | $27,305,488 | $207,711,162 | 0.132x |
-| 10 | b14g | $25,533,970 | $173,941,404 | 0.147x |
-
-Median implied value across the board: about $7.0M. The biggest
-protocols sit on top because their TVL is enormous even at a small
-multiple; the model does not hand the crown to a small protocol on a
-single hot week.
-
-## Farm plans
-
-Every row carries six concrete steps with cost and time, and a deposit
-sized to the protocol: $5,000 for implied value at or above $50M, $2,000
-at or above $20M, $1,000 at or above $10M, $500 below that. Setup is
-about $45 in gas and 60 minutes; upkeep is about $5 a week and 15 minutes
-a week. The steps are the same for every protocol in shape — fund a fresh
-wallet, bridge through the official bridge, take the core position,
-stake the receipt token when a points program exists, check weekly, plan
-the exit before the token launches — and differ in the chain, the deposit
-and the core action the category calls for.
-
-## How to read the board
-
-Click any row for the model breakdown: TVL times the fitted multiple,
-with each feature's log-point contribution shown, plus the six-step farm
-plan. Filter by category, chain, minimum TVL, or search by name. The Live
-token tab shows the 30 largest live comparables the model learned from.
+Data: DefiLlama protocols snapshot, as of 2026-11-14. A protocol is listed
+as pre-token because its record carries no token — that is what the record
+says, not proof it has none.

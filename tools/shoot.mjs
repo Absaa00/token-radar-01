@@ -38,7 +38,7 @@ await page.evaluate((slug) => { location.hash = "#p=" + slug; }, top1);
 await page.waitForTimeout(600);
 writeFileSync(join(SHOTS, "2-detail.jpg"), await page.screenshot({ type: "jpeg", quality: 90 }));
 
-await page.evaluate(() => { location.hash = "#category=Risk Curators"; });
+await page.evaluate(() => { document.querySelector("#dlg").close(); location.hash = "#category=Risk Curators"; });
 await page.waitForTimeout(600);
 await page.evaluate(() => {
   document.querySelector(".board").scrollIntoView();

@@ -1,113 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Launch Radar — radar-3</title>
+<title>Token Launch Radar — 194 pre-token protocols ranked by fitted implied value</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="hero">
-  <div class="hero-inner">
-    <p class="kicker">MAKE.FUN BOUNTY &middot; TOKEN LAUNCH RADAR</p>
-    <h1>Token Launch Radar</h1>
-    <p class="lede">Every pre-token protocol on the snapshot, ranked by an implied
-    value that is <strong>fitted</strong> from the protocols whose tokens
-    already trade — not guessed, not a hardcoded list of names.</p>
-    <p class="meta" id="asof">Snapshot loading&hellip;</p>
-  </div>
+  <p class="kicker">MAKE.FUN BOUNTY &middot; TOKEN LAUNCH RADAR &middot; MODEL RADAR-4</p>
+  <h1>Which pre-token protocol would be worth the most if it launched today?</h1>
+  <p class="lede">Every protocol below is ranked by implied value &mdash; its TVL times a multiple fitted from the 128 live-token protocols in the same snapshot, validated leave-one-out. No name is special-cased; the same fitted function scores every row.</p>
+  <div class="stats" id="stats"></div>
 </header>
-
 <main>
-  <section class="stats" id="stats" aria-label="Radar at a glance"></section>
-
-  <section class="model card">
-    <h2>How the value is fitted</h2>
-    <p class="formula">log(mcap / TVL) = b0 + b1&middot;log(TVL) + b2&middot;change<sub>7d</sub> + b3&middot;age + b4&middot;log(chains)</p>
-    <p>Ordinary least squares on the snapshot&rsquo;s live-token protocols.
-    The 7-day change is winsorized to &plusmn;15% and the predicted multiple
-    is clamped to [0.02, 1.5], so no single wild week and no outlier can
-    put a protocol on top. Every coefficient is computed from the snapshot
-    at run time.</p>
-    <table class="coefs" id="coefs"></table>
-    <p class="valid" id="valid"></p>
+  <section class="panel" id="top10">
+    <h2>Top 10 spotlight</h2>
+    <ol id="spotlight" class="spot"></ol>
   </section>
-
-  <section class="card">
-    <h2>Top 10 by implied value</h2>
-    <ol class="top10" id="top10"></ol>
+  <section class="panel controls">
+    <label>Search <input id="q" type="search" placeholder="name or slug"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+    <label>Min TVL ($) <input id="minTvl" type="number" min="0" step="1000000" placeholder="0"></label>
+    <label>Sort <select id="sort">
+      <option value="rank">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="mult">Multiple</option>
+      <option value="ch">7d change</option>
+      <option value="age">Age</option>
+    </select></label>
+    <span id="count" class="count"></span>
   </section>
-
-  <section class="card">
-    <h2>Value by category</h2>
-    <div class="bars" id="catbars"></div>
+  <nav class="tabs">
+    <button id="tabPre" class="on">Pre-token board</button>
+    <button id="tabLive">Live comparables</button>
+  </nav>
+  <section class="panel">
+    <table id="board" class="board">
+      <thead><tr><th>#</th><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>7d</th><th>Multiple</th><th>Implied value</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <table id="live" hidden>
+      <thead><tr><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>Market cap</th><th>mcap / TVL</th></tr></thead>
+      <tbody></tbody>
+    </table>
   </section>
-
-  <section class="card">
-    <h2>The board</h2>
-    <div class="controls">
-      <input id="q" type="search" placeholder="Search a protocol&hellip;" aria-label="Search">
-      <select id="fcat" aria-label="Category"><option value="">All categories</option></select>
-      <select id="fchain" aria-label="Chain"><option value="">All chains</option></select>
-      <select id="fmin" aria-label="Minimum TVL">
-        <option value="0">Any TVL</option>
-        <option value="10000000">TVL &ge; $10M</option>
-        <option value="100000000">TVL &ge; $100M</option>
-        <option value="500000000">TVL &ge; $500M</option>
-      </select>
-      <select id="fsort" aria-label="Sort">
-        <option value="rank">Sort: rank</option>
-        <option value="implied">Sort: implied value</option>
-        <option value="tvl">Sort: TVL</option>
-        <option value="mult">Sort: multiple</option>
-      </select>
-      <div class="tabs" role="tablist">
-        <button id="tab-pre" class="tab active" role="tab">Pre-token</button>
-        <button id="tab-live" class="tab" role="tab">Live token</button>
-      </div>
-    </div>
-    <p class="count" id="count"></p>
-    <div class="tablewrap">
-      <table class="board">
-        <thead><tr>
-          <th>#</th><th>Protocol</th><th>Category</th><th>Chain</th>
-          <th class="num">TVL</th><th class="num">Multiple</th>
-          <th class="num">Implied value</th><th class="num">Farm deposit</th>
-        </tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </div>
-    <p class="hint">Click any row for the model breakdown and the six-step farm plan.</p>
-  </section>
-
-  <section class="card">
-    <h2>Methodology, in short</h2>
-    <p>Coverage: every protocol on the snapshot&rsquo;s watchlist is ranked,
-    plus pre-token protocols below the $50M floor with at least $10M TVL
-    that pass the house filter (no bridges, no liquid staking or restaking,
-    no CEX, no wrapped / staked / versioned names). Protocols above the
-    floor enter only through the watchlist. Live-token protocols are not
-    board rows; they are the comparables the model is fitted on, shown in
-    the Live token tab.</p>
-    <p>The model reads four facts per protocol — TVL, seven-day change, age
-    since listing, chain count — and nothing else. No protocol name ever
-    enters the fit. The fitted multiple is TVL&rsquo;s own story: bigger
-    protocols carry smaller multiples, fast weekly growth predicts a
-    smaller multiple, older and multi-chain protocols carry slightly larger
-    ones. The full validation is in 00-summary.md.</p>
+  <section class="panel" id="method">
+    <h2>How the ranking works</h2>
+    <p>Implied value = TVL &times; fitted multiple. The multiple comes from a Huber regression (delta 1.345) of log(market cap / TVL) on log TVL, 7-day TVL change (winsorized to &plusmn;15%), age, log chain count, and three interactions &mdash; fitted on the 128 live-token protocols in this snapshot, then clamped to [0.02, 1.5]. Huber down-weights the handful of live tokens trading at 20&ndash;400&times; TVL, so they cannot drag the fit. Leave-one-out validation (each live protocol predicted by a model fitted without it): median |log error| <b id="looMed"></b> against <b id="looHeu"></b> for the median-ratio heuristic. The full coefficient table is below; every protocol's detail dialog breaks its own multiple into the nine fitted contributions.</p>
+    <table id="coefs"><thead><tr><th>Feature</th><th>Coefficient</th></tr></thead><tbody></tbody></table>
+    <p class="note">Data: DefiLlama protocols snapshot, <span id="asof"></span>. A protocol is listed as pre-token because its record carries no token &mdash; that is what the record says, not proof it has none. Implied values are this entry's own claim, not a prediction that a token will be issued or what it will trade at.</p>
   </section>
 </main>
-
-<dialog id="detail">
-  <form method="dialog"><button class="close" aria-label="Close">&times;</button></form>
-  <div id="detail-body"></div>
-</dialog>
-
-<footer>
-  <p>radar-3 &middot; deterministic: the same snapshot always builds the same board.
-  Built for the make.fun token-radar-01 bounty.</p>
-</footer>
-
+<dialog id="dlg"><div id="dlgBody"></div><button id="dlgClose">Close</button></dialog>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

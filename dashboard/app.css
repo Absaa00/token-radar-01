@@ -1,102 +1,45 @@
-:root {
-  --bg: #0c1220;
-  --panel: #141d33;
-  --panel2: #1a2540;
-  --ink: #e8edf7;
-  --muted: #93a1bd;
-  --line: #263350;
-  --amber: #f5b942;
-  --teal: #39c2a5;
-  --red: #e56b6b;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 15px/1.55 "Segoe UI", system-ui, -apple-system, sans-serif;
-}
-.hero { background: linear-gradient(135deg, #12203f, #0c1220 60%); border-bottom: 1px solid var(--line); }
-.hero-inner { max-width: 1080px; margin: 0 auto; padding: 40px 20px 28px; }
-.kicker { color: var(--amber); letter-spacing: .14em; font-size: 12px; margin: 0 0 8px; }
-h1 { margin: 0 0 8px; font-size: 40px; line-height: 1.1; }
-.lede { color: var(--muted); max-width: 720px; margin: 0 0 6px; font-size: 17px; }
-.meta { color: var(--muted); font-size: 13px; margin: 0; }
-main { max-width: 1080px; margin: 0 auto; padding: 20px; }
-.card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin-bottom: 16px;
-}
-h2 { margin: 0 0 10px; font-size: 20px; }
-.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
-.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
-.stat .v { font-size: 26px; font-weight: 700; color: var(--amber); }
-.stat .l { color: var(--muted); font-size: 13px; }
-.formula {
-  font-family: "Cascadia Code", Consolas, monospace;
-  background: var(--panel2);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 12px;
-}
-table.coefs { border-collapse: collapse; margin: 10px 0; }
-table.coefs td, table.coefs th { border: 1px solid var(--line); padding: 5px 10px; text-align: left; font-size: 14px; }
-table.coefs th { color: var(--muted); font-weight: 600; }
-.valid { color: var(--teal); }
-.top10 { margin: 0; padding-left: 22px; }
-.top10 li { padding: 5px 0; border-bottom: 1px solid var(--line); }
-.top10 li:last-child { border-bottom: 0; }
-.top10 .val { float: right; font-weight: 700; color: var(--amber); }
-.top10 .cat { color: var(--muted); font-size: 13px; }
-.bars .bar { display: grid; grid-template-columns: 190px 1fr 90px; gap: 10px; align-items: center; margin: 6px 0; font-size: 14px; }
-.bars .track { background: var(--panel2); border-radius: 6px; height: 14px; overflow: hidden; }
-.bars .fill { background: var(--teal); height: 100%; }
-.bars .n { text-align: right; color: var(--muted); }
-.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-.controls input, .controls select {
-  background: var(--panel2); color: var(--ink);
-  border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font: inherit;
-}
-.controls input { flex: 1 1 200px; }
-.tabs { display: flex; gap: 6px; }
-.tab {
-  background: var(--panel2); color: var(--muted);
-  border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; font: inherit;
-}
-.tab.active { background: var(--amber); color: #14100a; border-color: var(--amber); font-weight: 700; }
-.count { color: var(--muted); font-size: 13px; margin: 4px 0 8px; }
-.tablewrap { overflow-x: auto; }
-table.board { width: 100%; border-collapse: collapse; font-size: 14px; }
-table.board th, table.board td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
-table.board th { color: var(--muted); font-weight: 600; }
-table.board .num { text-align: right; font-variant-numeric: tabular-nums; }
-table.board tbody tr { cursor: pointer; }
-table.board tbody tr:hover { background: var(--panel2); }
-.hint { color: var(--muted); font-size: 13px; }
-dialog {
-  background: var(--panel); color: var(--ink);
-  border: 1px solid var(--line); border-radius: 12px;
-  max-width: 640px; width: calc(100% - 40px); padding: 18px 22px;
-  max-height: calc(100vh - 32px); overflow-y: auto;
-}
-dialog::backdrop { background: rgba(4, 8, 18, .7); }
-dialog .close {
-  float: right; background: none; border: 0; color: var(--muted);
-  font-size: 24px; cursor: pointer; line-height: 1;
-}
-dialog h3 { margin: 0 0 4px; font-size: 22px; }
-dialog .sub { color: var(--muted); margin: 0 0 12px; }
-dialog h4 { margin: 16px 0 6px; }
-dialog .math {
-  font-family: "Cascadia Code", Consolas, monospace;
-  background: var(--panel2); border: 1px solid var(--line);
-  border-radius: 8px; padding: 10px 12px; font-size: 13px;
-  white-space: pre-wrap; word-break: break-word;
-}
-dialog ol.steps { padding-left: 20px; }
-dialog ol.steps li { margin-bottom: 8px; }
-dialog .totals { color: var(--amber); font-weight: 700; }
-footer { max-width: 1080px; margin: 0 auto; padding: 0 20px 28px; color: var(--muted); font-size: 13px; }
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0e1420;color:#e8edf5}
+.hero{padding:28px 20px 18px;background:linear-gradient(120deg,#14243d,#1b2f4d 60%,#123);border-bottom:1px solid #2a3b55}
+.kicker{margin:0 0 8px;font-size:12px;letter-spacing:.14em;color:#8fd3ff}
+h1{margin:0 0 8px;font-size:28px;line-height:1.2;max-width:900px}
+.lede{margin:0;max-width:900px;color:#b9c6da}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.stat{background:#0b1220;border:1px solid #2a3b55;border-radius:10px;padding:10px 14px;min-width:150px}
+.stat b{display:block;font-size:22px;color:#fff}
+.stat span{font-size:12px;color:#93a5bf}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 40px}
+.panel{background:#131c2e;border:1px solid #2a3b55;border-radius:12px;padding:16px;margin-bottom:16px}
+h2{margin:0 0 10px;font-size:19px}
+.spot{margin:0;padding-left:22px;columns:2;column-gap:32px}
+.spot li{margin:0 0 8px;break-inside:avoid}
+.spot b{color:#ffd166}
+.spot small{color:#93a5bf}
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+.controls label{font-size:13px;color:#93a5bf;display:flex;flex-direction:column;gap:4px}
+.controls input,.controls select{background:#0b1220;color:#e8edf5;border:1px solid #2a3b55;border-radius:8px;padding:8px 10px;font-size:14px}
+.count{margin-left:auto;font-size:13px;color:#93a5bf}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tabs button{background:#131c2e;color:#b9c6da;border:1px solid #2a3b55;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:14px}
+.tabs button.on{background:#ffd166;color:#111;border-color:#ffd166;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #22314a}
+th{color:#93a5bf;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#1a2740}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+#method p{color:#c4d0e2}
+.note{font-size:13px;color:#93a5bf}
+#coefs{max-width:460px}
+#coefs td.num{font-variant-numeric:tabular-nums}
+dialog{background:#131c2e;color:#e8edf5;border:1px solid #2a3b55;border-radius:12px;max-width:640px;width:92vw;max-height:88vh;overflow-y:auto;padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin-top:0}
+dialog .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-size:14px;margin:10px 0}
+dialog .kv dt{color:#93a5bf}
+dialog .kv dd{margin:0}
+dialog ol{padding-left:20px;font-size:14px}
+dialog ol li{margin-bottom:8px}
+dialog ol small{color:#93a5bf}
+#dlgClose{margin-top:8px;background:#ffd166;border:0;border-radius:8px;padding:8px 18px;font-weight:700;cursor:pointer}
+@media(max-width:700px){.spot{columns:1}h1{font-size:22px}}
