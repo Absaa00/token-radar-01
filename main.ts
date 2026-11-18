@@ -1,6 +1,7 @@
 // radar-4 entrypoint (Node 22, standard library only, no network at run time).
 //
-// Reads the sealed snapshot (--input <snapshot.json|directory>, default /input),
+// Reads the sealed snapshot (--input <snapshot.json|directory>, default
+// $MAKEFUN_INPUT_DIR, or /input when that is unset),
 // fits the Huber value model from lib/model.ts, writes the ranked board to
 // /output/board.json, the dashboard data to /output/dashboard/data.js, copies
 // dashboard/ and screenshots/ into /output, and writes /output/dossier.json
@@ -26,7 +27,7 @@ function flag(name: string, fallback: string): string {
   return eq === undefined ? fallback : eq.slice(name.length + 3);
 }
 
-const inputArg = flag('input', '/input');
+const inputArg = flag('input', process.env.MAKEFUN_INPUT_DIR ?? '/input');
 const inputFile = inputArg.endsWith('.json') ? inputArg : join(inputArg, 'snapshot.json');
 if (!existsSync(inputFile)) {
   process.stderr.write(`radar-4: no snapshot at ${inputFile}; pass --input <snapshot.json|directory>\n`);
@@ -42,13 +43,16 @@ if (issue !== null) {
   process.exit(1);
 }
 
-/** Copy a directory's regular files (skipping dot-names) into `to`. */
-function copyDir(from: string, to: string): string[] {
+/** Copy a directory's regular files (skipping dot-names) into `to`. Names in
+ * `skip` are not copied: the dashboard's data.js is skipped because this run
+ * writes it fresh right after the copy, and copying the repo's read-only
+ * data.js first would make that write fail with EACCES. */
+function copyDir(from: string, to: string, skip: string[] = []): string[] {
   if (!existsSync(from)) return [];
   mkdirSync(to, { recursive: true });
   const names: string[] = [];
   for (const name of readdirSync(from)) {
-    if (name.startsWith('.')) continue;
+    if (name.startsWith('.') || skip.includes(name)) continue;
     const path = join(from, name);
     if (!statSync(path).isFile()) continue;
     copyFileSync(path, join(to, name));
@@ -157,7 +161,7 @@ mkdirSync(out, { recursive: true });
 writeFileSync(join(out, 'board.json'), `${JSON.stringify({ rows: board })}\n`);
 
 const dashOut = join(out, 'dashboard');
-copyDir(join(here, 'dashboard'), dashOut);
+copyDir(join(here, 'dashboard'), dashOut, ['data.js']);
 // The dashboard's data is written by this run, beside the page it feeds,
 // compacted to one line per board row (see compactDataScript): the
 // pretty-printed form was ~5,840 lines of generated data, which swamps the
