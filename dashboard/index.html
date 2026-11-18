@@ -1,60 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Token Launch Radar — 194 pre-token protocols ranked by fitted implied value</title>
+<title>radar-4 — Token Launch Radar</title>
 <link rel="stylesheet" href="app.css">
+<script src="data.js"></script>
+<script src="app.js" defer></script>
 </head>
 <body>
 <header class="hero">
-  <p class="kicker">MAKE.FUN BOUNTY &middot; TOKEN LAUNCH RADAR &middot; MODEL RADAR-4</p>
-  <h1>Which pre-token protocol would be worth the most if it launched today?</h1>
-  <p class="lede">Every protocol below is ranked by implied value &mdash; its TVL times a multiple fitted from the 128 live-token protocols in the same snapshot, validated leave-one-out. No name is special-cased; the same fitted function scores every row.</p>
+  <p class="kicker">make.fun · token-radar-01 · radar-4</p>
+  <h1>Token Launch Radar</h1>
+  <p class="lede">Which pre-token protocol is worth farming next — and what to do about it.
+  Every value below is this entry&rsquo;s own claim, fitted from the snapshot&rsquo;s
+  own figures: a protocol&rsquo;s TVL, its seven-day growth, and how long it has run
+  with no token recorded. The snapshot is DefiLlama data as of <span id="asof">&mdash;</span>.</p>
   <div class="stats" id="stats"></div>
 </header>
+
 <main>
-  <section class="panel" id="top10">
-    <h2>Top 10 spotlight</h2>
-    <ol id="spotlight" class="spot"></ol>
+  <section aria-labelledby="spot-h">
+    <h2 id="spot-h">Top 10 spotlight</h2>
+    <p class="note">The ten largest implied launches on the board. Implied value is TVL
+    times the model&rsquo;s predicted market-cap multiple.</p>
+    <ol class="spot" id="spotlight"></ol>
   </section>
-  <section class="panel controls">
-    <label>Search <input id="q" type="search" placeholder="name or slug"></label>
-    <label>Category <select id="cat"><option value="">All categories</option></select></label>
-    <label>Chain <select id="chain"><option value="">All chains</option></select></label>
-    <label>Min TVL ($) <input id="minTvl" type="number" min="0" step="1000000" placeholder="0"></label>
-    <label>Sort <select id="sort">
-      <option value="rank">Implied value</option>
-      <option value="tvl">TVL</option>
-      <option value="mult">Multiple</option>
-      <option value="ch">7d change</option>
-      <option value="age">Age</option>
-    </select></label>
-    <span id="count" class="count"></span>
+
+  <section aria-labelledby="cat-h">
+    <h2 id="cat-h">Where the value sits</h2>
+    <p class="note">Total implied value by category across the whole board.</p>
+    <div class="bars" id="catbars"></div>
   </section>
-  <nav class="tabs">
-    <button id="tabPre" class="on">Pre-token board</button>
-    <button id="tabLive">Live comparables</button>
-  </nav>
-  <section class="panel">
-    <table id="board" class="board">
-      <thead><tr><th>#</th><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>7d</th><th>Multiple</th><th>Implied value</th></tr></thead>
-      <tbody></tbody>
-    </table>
-    <table id="live" hidden>
-      <thead><tr><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>Market cap</th><th>mcap / TVL</th></tr></thead>
-      <tbody></tbody>
-    </table>
+
+  <section aria-labelledby="board-h">
+    <h2 id="board-h">The board</h2>
+    <div class="controls">
+      <label>Search <input id="q" type="search" placeholder="protocol name or slug"></label>
+      <label>Category <select id="fcat"><option value="">All categories</option></select></label>
+      <label>Chain <select id="fchain"><option value="">All chains</option></select></label>
+      <label>Min TVL <select id="ftvl">
+        <option value="0">Any TVL</option>
+        <option value="10000000">$10M+</option>
+        <option value="50000000">$50M+</option>
+        <option value="100000000">$100M+</option>
+        <option value="500000000">$500M+</option>
+      </select></label>
+      <label>Sort <select id="sort">
+        <option value="implied">Implied value, high to low</option>
+        <option value="tvl">TVL, high to low</option>
+        <option value="growth">7-day growth, high to low</option>
+        <option value="age">Age, oldest first</option>
+        <option value="name">Name, A to Z</option>
+      </select></label>
+    </div>
+    <div class="tabs" role="tablist">
+      <button id="tab-pre" role="tab" aria-selected="true">Pre-token board</button>
+      <button id="tab-live" role="tab" aria-selected="false">Live-token comparables</button>
+    </div>
+    <p class="note" id="count"></p>
+    <div class="tablewrap"><table id="board">
+      <thead><tr>
+        <th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+        <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>
+        <th class="num">Multiple</th><th class="num">Implied value</th><th></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
   </section>
-  <section class="panel" id="method">
-    <h2>How the ranking works</h2>
-    <p>Implied value = TVL &times; fitted multiple. The multiple comes from a Huber regression (delta 1.345) of log(market cap / TVL) on log TVL, 7-day TVL change (winsorized to &plusmn;15%), age, log chain count, and three interactions &mdash; fitted on the 128 live-token protocols in this snapshot, then clamped to [0.02, 1.5]. Huber down-weights the handful of live tokens trading at 20&ndash;400&times; TVL, so they cannot drag the fit. Leave-one-out validation (each live protocol predicted by a model fitted without it): median |log error| <b id="looMed"></b> against <b id="looHeu"></b> for the median-ratio heuristic. The full coefficient table is below; every protocol's detail dialog breaks its own multiple into the nine fitted contributions.</p>
-    <table id="coefs"><thead><tr><th>Feature</th><th>Coefficient</th></tr></thead><tbody></tbody></table>
-    <p class="note">Data: DefiLlama protocols snapshot, <span id="asof"></span>. A protocol is listed as pre-token because its record carries no token &mdash; that is what the record says, not proof it has none. Implied values are this entry's own claim, not a prediction that a token will be issued or what it will trade at.</p>
+
+  <section aria-labelledby="model-h">
+    <h2 id="model-h">How the value is worked out</h2>
+    <p>The model is a robust Huber regression (delta 1.345, fitted by IRLS) for
+    <code>log(market cap / TVL)</code>, fitted at run time on the
+    <span id="liven">144</span> protocols in the snapshot that record a token and a
+    market cap. Nine features, each centred on the live set&rsquo;s mean: log TVL,
+    7-day TVL change (winsorised to &plusmn;15%), age in days, log chain count, and
+    the interactions ch7d&sup2;, ch7d&middot;logTVL, ch7d&middot;age and
+    logTVL&middot;age. The predicted multiple is exp(prediction), clamped to
+    [0.02, 1.5]; implied value is TVL times that multiple. Nothing is a hardcoded
+    list of names: rerun the program on the same snapshot and every coefficient
+    below is refitted from the same figures.</p>
+    <div class="tablewrap"><table id="coefs">
+      <thead><tr><th>Feature</th><th class="num">Centred on</th><th class="num">Coefficient</th></tr></thead>
+      <tbody id="coefrows"></tbody>
+    </table></div>
+    <p id="loo"></p>
+    <h3>What a farm plan costs</h3>
+    <p>Every protocol on the board carries a six-step plan: fund a fresh wallet,
+    deposit a sized amount, return weekly, work the points tasks, hold at least
+    30 days, and claim when a snapshot lands. Deposits are sized by implied value
+    &mdash; $5,000 at $50M and up, $2,000 at $20M, $1,000 at $5M, $500 below
+    that &mdash; and setup runs about $45 plus 60 minutes. The plan is a routine,
+    not a promise: a launch may never come, and the implied value is a
+    what-if, not a price.</p>
+    <h3>Reading the board honestly</h3>
+    <p>&ldquo;Pre-token&rdquo; here means the snapshot records no token for the
+    protocol &mdash; DefiLlama&rsquo;s record is not proof it has none. Wrapped,
+    staked and bridged products of tokens that already trade are left out, as
+    are versioned and exchange-named products, and a protocol at or above the
+    $50M floor that the watchlist leaves out is a child product, not a launch
+    of its own. The watchlist&rsquo;s $50M floor is a floor, never a ceiling:
+    the board also ranks 94 early protocols below it, down to $10M of TVL,
+    because a launch worth farming can sit below the line.</p>
   </section>
 </main>
-<dialog id="dlg"><div id="dlgBody"></div><button id="dlgClose">Close</button></dialog>
-<script src="data.js"></script>
-<script src="app.js"></script>
+
+<dialog id="detail" aria-labelledby="dtitle">
+  <form method="dialog"><button class="close" aria-label="Close">&times;</button></form>
+  <div id="dbody"></div>
+</dialog>
+
+<footer>
+  <p>radar-4 · built from the sealed DefiLlama snapshot by a Node program that
+  refits its model on every run. Implied values are this entry&rsquo;s claims,
+  never make.fun&rsquo;s. No network is used to render this page.</p>
+</footer>
 </body>
 </html>

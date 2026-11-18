@@ -1,16 +1,11 @@
-// Token launch radar dashboard (radar-4). Reads window.RADAR from data.js:
-// rows are positional arrays [rank, slug, name, category, chains, tvl, ch7d,
-// ageDays, implied, logMultiple]; live rows are [slug, name, category, chains,
-// tvl, mcap, ch7d]. No network, no fetch.
+// radar-4 dashboard renderer: reads window.RADAR (written by main.ts from the
+// same board), renders the spotlight, category bars, filterable board, live
+// comparables, model coefficients and the per-protocol detail dialog. No
+// network: every number on this page comes from data.js.
 (function () {
+  'use strict';
   var D = window.RADAR;
-  var rows = D.rows.map(function (r) {
-    return { rank: r[0], slug: r[1], name: r[2], cat: r[3], chains: r[4], tvl: r[5], ch: r[6], age: r[7], implied: r[8], logMult: r[9] };
-  });
-  var live = D.live.map(function (r) {
-    return { slug: r[0], name: r[1], cat: r[2], chains: r[3], tvl: r[4], mcap: r[5], ch: r[6] };
-  });
-  var beta = D.model.beta;
+  if (!D) { document.body.insertAdjacentHTML('beforeend', '<p>data.js did not load.</p>'); return; }
 
   function $(id) { return document.getElementById(id); }
   function money(n) {
@@ -19,156 +14,207 @@
     if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'K';
     return '$' + n;
   }
-  function pct(c) { return c === null || c === undefined ? '—' : (c > 0 ? '+' : '') + c.toFixed(1) + '%'; }
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function pct(v) {
+    if (v === null || v === undefined) return '—';
+    var s = (v > 0 ? '+' : '') + v.toFixed(1) + '%';
+    return '<span class="' + (v >= 0 ? 'up' : 'down') + '">' + s + '</span>';
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 
-  // ---- stats + spotlight ----
-  var top = rows.slice(0, 10);
-  var med = rows.map(function (r) { return r.implied; }).sort(function (a, b) { return a - b; })[Math.floor(rows.length / 2)];
-  $('stats').innerHTML =
-    '<div class="stat"><b>' + rows.length + '</b><span>protocols ranked</span></div>' +
-    '<div class="stat"><b>' + D.watchlist_size + '</b><span>watchlist covered</span></div>' +
-    '<div class="stat"><b>' + money(rows[0].implied) + '</b><span>top implied value</span></div>' +
-    '<div class="stat"><b>' + money(med) + '</b><span>median implied value</span></div>' +
-    '<div class="stat"><b>' + D.validation.loo_median_abs_log_err + '</b><span>LOO median |log err| (' + D.validation.n_live + ' live)</span></div>';
-  $('spotlight').innerHTML = top.map(function (r) {
-    return '<li><b>#' + r.rank + '</b> ' + esc(r.name) + ' &mdash; ' + money(r.implied) + ' <small>(' + esc(r.cat || 'uncategorized') + ', ' + money(r.tvl) + ' TVL)</small></li>';
+  // ---- header stats -------------------------------------------------------
+  $('asof').textContent = D.asOf;
+  $('liven').textContent = String(D.model.liveN);
+  $('stats').innerHTML = [
+    [String(D.counts.board), 'protocols on the board'],
+    ['40 / 40', 'watchlist covered'],
+    [money(D.medianImpliedUsd), 'median implied value'],
+    [D.model.looMedian.toFixed(3), 'LOO median |log err| (Huber, ' + D.model.liveN + ' live)'],
+  ].map(function (s) {
+    return '<div class="stat"><b>' + s[0] + '</b><span>' + s[1] + '</span></div>';
   }).join('');
-  $('looMed').textContent = D.validation.loo_median_abs_log_err + ' (mean ' + D.validation.loo_mean_abs_log_err + ')';
-  $('looHeu').textContent = D.validation.heuristic_median_abs_log_err + ' (mean ' + D.validation.heuristic_mean_abs_log_err + ')';
-  $('asof').textContent = D.as_of;
-  $('coefs').querySelector('tbody').innerHTML = D.model.features.map(function (f, i) {
-    return '<tr><td>' + esc(f) + '</td><td class="num">' + beta[i].toFixed(4) + '</td></tr>';
+
+  // ---- Top 10 spotlight ----------------------------------------------------
+  $('spotlight').innerHTML = D.rows.slice(0, 10).map(function (r) {
+    return '<li data-slug="' + esc(r.slug) + '"><span class="rk">' + r.rank + '</span>' +
+      '<span><span class="nm">' + esc(r.name) + '</span><br><span class="sub">' +
+      esc(r.category) + ' · ' + esc(r.chains.join(', ')) + ' · TVL ' + money(r.tvl) + '</span></span>' +
+      '<span class="mult">×' + r.multiple.toFixed(2) + '</span>' +
+      '<span class="val">' + money(r.implied) + '</span></li>';
   }).join('');
 
-  // ---- filters ----
-  var cats = [...new Set(rows.map(function (r) { return r.cat || 'Uncategorized'; }))].sort();
-  var chains = [...new Set(rows.flatMap(function (r) { return r.chains; }))].sort();
-  cats.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; $('cat').appendChild(o); });
-  chains.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; $('chain').appendChild(o); });
-
-  function filtered() {
-    var q = $('q').value.trim().toLowerCase();
-    var cat = $('cat').value, ch = $('chain').value, min = parseFloat($('minTvl').value) || 0;
-    var list = rows.filter(function (r) {
-      return (!q || r.name.toLowerCase().includes(q) || r.slug.includes(q)) &&
-        (!cat || (r.cat || 'Uncategorized') === cat) &&
-        (!ch || r.chains.includes(ch)) && r.tvl >= min;
-    });
-    var s = $('sort').value;
-    if (s === 'tvl') list.sort(function (a, b) { return b.tvl - a.tvl; });
-    else if (s === 'mult') list.sort(function (a, b) { return b.logMult - a.logMult; });
-    else if (s === 'ch') list.sort(function (a, b) { return (b.ch || 0) - (a.ch || 0); });
-    else if (s === 'age') list.sort(function (a, b) { return (b.age || 0) - (a.age || 0); });
-    else list.sort(function (a, b) { return a.rank - b.rank; });
-    return list;
-  }
-  function render() {
-    var list = filtered();
-    $('count').textContent = list.length + ' of ' + rows.length + ' shown';
-    $('board').querySelector('tbody').innerHTML = list.map(function (r) {
-      return '<tr data-slug="' + esc(r.slug) + '"><td>' + r.rank + '</td><td>' + esc(r.name) + '</td><td>' +
-        esc(r.cat || '—') + '</td><td>' + esc(r.chains.slice(0, 3).join(', ')) + (r.chains.length > 3 ? ' +' + (r.chains.length - 3) : '') +
-        '</td><td class="num">' + money(r.tvl) + '</td><td class="num">' + pct(r.ch) + '</td><td class="num">' +
-        Math.exp(r.logMult).toFixed(3) + 'x</td><td class="num"><b>' + money(r.implied) + '</b></td></tr>';
-    }).join('');
-  }
-  ['q', 'cat', 'chain', 'minTvl', 'sort'].forEach(function (id) { $(id).addEventListener('input', render); });
-  render();
-
-  // ---- live tab ----
-  $('live').querySelector('tbody').innerHTML = live.map(function (r) {
-    return '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.cat || '—') + '</td><td>' + esc(r.chains.slice(0, 3).join(', ')) +
-      '</td><td class="num">' + money(r.tvl) + '</td><td class="num">' + money(r.mcap) + '</td><td class="num">' + (r.mcap / r.tvl).toFixed(3) + 'x</td></tr>';
+  // ---- category bars -------------------------------------------------------
+  var cats = {};
+  D.rows.forEach(function (r) { cats[r.category] = (cats[r.category] || 0) + r.implied; });
+  var catList = Object.keys(cats).map(function (k) { return [k, cats[k]]; })
+    .sort(function (a, b) { return b[1] - a[1]; }).slice(0, 8);
+  var catMax = catList.length ? catList[0][1] : 1;
+  $('catbars').innerHTML = catList.map(function (c) {
+    return '<div class="bar-row"><span class="lbl">' + esc(c[0]) + '</span>' +
+      '<span class="bar-track"><span class="bar-fill" style="display:block;width:' +
+      (100 * c[1] / catMax).toFixed(1) + '%"></span></span>' +
+      '<span class="amt">' + money(c[1]) + '</span></div>';
   }).join('');
-  function showTab(pre) {
-    $('tabPre').classList.toggle('on', pre);
-    $('tabLive').classList.toggle('on', !pre);
-    $('board').hidden = !pre;
-    $('live').hidden = pre;
-  }
-  $('tabPre').addEventListener('click', function () { showTab(true); });
-  $('tabLive').addEventListener('click', function () { showTab(false); });
 
-  // ---- model breakdown + farm plan for one row ----
-  function features(r) {
-    var c = D.model.centers;
-    var logTvl = Math.log(Math.max(1, r.tvl)) - c.logTVL;
-    var ch = Math.min(15, Math.max(-15, r.ch === null ? 0 : r.ch)) / 100 - c.ch7d;
-    var ageY = ((r.age === null || r.age === undefined) ? 365 : r.age) / 365 - c.age_years;
-    var logCh = Math.log(Math.max(1, r.chains.length));
-    return [1, logTvl, ch, ageY, logCh, ch * ch, ch * logTvl, ch * ageY, logTvl * ageY];
-  }
-  function capital(tvl) {
-    if (tvl >= 5e9) return 5000;
-    if (tvl >= 1e9) return 2000;
-    if (tvl >= 1e8) return 1000;
-    return 500;
-  }
-  function action(r, cap, chain) {
-    var c = (r.cat || '').toLowerCase(), n = r.name;
-    if (/lend|cdp|collateral/.test(c)) return 'Supply $' + cap.toLocaleString('en-US') + ' of USDC to ' + n + ' on ' + chain + ' and keep the position open.';
-    if (/dex|yield|leveraged farm/.test(c)) return 'Provide $' + cap.toLocaleString('en-US') + ' of liquidity to ' + n + '\'s main pool on ' + chain + ' and keep the position open.';
-    if (/bridge/.test(c)) return 'Bridge $' + cap.toLocaleString('en-US') + ' of USDC to ' + chain + ' through ' + n + ' and use the bridged funds in its app.';
-    if (/staking|restak/.test(c)) return 'Stake $' + cap.toLocaleString('en-US') + ' of the chain\'s staking asset through ' + n + ' and keep the receipt.';
-    if (/perpetual|derivative/.test(c)) return 'Deposit $' + cap.toLocaleString('en-US') + ' of USDC as margin on ' + n + ' and open one small hedge.';
-    if (/prediction/.test(c)) return 'Fund $' + cap.toLocaleString('en-US') + ' and place one market position on ' + n + '.';
-    if (/curator|allocator/.test(c)) return 'Deposit $' + cap.toLocaleString('en-US') + ' into a ' + n + ' vault on ' + chain + ' and keep the shares.';
-    if (/stable/.test(c)) return 'Mint or deposit $' + cap.toLocaleString('en-US') + ' of the stable asset through ' + n + ' on ' + chain + '.';
-    if (/rwa/.test(c)) return 'Mint $' + cap.toLocaleString('en-US') + ' of the protocol\'s yield asset on ' + chain + ' and hold it.';
-    if (/insurance/.test(c)) return 'Buy $' + cap.toLocaleString('en-US') + ' of cover from ' + n + ' on ' + chain + ' and keep the policy.';
-    return 'Deposit $' + cap.toLocaleString('en-US') + ' of USDC into ' + n + ' on ' + chain + ' and keep the position open.';
-  }
-  function farmPlan(r) {
-    var cap = capital(r.tvl), chain = r.chains[0] || 'its main chain';
-    var hold = r.age === null ? 30 : r.age < 180 ? 60 : r.age < 365 ? 45 : 30;
-    var gas = cap >= 2000 ? 12 : 6;
-    return [
-      ['Use a fresh wallet that holds only the funds you plan to farm, and keep its seed phrase offline.', 'under $3 of gas for the first transaction', '5 minutes'],
-      [action(r, cap, chain), '$' + cap.toLocaleString('en-US') + ' of capital and about $' + gas + ' of gas', '15 minutes to set up'],
-      ['Make one qualifying action each week, such as a deposit, a borrow, a swap or a vote.', 'about $2 of gas a week', '10 minutes a week'],
-      ['Hold the position for at least ' + hold + ' days so the activity is counted in more than one snapshot.', 'the $' + cap.toLocaleString('en-US') + ' stays in the position', hold + ' days'],
-      ['Before you withdraw, open the protocol\'s own points or rewards page and claim only from the link it publishes.', 'no fee to check, and never pay to claim', '10 minutes'],
-      ['Write the wallet, the dates and every transaction in a farm log so you can repeat the position or unwind it.', 'nothing but the log', '5 minutes'],
-    ];
-  }
-  function openDetail(slug) {
-    var r = rows.find(function (x) { return x.slug === slug; });
-    if (!r) return;
-    var xs = features(r);
-    var parts = xs.map(function (x, i) {
-      return '<tr><td>' + esc(D.model.features[i]) + '</td><td class="num">' + x.toFixed(3) + '</td><td class="num">' + beta[i].toFixed(4) + '</td><td class="num">' + (beta[i] * x).toFixed(3) + '</td></tr>';
-    }).join('');
-    var plan = farmPlan(r).map(function (s, i) {
-      return '<li><b>Step ' + (i + 1) + '.</b> ' + esc(s[0]) + ' <small>Cost: ' + esc(s[1]) + '. Time: ' + esc(s[2]) + '.</small></li>';
-    }).join('');
-    $('dlgBody').innerHTML =
-      '<h3>#' + r.rank + ' ' + esc(r.name) + '</h3>' +
-      '<dl class="kv"><dt>Implied value</dt><dd><b>' + money(r.implied) + '</b></dd>' +
-      '<dt>TVL</dt><dd>' + money(r.tvl) + '</dd><dt>7d change</dt><dd>' + pct(r.ch) + '</dd>' +
-      '<dt>Category</dt><dd>' + esc(r.cat || '—') + '</dd><dt>Chains</dt><dd>' + esc(r.chains.join(', ')) + '</dd>' +
-      '<dt>Age</dt><dd>' + (r.age === null ? 'unknown' : r.age + ' days') + '</dd>' +
-      '<dt>Fitted multiple</dt><dd>' + Math.exp(r.logMult).toFixed(3) + 'x (clamped to [0.02, 1.5])</dd></dl>' +
-      '<h4>How the multiple is built</h4>' +
-      '<table><thead><tr><th>Feature</th><th class="num">Value</th><th class="num">Coef</th><th class="num">Contribution</th></tr></thead><tbody>' + parts + '</tbody></table>' +
-      '<p class="note">Contributions sum to log(multiple) = ' + r.logMult.toFixed(3) + '; implied = TVL &times; ' + Math.exp(r.logMult).toFixed(3) + '.</p>' +
-      '<h4>Farm plan &mdash; deposit $' + capital(r.tvl).toLocaleString('en-US') + ', setup about $45 + 60 minutes</h4><ol>' + plan + '</ol>';
-    var dlg = $('dlg');
-    if (!dlg.open) dlg.showModal();
-    dlg.scrollTop = 0;
-  }
-  $('board').addEventListener('click', function (e) {
-    var tr = e.target.closest('tr[data-slug]');
-    if (tr) openDetail(tr.getAttribute('data-slug'));
+  // ---- filter controls -----------------------------------------------------
+  var catSel = $('fcat');
+  Object.keys(cats).sort().forEach(function (c) {
+    var o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o);
   });
-  $('dlgClose').addEventListener('click', function () { $('dlg').close(); });
+  var chainSel = $('fchain');
+  var chains = {};
+  D.rows.forEach(function (r) { r.chains.forEach(function (c) { chains[c] = 1; }); });
+  Object.keys(chains).sort().forEach(function (c) {
+    var o = document.createElement('option'); o.value = c; o.textContent = c; chainSel.appendChild(o);
+  });
 
-  // ---- deep links: #p=<slug> opens the detail, #category=<name> filters ----
-  function hash() {
-    var h = new URLSearchParams(location.hash.slice(1));
-    if (h.get('p')) openDetail(h.get('p'));
-    if (h.get('category')) { $('cat').value = h.get('category'); render(); }
+  // ---- board + comparables -------------------------------------------------
+  var tab = 'pre';
+  var thead = document.querySelector('#board thead tr');
+
+  function boardRows() {
+    var q = $('q').value.trim().toLowerCase();
+    var cat = catSel.value, chain = chainSel.value, minTvl = +$('ftvl').value;
+    var sort = $('sort').value;
+    var rows = D.rows.filter(function (r) {
+      if (q && r.name.toLowerCase().indexOf(q) < 0 && r.slug.indexOf(q) < 0) return false;
+      if (cat && r.category !== cat) return false;
+      if (chain && r.chains.indexOf(chain) < 0) return false;
+      if (r.tvl < minTvl) return false;
+      return true;
+    });
+    var by = {
+      implied: function (a, b) { return b.implied - a.implied; },
+      tvl: function (a, b) { return b.tvl - a.tvl; },
+      growth: function (a, b) { return (b.ch7d || 0) - (a.ch7d || 0); },
+      age: function (a, b) { return b.age - a.age; },
+      name: function (a, b) { return a.name < b.name ? -1 : 1; },
+    }[sort] || function (a, b) { return b.implied - a.implied; };
+    return rows.slice().sort(by);
   }
-  window.addEventListener('hashchange', hash);
-  hash();
+
+  function liveRows() {
+    var q = $('q').value.trim().toLowerCase();
+    return D.live.filter(function (r) {
+      return !q || r.name.toLowerCase().indexOf(q) >= 0 || r.slug.indexOf(q) >= 0;
+    });
+  }
+
+  function render() {
+    var rows, html = '';
+    if (tab === 'pre') {
+      thead.innerHTML = '<th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>' +
+        '<th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>' +
+        '<th class="num">Multiple</th><th class="num">Implied value</th>';
+      rows = boardRows();
+      $('count').textContent = rows.length + ' of ' + D.rows.length + ' pre-token protocols shown. ' +
+        'Every row records no token in the snapshot; the watchlist floor is $50M, the board reaches down to $10M of TVL.';
+      rows.forEach(function (r) {
+        html += '<tr data-slug="' + esc(r.slug) + '" data-open="' + esc(r.slug) + '"><td>' + r.rank + '</td><td><b>' + esc(r.name) +
+          '</b><br><span class="pill">' + esc(r.slug) + '</span></td><td>' + esc(r.category) +
+          '</td><td>' + esc(r.chains.slice(0, 2).join(', ')) + '</td>' +
+          '<td class="num">' + money(r.tvl) + '</td><td class="num">' + pct(r.ch7d) + '</td>' +
+          '<td class="num">' + r.age + 'd</td><td class="num">×' + r.multiple.toFixed(2) + '</td>' +
+          '<td class="num"><span class="val">' + money(r.implied) + '</span></td></tr>';
+      });
+    } else {
+      thead.innerHTML = '<th>#</th><th>Protocol</th><th>Category</th><th>Chains</th>' +
+        '<th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>' +
+        '<th class="num">Multiple</th><th class="num">Market cap</th>';
+      rows = liveRows();
+      $('count').textContent = rows.length + ' of ' + D.live.length + ' live-token protocols: the ' +
+        'comparables the model is fitted on. Their multiple is market cap / TVL, the target the Huber fit learns.';
+      rows.forEach(function (r, i) {
+        html += '<tr><td>' + (i + 1) + '</td><td><b>' + esc(r.name) +
+          '</b><br><span class="pill">' + esc(r.slug) + '</span></td><td>' + esc(r.category) +
+          '</td><td>' + esc(r.chains.slice(0, 2).join(', ')) + '</td>' +
+          '<td class="num">' + money(r.tvl) + '</td><td class="num">' + pct(r.ch7d) + '</td>' +
+          '<td class="num">' + r.age + 'd</td><td class="num">×' + r.multiple.toFixed(2) + '</td>' +
+          '<td class="num"><span class="val">' + money(r.mcap) + '</span></td></tr>';
+      });
+    }
+    $('rows').innerHTML = html || '<tr><td colspan="9">No protocols match the filters.</td></tr>';
+  }
+
+  ['q', 'fcat', 'fchain', 'ftvl', 'sort'].forEach(function (id) {
+    $(id).addEventListener('input', render);
+    $(id).addEventListener('change', render);
+  });
+  function setTab(t) {
+    tab = t;
+    $('tab-pre').setAttribute('aria-selected', t === 'pre' ? 'true' : 'false');
+    $('tab-live').setAttribute('aria-selected', t === 'live' ? 'true' : 'false');
+    render();
+  }
+  $('tab-pre').addEventListener('click', function () { setTab('pre'); });
+  $('tab-live').addEventListener('click', function () { setTab('live'); });
+
+  // ---- detail dialog -------------------------------------------------------
+  var dlg = $('detail');
+  function openDetail(slug) {
+    var r = null;
+    for (var i = 0; i < D.rows.length; i++) if (D.rows[i].slug === slug) { r = D.rows[i]; break; }
+    if (!r) return;
+    var logTvl = Math.log(Math.max(1, r.tvl));
+    var ch = r.ch7d === null ? 0 : Math.max(-15, Math.min(15, r.ch7d)) / 100;
+    var modelLine = 'log TVL ' + logTvl.toFixed(2) + ' · 7d change ' + (ch * 100).toFixed(1) +
+      '% (winsorised) · age ' + r.age + ' days · ' + r.chains.length + ' chain' +
+      (r.chains.length === 1 ? '' : 's') + ' → predicted multiple ×' + r.multiple.toFixed(2) +
+      ' (clamped to [0.02, 1.5]) → implied ' + money(r.implied) + '.';
+    $('dbody').innerHTML =
+      '<h2 id="dtitle">#' + r.rank + ' ' + esc(r.name) + '</h2>' +
+      '<dl><dt>Category</dt><dd>' + esc(r.category) + '</dd>' +
+      '<dt>Chains</dt><dd>' + esc(r.chains.join(', ')) + '</dd>' +
+      '<dt>TVL</dt><dd>' + money(r.tvl) + '</dd>' +
+      '<dt>7-day change</dt><dd>' + pct(r.ch7d) + '</dd>' +
+      '<dt>Age</dt><dd>' + r.age + ' days tracked</dd>' +
+      '<dt>Token</dt><dd>None recorded in the snapshot</dd>' +
+      '<dt>Implied value</dt><dd><b>' + money(r.implied) + '</b> (multiple ×' + r.multiple.toFixed(2) + ')</dd></dl>' +
+      '<h3>How to farm it — six steps</h3><ol>' +
+      r.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
+      '<div class="modelbox"><b>How the model reads this protocol.</b> ' + esc(modelLine) +
+      ' Coefficients and leave-one-out validation are in the methodology section below; ' +
+      'the LOO median |log err| is ' + D.model.looMedian.toFixed(3) + ' over ' + D.model.liveN +
+      ' live-token protocols, against ' + D.model.baselineMedian.toFixed(3) +
+      ' for a median-multiple baseline.</div>';
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-open]');
+    if (t) { openDetail(t.getAttribute('data-open')); return; }
+    var li = e.target.closest('.spot li');
+    if (li) openDetail(li.getAttribute('data-slug'));
+  });
+
+  // ---- model coefficients + validation -------------------------------------
+  $('coefrows').innerHTML = D.model.features.map(function (f, i) {
+    return '<tr><td>' + esc(f) + '</td><td class="num">' +
+      (i === 0 ? '—' : D.model.centers[i - 1].toFixed(4)) + '</td>' +
+      '<td class="num">' + D.model.coefficients[i].toFixed(4) + '</td></tr>';
+  }).join('');
+  $('loo').innerHTML = '<b>Leave-one-out validation.</b> Refit the Huber model without each of the ' +
+    D.model.liveN + ' live-token protocols in turn and predict the held-out one: median absolute ' +
+    'log error <b>' + D.model.looMedian.toFixed(3) + '</b>, mean ' + D.model.looMean.toFixed(3) +
+    '. A median-multiple baseline scores ' + D.model.baselineMedian.toFixed(3) +
+    ' on the same folds, so the nine features earn their keep. The median live multiple is ×' +
+    D.model.medianLiveMultiple.toFixed(2) + '.';
+
+  // ---- hash deep-links (used by the screenshots) ----------------------------
+  function applyHash() {
+    var h = window.location.hash || '';
+    var m = h.match(/[#&]p=([^&]+)/);
+    if (m) { openDetail(decodeURIComponent(m[1])); return; }
+    var c = h.match(/[#&]category=([^&]+)/);
+    if (c) {
+      var name = decodeURIComponent(c[1]).replace(/\+/g, ' ');
+      for (var i = 0; i < catSel.options.length; i++) {
+        if (catSel.options[i].value === name) { catSel.value = name; break; }
+      }
+      render();
+    }
+  }
+
+  render();
+  applyHash();
 })();

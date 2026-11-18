@@ -1,56 +1,53 @@
-# Token Launch Radar — radar-4
+# radar-4 — summary
 
-A radar for the 194 pre-token protocols in the snapshot that matter most: the
-40 on the house watchlist, plus the 154 largest pre-token protocols below the
-$50M floor. Every protocol is ranked by implied value — what its token would
-be worth if it launched today at the multiple the market already pays for
-live tokens like it.
+## What this board is
 
-## The model
+A token launch radar over a frozen DefiLlama snapshot (758 protocols at or
+above $5M of TVL, as of 2026-11-14). It ranks the protocols that record no
+token yet by an implied value — what a token would be worth if the
+protocol's record stayed as it is — and gives every ranked protocol a
+six-step farm plan with costs and times. The board holds 134 rows: the
+whole 40-protocol watchlist, plus 94 early protocols below the $50M floor
+down to $10M of TVL. A protocol at or above the floor that the watchlist
+leaves out is a child product of another protocol, not a launch of its own,
+so it is not ranked. "Pre-token" means the snapshot records no token;
+DefiLlama's record is not proof a protocol has none.
 
-Implied value = TVL x fitted multiple. The multiple is fitted, not assumed:
-log(market cap / TVL) is regressed on log TVL, the 7-day TVL change
-(winsorized to +/-15%), age, log chain count, and three interactions, over the
-128 live-token protocols in this snapshot — fitted by Huber regression
-(delta 1.345), which down-weights the few live tokens trading at 20-400x TVL
-instead of letting them drag the fit. log TVL, change and age enter centered
-at their live-set means. The fitted multiple is clamped to [0.02, 1.5].
+## How the value is worked out
 
-Validation is leave-one-out over the same 128 live protocols, computed when
-the program runs, with the same clamp: median |log error| **1.198** (mean
-1.642), against **1.623** (mean 1.807) for the median-ratio heuristic — the
-fit is about 26% more accurate than the naive multiple at the median. A
-typical prediction is still off by a factor of about e^1.2 ≈ 3.3x; the board
-is a ranking under uncertainty, not a price forecast, and no protocol is
-guaranteed to issue a token at all.
+A robust Huber regression (delta 1.345, IRLS, scale s = 1.4826 x median
+absolute residual) for log(market cap / TVL), fitted at run time on the 128
+protocols in the snapshot that record a token with a market cap above zero.
+Nine features, each centred on the live set's mean: log TVL, seven-day TVL
+change winsorised to +/-15%, age in days, log chain count, and the
+interactions ch7d squared, ch7d x logTVL, ch7d x age and logTVL x age. The
+predicted multiple is exp(prediction), clamped to [0.02, 1.5]; implied
+value is TVL times that multiple. Nothing is a hardcoded list of names:
+rerun the program and every coefficient is refitted from the same figures.
+
+Leave-one-out validation — refit without each live protocol in turn and
+predict the held-out one — gives a median absolute log error of 1.202
+(mean 1.648), against 1.623 for a median-multiple baseline, so the nine
+features earn their keep. The median live multiple is x0.21. The board's
+median implied value is $7.28M.
 
 ## Top 10
 
-1. Steakhouse Financial — $154,375,860 (Risk Curators, $2.75B TVL)
-2. Gauntlet — $151,348,738 (Risk Curators, $1.58B TVL)
-3. Upshift — $87,546,033 (Onchain Capital Allocator, $499M TVL)
-4. USDD — $84,283,879 (CDP, $1.06B TVL)
-5. Veda — $82,170,155 (Onchain Capital Allocator, $1.56B TVL)
-6. Lofty — $52,821,507 (RWA, $101M TVL, multiple 0.52x)
-7. Nonce Capital — $40,313,355 (Risk Curators, $514M TVL)
-8. OpenTrade — $34,566,455 (RWA, $242M TVL)
-9. OnRe — $32,587,675 (RWA, $309M TVL)
-10. Plume Vaults — $31,586,779 (RWA, $212M TVL)
+Steakhouse Financial leads the board at $154.7M of implied value, a Risk
+Curators vault operator across eleven chains with $2.75B of TVL; Gauntlet
+follows at $152.0M, the same trade at $1.58B of TVL. Upshift is third at
+$87.9M and Veda fifth at $82.2M, both onchain capital allocators, split by
+USDD at $84.3M, the CDP stablecoin. Lofty, a real-world-asset platform, is
+sixth at $52.7M. Nonce Capital ($40.3M), OpenTrade ($34.5M), OnRe
+($32.5M) and Plume Vaults ($31.5M) complete the top ten. The top two are
+both risk-curators: the market already pays real multiples for curated
+vault businesses, and these two are the largest pre-token examples of it.
 
-Median implied value across the 194 rows is $6,457,976. Risk curators and
-capital allocators dominate the top: the market pays the highest multiples
-for protocols that allocate other people's capital. RWA vaults punch above
-their TVL on multiples near 0.1-0.5x.
+## How to farm it
 
-## How to use it
-
-Open a protocol's row for its model breakdown — the nine fitted
-contributions that build its multiple — and a six-step farm plan with a sized
-deposit ($500-$5,000 by TVL), cost and time. Filter by category, chain, or
-minimum TVL; sort by implied value, TVL, multiple, 7-day change, or age.
-The Live tab shows the 30 largest live-token protocols the model learned
-from, with their actual market caps and mcap/TVL ratios.
-
-Data: DefiLlama protocols snapshot, as of 2026-11-14. A protocol is listed
-as pre-token because its record carries no token — that is what the record
-says, not proof it has none.
+Every protocol carries six steps: fund a fresh wallet (about $45 of setup
+plus 60 minutes), deposit a sized amount ($5,000 at $50M of implied value
+and up, $2,000 at $20M, $1,000 at $5M, $500 below that), return weekly,
+work the points tasks, hold at least 30 days, and claim promptly when a
+snapshot lands. The plan is a routine, not a promise: a launch may never
+come, and the implied value is a what-if, not a price.

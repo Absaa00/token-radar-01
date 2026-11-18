@@ -1,1 +1,5840 @@
-window.RADAR={"as_of":"2026-11-14","source":"DefiLlama https://api.llama.fi/protocols, fetched 2026-11-14T01:18:33.201Z","floor_usd":50000000,"model_version":"radar-4","model":{"features":["const","logTVL_c","ch7d_c","age_c","logChains","ch7d_c^2","ch7d_c*logTVL_c","ch7d_c*age_c","logTVL_c*age_c"],"beta":[-1.3776,-0.4259,0.0558,0.0258,-0.0057,1.2436,2.3673,4.7176,0.034],"centers":{"logTVL":17.7095,"ch7d":-0.0832,"age_years":2.3016},"winsor_pct":15,"mult_min":0.02,"mult_max":1.5,"huber_delta":1.345},"validation":{"n_live":128,"loo_median_abs_log_err":1.1982,"loo_mean_abs_log_err":1.6415,"heuristic_median_abs_log_err":1.6233,"heuristic_mean_abs_log_err":1.807},"watchlist_size":40,"board_size":194,"early_size":154,"live_size":30,"rows":[[1,"steakhouse-financial","Steakhouse Financial","Risk Curators",["Base","Ethereum","Robinhood Chain","Arbitrum","Solana","Monad","Arc","Katana","Polygon","Unichain","Corn"],2753981495,-2.1935,543,154375860,-2.8814],[2,"gauntlet","Gauntlet","Risk Curators",["Base","Binance","Ethereum","Arbitrum","Stable","Morph","Solana","Hyperliquid L1","Polygon","Optimism","Unichain","Katana","Arc","Tempo"],1577685462,5.645,543,151348738,-2.3441],[3,"upshift","Upshift","Onchain Capital Allocator",["Ethereum","Stellar","Flare","Monad","Hyperliquid L1","Avalanche","Solana","Fluent","Base","Citrea","Sui","Plasma","Binance","Mezo","Ink"],499083733,8.3117,710,87546033,-1.7406],[4,"usdd","USDD","CDP",["Tron","Ethereum","Binance"],1055793606,-2.8062,611,84283879,-2.5279],[5,"veda","Veda","Onchain Capital Allocator",["Ink","Ethereum","Optimism","Monad","Plasma","Hyperliquid L1","Arbitrum","Base","Berachain","Sonic","Binance","BOB","Scroll"],1563415482,-8.2898,632,82170155,-2.9458],[6,"lofty","Lofty","RWA",["Algorand"],101135900,0.025,1563,52821507,-0.6495],[7,"nonce-capital","Nonce Capital","Risk Curators",["Ethereum","Optimism"],513783671,-9.7377,45,40313355,-2.5451],[8,"opentrade","OpenTrade","RWA",["Avalanche","Ethereum","Plume Mainnet"],241501527,-1.642,708,34566455,-1.944],[9,"onre","OnRe","RWA",["Solana"],308882355,0.1082,488,32587675,-2.249],[10,"plume-vaults","Plume Vaults","RWA",["Ethereum","Plume Mainnet","Solana","Binance","Avalanche"],211537977,-3.081,749,31586779,-1.9017],[11,"bittensor-dtao","Bittensor dTAO","Dexs",["Bittensor"],376026255,-6.5592,56,29629426,-2.5409],[12,"lightning-network","Lightning Network","Payments",["Bitcoin"],217862346,-10.1445,null,27640656,-2.0646],[13,"symbiotic","Symbiotic","Collateral Markets",["Ethereum"],253923299,-12.0318,886,27202103,-2.2337],[14,"hyperithm","Hyperithm","Risk Curators",["Monad","Ethereum","Arbitrum","Plasma","Solana","Hyperliquid L1","Katana","Stable","XRPL EVM","Binance"],221638535,-4.375,543,27093432,-2.1018],[15,"k3-capital","K3 Capital","Risk Curators",["Monad","Ethereum","Optimism","Hyperliquid L1","Plasma","Arbitrum","Binance","Unichain","Avalanche"],207711162,-8.9024,543,26395893,-2.0629],[16,"hive-protocol","Hive Protocol","Chain",["BSquared"],198776765,-10.181,925,25884160,-2.0386],[17,"rockawayx","RockawayX","Risk Curators",["Ethereum","Solana","Pharos","Monad","Sei","Base","Binance","Citrea","Etherlink","Plume Mainnet"],292506628,-2.5459,233,24100966,-2.4962],[18,"lagoon","Lagoon","Onchain Capital Allocator",["Ethereum","Arbitrum","Base","Binance","Avalanche","Plasma","Hyperliquid L1","TAC","Hemi","Linea","Rayls","Monad","Robinhood Chain","Optimism","Katana","Sonic","Mantle","Arc","Berachain","Flare","Polygon","Unichain","World Chain"],151263522,-3.2955,691,23601950,-1.8577],[19,"clearstar","Clearstar","Risk Curators",["Flare","Base","Ethereum","Monad","Hyperliquid L1","Starknet","Katana","Arbitrum","Hemi","Unichain","Polygon"],161773491,-10.0936,543,23352660,-1.9355],[20,"b14g","b14g","Restaking",["Bitcoin","CORE","Babylon Genesis"],173941404,-28.5327,694,23027768,-2.022],[21,"flux-finance","Flux Finance","Lending",["Ethereum"],43614505,-0.0568,1368,20772769,-0.7417],[22,"flowdesk","Flowdesk","Risk Curators",["Ethereum"],28044836,-27.6485,73,18781862,-0.4009],[23,"doppler-finance","Doppler Finance","CeDeFi",["Ripple","Ethereum"],93316487,-14.4873,638,18601989,-1.6127],[24,"firelight","Firelight","Insurance",["Flare"],51272081,-14.4069,340,18029659,-1.0451],[25,"mezo-earn","Mezo Earn","Governance Incentives",["Mezo"],53638061,-12.2175,186,17051907,-1.146],[26,"stkesol-by-sol-strategies","STKESOL by SOL Strategies","Liquid Staking",["Solana"],42064631,-13.9356,294,16680945,-0.9249],[27,"ink-bridge","Ink Bridge","Canonical Bridge",["Ethereum"],44348098,-14.0784,null,16395034,-0.9951],[28,"tydro","Tydro","Lending",["Ink"],111314194,-4.8885,394,16323500,-1.9198],[29,"definity-staked-sol","Definity Staked SOL","Liquid Staking",["Solana"],24453416,-13.965,45,16203221,-0.4116],[30,"r25","R25","RWA",["Pharos","Sui"],198206607,0.2987,199,15949504,-2.5199],[31,"ember","Ember","RWA",["Ethereum","Sui","Base","Pharos","Monad","Arbitrum"],90012351,-5.9593,423,15023387,-1.7903],[32,"reti-pooling","Reti Pooling","Staking Pool",["Algorand"],65254391,-10.6865,659,14891250,-1.4775],[33,"circle-bitcoin","Circle Bitcoin","Bridge",["Bitcoin"],17202268,-16.9412,155,14753061,-0.1536],[34,"curvance","Curvance","Lending",["Monad"],136345059,0.6775,352,14682669,-2.2285],[35,"re7-labs","Re7 Labs","Risk Curators",["World Chain","Ethereum","Starknet","Avalanche","Optimism","Base","Plume Mainnet","Linea","Binance","Sonic","Unichain","TAC","BOB","Berachain","Arc","Polygon","Plasma"],46889655,-13.9104,543,14519469,-1.1723],[36,"saturn","Saturn","Stablecoin Wrapper",["Ethereum","Monad","Binance"],154313682,-0.7486,219,14383455,-2.3729],[37,"noble","Noble","Chain",["Noble"],83040073,-5.2314,null,13635670,-1.8066],[38,"hylo-protocol","Hylo Protocol","Dual-Token Stablecoin",["Solana"],29173196,-15.3091,473,13601200,-0.7631],[39,"yuzu-money","Yuzu Money","Yield",["Plasma","Monad","Ethereum"],57346091,-9.0455,365,13465538,-1.449],[40,"project-0","Project 0","Lending",["Solana"],48867055,-9.8516,325,13180892,-1.3103],[41,"vishwa","Vishwa","Anchor BTC",["Bitcoin","Sui"],45307916,-10.645,418,13066074,-1.2435],[42,"strato-cdp","STRATO CDP","CDP",["Strato"],12637917,-18.4478,183,12898342,0.0204],[43,"tulipa-capital","Tulipa Capital","Risk Curators",["Ethereum","Base","Berachain","Avalanche","BOB","Binance","Monad","TAC"],52404471,-9.3511,543,12891354,-1.4024],[44,"adrastea-validator","Adrastea Validator","Staking Pool",["Solana"],22106682,-16.7108,425,12753806,-0.5501],[45,"infinifi","infiniFi","Yield",["Ethereum","Monad","Base"],70716524,-3.2771,535,12656477,-1.7205],[46,"arrakis-modular","Arrakis Modular","Liquidity Manager",["Ethereum","Base","Arbitrum","Plasma","Robinhood Chain","Binance"],48488073,-9.91,752,12314465,-1.3705],[47,"ultrayield-curator","UltraYield Curator","Risk Curators",["Ethereum","Hyperliquid L1","Etherlink","Base","Monad","Plasma","Plume Mainnet","TAC","Linea","Arbitrum","Optimism"],40359035,-10.3636,386,12121355,-1.2028],[48,"rocksolid-network","RockSolid Network","Yield",["Ethereum"],18161180,-14.49,374,11863879,-0.4258],[49,"avant-aveth","Avant avETH","Onchain Capital Allocator",["Ethereum"],23890230,-12.9245,386,11584460,-0.7238],[50,"current","Current","Lending",["Sui"],49631964,-7.8161,228,11461036,-1.4657],[51,"hylo-lsts","Hylo LSTs","Liquid Staking",["Solana"],15528891,-15.1122,438,11032400,-0.3419],[52,"anemoy-capital","Anemoy Capital","RWA",["Ethereum","Base","Celo"],27927845,-72.7093,705,10927283,-0.9384],[53,"mantle-restaking","Mantle Restaking","Liquid Restaking",["Ethereum"],30980107,-13.6638,731,10836893,-1.0504],[54,"zircuit-staking","Zircuit Staking","Farm",["Ethereum","Zircuit"],44375067,-17.0525,985,10547555,-1.4368],[55,"raiku-staked-sol","Raiku Staked SOL","Liquid Staking",["Solana"],14028032,-11.9875,56,10101980,-0.3283],[56,"zoo-finance","Zoo Finance","Yield",["Binance","Story","Sei","Arbitrum","Base","Berachain"],24557589,-13.1939,642,10094326,-0.889],[57,"scroll-bridge","Scroll Bridge","Canonical Bridge",["Ethereum"],27186001,-10.0956,null,9999283,-1.0002],[58,"exponent-yield-exchange","Exponent Yield Exchange","Yield",["Solana"],45177163,-1.3185,649,9773096,-1.531],[59,"abstract","Abstract","Chain",["Ethereum"],9383801,-16.0928,null,9768814,0.0402],[60,"xrpl-dex","XRPL DEX","Dexs",["Ripple"],27708356,-12.4626,842,9418791,-1.079],[61,"bitget-sol","Bitget SOL","Liquid Staking",["Solana"],33224299,-5.9757,736,9366743,-1.2661],[62,"bitlayer-ybtc-family","Bitlayer YBTC Family","Anchor BTC",["Bitcoin","Ethereum"],27174703,-10.4927,723,9332325,-1.0688],[63,"valos","Valos","RWA",["Monad"],106328133,0.1453,113,9290099,-2.4376],[64,"origami-finance","Origami Finance","Leveraged Farming",["Ethereum","Plasma","Berachain"],28834258,-27.5934,915,9275242,-1.1342],[65,"vfat.io","vfat.io","Yield Aggregator",["Base","Ethereum","Hyperliquid L1","Robinhood Chain","Arbitrum","Monad","Binance","Optimism","Avalanche","Polygon","Arc","Unichain","Ink","Sonic","Hemi","Cronos","Elysium Kinetiq","Celo","Linea","Plasma","Katana","Berachain","World Chain","Mantle","Peaq","MegaETH","Pulse","Soneium","Fraxtal","Scroll","Mode","BOT Chain","Tempo","Telos","Etherlink","MetalL2","ZetaChain","Fantom","Lisk"],28071625,-11.1034,914,8895615,-1.1492],[66,"suibridge","SuiBridge","Canonical Bridge",["Ethereum"],26744091,-7.869,765,8634319,-1.1306],[67,"ultrayield-vaults","UltraYield Vaults","Onchain Capital Allocator",["Ethereum"],18404824,-10.6883,389,8623356,-0.7581],[68,"manta-cedefi","Manta CeDeFi","Basis Trading",["Manta"],26526263,-0.6679,905,8396462,-1.1503],[69,"chiliz-governance-staking","Chiliz Governance Staking","Chain",["Chiliz"],25528101,-7.028,872,8391946,-1.1125],[70,"starknet-btc-staking","Starknet BTC Staking","Staking Pool",["Starknet"],46615368,-4.3421,222,8390092,-1.7149],[71,"polygon-zkevm-bridge","Polygon zkEVM Bridge","Canonical Bridge",["Ethereum"],40060788,-4.4938,null,8375179,-1.5651],[72,"pulsechain-bridge","PulseChain Bridge","Canonical Bridge",["Ethereum"],41070024,-4.2306,null,8363218,-1.5914],[73,"stakee","Stakee","Liquid Staking",["TON"],22926580,-5.0777,1054,8275601,-1.019],[74,"apex-omni","Apex Omni","Derivatives",["Arbitrum","Ethereum","Base","Binance","Mantle"],26834758,-1.262,870,8142921,-1.1925],[75,"ring-few","Ring Few","Bridge",["Ethereum","Hyperliquid L1","Binance","Base","Arbitrum","Blast"],24615549,-28.9758,987,8124045,-1.1086],[76,"felix-cdp","Felix CDP","CDP",["Hyperliquid L1"],18895180,-10.387,585,8058716,-0.8522],[77,"noon","Noon","Yield",["Ethereum","Sophon","zkSync Era","TAC"],38329220,1.1384,649,8039641,-1.5618],[78,"crypto.com-liquid-staking","Crypto.com Liquid Staking","Liquid Staking",["Cronos","Solana"],23614593,-12.5758,996,8007348,-1.0815],[79,"set-protocol","Set Protocol","Indexes",["Ethereum"],10110428,-12.6978,null,7984870,-0.236],[80,"keyrock","Keyrock","Risk Curators",["Arc","Ethereum"],83070632,-0.5971,73,7880715,-2.3553],[81,"mystic-finance-lending","Mystic Finance Lending","Lending",["Flare","Citrea","Plume Mainnet"],30236632,-4.6056,584,7871511,-1.3458],[82,"syntetika","Syntetika","Risk Curators",["Base"],14612979,-9.956,87,7825881,-0.6245],[83,"lulo","Lulo","Yield Aggregator",["Solana"],24457058,-4.7863,819,7779895,-1.1454],[84,"obeliskbtc","ObeliskBTC","Bridge",["Bitcoin"],23654248,-6.3782,768,7741449,-1.117],[85,"mellow-restaking","Mellow Restaking","Liquid Restaking",["Ethereum","Binance","Fraxtal","Lisk","Monad"],19109266,-12.4843,886,7634545,-0.9175],[86,"marginfi-lending","marginfi Lending","Lending",["Solana"],27713022,-11.9875,1361,7385264,-1.3224],[87,"d2-finance","D2 Finance","Onchain Capital Allocator",["Hyperliquid L1","Arbitrum","Base","Ethereum","Robinhood Chain","Berachain","Optimism"],22590871,-3.939,862,7360900,-1.1214],[88,"chain-fusion","Chain Fusion","Decentralized BTC",["Bitcoin","Ethereum"],20121715,-9.4223,1059,7309145,-1.0127],[89,"project-x","Project X","Dexs",["Hyperliquid L1"],34354598,-2.4436,486,7291994,-1.55],[90,"aegis-yusd","Aegis YUSD","Basis Trading",["Ethereum","Binance"],34465848,0.0465,583,7132128,-1.5754],[91,"templar-lending","Templar Lending","Lending",["Stellar","Ethereum","Bitcoin","Near","Zcash","Ripple","Solana","Flare","Doge","Cardano","Litecoin"],27210513,-5.153,459,7102173,-1.3432],[92,"native-credit-pool","Native Credit Pool","Lending",["Morph","Ethereum","Binance","Base","Arbitrum","Robinhood Chain","X Layer"],19086720,-7.0851,905,6995215,-1.0038],[93,"nodedao","NodeDAO","Liquid Staking",["Ethereum"],27596683,-14.3713,1276,6929652,-1.3819],[94,"armitage-by-wintermute","Armitage by Wintermute","Risk Curators",["Ethereum"],103480212,5.7711,178,6867321,-2.7126],[95,"agni-finance","Agni Finance","Dexs",["Mantle"],15126696,-4.0995,1212,6791496,-0.8008],[96,"rif-on-chain","RIF ON CHAIN","Dual-Token Stablecoin",["RSK"],16676100,-9.7195,1037,6619522,-0.924],[97,"neutral-trade","Neutral Trade","Onchain Capital Allocator",["Solana","Robinhood Chain","Ethereum","Monad"],21380669,-4.2692,691,6543719,-1.184],[98,"9summits","9Summits","Risk Curators",["Ethereum","Avalanche","Base","Unichain"],16040161,-7.948,543,6372233,-0.9231],[99,"morph-bridge","Morph Bridge","Bridge",["Ethereum"],12273756,-11.098,745,6362709,-0.657],[100,"tau-labs","TAU Labs","Risk Curators",["Ethereum","Base","Flow","Plasma"],10548591,-10.0236,332,6267189,-0.5207],[101,"exponent-strategy-vaults","Exponent Strategy Vaults","Onchain Capital Allocator",["Solana"],16952539,-7.5244,150,6261783,-0.996],[102,"wtao","wTAO","Bridge",["Bittensor"],25298588,-5.4179,151,6219775,-1.403],[103,"makina","Makina","Onchain Capital Allocator",["Ethereum","Base"],38711093,-0.066,374,6186850,-1.8337],[104,"sceptre-liquid","Sceptre Liquid","Liquid Staking",["Flare"],10334007,-15.0379,892,6178332,-0.5144],[105,"galaxy-curation","Galaxy Curation","Risk Curators",["Arc","Ethereum","Base"],129994276,11.2334,177,6020925,-3.0722],[106,"mev-capital","MEV Capital","Risk Curators",["Ethereum","Hyperliquid L1","Base","Sui","Avalanche","Arbitrum","Unichain","Sonic","Polygon","Plume","Berachain","Binance"],8320641,-11.6085,543,5899649,-0.3438],[107,"steer-protocol","Steer Protocol","Liquidity Manager",["Binance","Katana","Base","Flare","Ethereum","Bittensor EVM","Polygon","Manta","Nibiru","Robinhood Chain","Avalanche","Metis","Mode","Arbitrum","Linea","Hyperliquid L1","Sonic","Zircuit","Sei","Optimism","Celo","Scroll","RSK","Berachain","X Layer","Mantle","Telos","Fantom","Filecoin","Unichain","ApeChain","Taiko","zkLink","Evmos","ThunderCore","Kava","Polygon zkEVM","Astar","Blast","Moonbeam","ZetaChain","Hemi","Saga","Ronin","Soneium"],13740727,-7.725,1264,5802998,-0.862],[108,"xion-finance","XION Finance","Chain",["XION"],22019898,-3.5701,491,5801042,-1.3339],[109,"citrea-bridge","Citrea Bridge","Bridge",["Bitcoin","Ethereum"],7585063,-10.4947,285,5746247,-0.2776],[110,"gmx-solana","GMX Solana","Derivatives",["Solana"],22620052,-4.5855,295,5720457,-1.3748],[111,"hyperbeat-earn","Hyperbeat Earn","Yield Aggregator",["Hyperliquid L1"],17615173,-4.9692,565,5681273,-1.1316],[112,"hubra-staked-sol","Hubra Staked SOL","Liquid Staking",["Solana"],10603343,-10.0953,734,5651746,-0.6292],[113,"hyperbeat-lst","Hyperbeat LST","Liquid Staking",["Hyperliquid L1"],11146025,-8.7232,415,5637485,-0.6816],[114,"fstswap","FstSwap","Dexs",["Binance"],11751516,-7.0751,1516,5588970,-0.7432],[115,"axis","Axis","Basis Trading",["Ethereum"],70145354,2.3316,86,5552920,-2.5362],[116,"tzbtc","tzBTC","Bridge",["Bitcoin"],8205783,-10.5815,516,5528141,-0.395],[117,"bucket-cdp","Bucket CDP","CDP",["Sui"],12689880,-8.7832,1227,5526463,-0.8313],[118,"endur","Endur","Liquid Staking",["Starknet"],8170889,-11.9376,717,5524102,-0.3915],[119,"plasma-saving-vaults","Plasma Saving Vaults","Onchain Capital Allocator",["Plasma"],31744697,0.2368,414,5513271,-1.7506],[120,"tori-finance","Tori Finance","Basis Trading",["Ethereum"],77392441,4.6366,143,5467422,-2.6501],[121,"anthias-labs","Anthias Labs","Risk Curators",["Base"],7340723,-9.861,193,5425962,-0.3022],[122,"qearn","Qearn","Staking Pool",["Qubic"],10991952,-8.5249,604,5399972,-0.7108],[123,"subfrost","SUBFROST","Decentralized BTC",["Bitcoin","Ethereum"],7781298,-9.3921,108,5343379,-0.3759],[124,"plasma-one","Plasma One","Crypto Card Issuer",["Plasma"],31926318,0.202,null,5249078,-1.8054],[125,"sharpbyte-capital","SharpByte Capital","Risk Curators",["Monad","Ethereum","Fluent"],10649873,-8.0812,72,5233028,-0.7106],[126,"kava-mint","Kava Mint","CDP",["Kava"],10497149,-8.1034,null,5174859,-0.7073],[127,"wemix.fi-staking","WEMIX.FI Staking","Staking Pool",["WEMIX"],11332836,-8.8705,1291,5112349,-0.796],[128,"3f","3F","Leveraged Farming",["Ethereum"],40368186,-0.0399,173,5101046,-2.0686],[129,"block-analitica","Block Analitica","Risk Curators",["Base","Ethereum","Arbitrum","Sonic"],7739360,-10.154,543,5091570,-0.4187],[130,"agua","Agua","Onchain Capital Allocator",["Ethereum","Monad"],20194381,-4.984,103,5083785,-1.3793],[131,"vesu","Vesu","Lending",["Starknet"],8910633,-10.4678,855,5038162,-0.5702],[132,"echo-bridge","Echo Bridge","Bridge",["BSquared","Bitcoin"],8932407,-10.2485,829,5026583,-0.5749],[133,"felix-vaults","Felix Vaults","Onchain Capital Allocator",["Hyperliquid L1"],31906510,5.3279,535,5016081,-1.8502],[134,"katana-pre-launch","Katana Pre-Launch","Farm",["Ethereum"],17633413,-3.1255,510,4928179,-1.2748],[135,"y10k-capital","Y10K Capital","Risk Curators",["Ethereum","Monad","Sei"],28339301,-2.411,122,4770803,-1.7817],[136,"phoenix-perp","Phoenix Perp","Derivatives",["Solana"],22522562,-2.6199,231,4585985,-1.5915],[137,"sygnum-fiusd-liquidity-fund","Sygnum FIUSD Liquidity Fund","RWA",["zkSync Era"],14194453,0.0759,780,4517352,-1.1449],[138,"stellar-dex","Stellar DEX","Dexs",["Stellar"],13370320,-4.1027,528,4435017,-1.1035],[139,"estate-protocol","Estate Protocol","RWA",["Arbitrum"],13945568,null,766,4404354,-1.1526],[140,"strata-markets","Strata Markets","Yield",["Ethereum"],14899908,-3.9707,394,4395522,-1.2208],[141,"decibel","Decibel","Derivatives",["Aptos"],29253135,0.2216,261,4373165,-1.9005],[142,"risex","RISEx","Derivatives",["RISE"],21553525,-2.5101,192,4283104,-1.6159],[143,"bima-cdp","BIMA CDP","CDP",["Bitcoin","Ethereum","Hemi","CORE","Sonic","Plume Mainnet","Binance","Goat"],9657334,-6.4116,535,4254883,-0.8197],[144,"byreal","Byreal","Dexs",["Solana"],8878040,-6.9178,502,4250405,-0.7366],[145,"catfee-staking-vault","CatFee Staking Vault","Staking Pool",["Tron"],16393978,-1.9617,429,4074683,-1.3921],[146,"binaryx-platform","Binaryx Platform","RWA",["Polygon"],8993770,0.0032,1017,4036622,-0.8011],[147,"bisonfi","BisonFi","Dexs",["Solana"],20001683,-3.095,80,4023181,-1.6037],[148,"goose","Goose","CeDeFi",["Binance","Op_Bnb","Arbitrum","Ethereum"],12798539,0.0103,730,3942966,-1.1774],[149,"yieldfi","YieldFi","Yield Aggregator",["Ethereum","Base","Arbitrum","Plume Mainnet","Sonic","Binance","Optimism","Plasma","Katana","TAC","Saga","Avalanche","Linea"],10760030,-3.4931,677,3942956,-1.0039],[150,"syncswap","SyncSwap","Dexs",["zkSync Era","Linea","Scroll","Sophon"],7266961,-8.4085,1328,3887140,-0.6257],[151,"defindex","DeFindex","Yield Aggregator",["Stellar"],18508985,-1.637,276,3799670,-1.5833],[152,"wrapped","Wrapped","Bridge",["Ripple","Celo","Ethereum"],18094141,-14.2432,1796,3762752,-1.5704],[153,"reya-perps","Reya Perps","Derivatives",["Reya Network"],9800082,-1.3282,823,3743845,-0.9623],[154,"perena-vaults","Perena Vaults","Onchain Capital Allocator",["Solana"],17232534,-1.1868,318,3600179,-1.5658],[155,"bend","BEND","Lending",["Berachain"],9018862,-4.9551,388,3504805,-0.9452],[156,"gami-labs","Gami Labs","Risk Curators",["Stellar","Ethereum","Base","Flare","Avalanche","Robinhood Chain","Hemi"],63109489,9.0271,169,3426525,-2.9133],[157,"exinpool","ExinPool","Liquid Staking",["Mixin"],7489041,-11.5095,1545,3367327,-0.7993],[158,"growihf","GrowiHF","Yield",["Hyperliquid L1","Hibachi"],12818453,0.9833,614,3325813,-1.3492],[159,"hakutora","Hakutora","Risk Curators",["Ethereum"],16194180,2.6714,543,3318120,-1.5853],[160,"katana-dex","Katana DEX","Dexs",["Ronin"],7469630,-10.0969,1833,3261341,-0.8287],[161,"antarctic","Antarctic","Derivatives",["Arbitrum"],8365056,-4.5952,359,3193953,-0.9628],[162,"tessera-v","Tessera V","Dexs",["Solana"],11128196,-3.7732,77,3040576,-1.2974],[163,"nemo-trading","NEMO Trading","Risk Curators",["Ethereum"],20088275,-0.7307,56,2987152,-1.9058],[164,"txflow-bridge","TxFlow Bridge","Bridge",["Arbitrum"],46958993,8.6584,207,2963665,-2.7628],[165,"syntropia","Syntropia","Yield Aggregator",["Ethereum"],13588961,-0.0228,395,2955864,-1.5255],[166,"snuggle","Snuggle","Liquidity Manager",["Robinhood Chain","Base","Arbitrum"],10681820,-2.7551,273,2922852,-1.296],[167,"stellar-amm","Stellar AMM","Dexs",["Stellar"],7656553,-4.4823,180,2784978,-1.0113],[168,"exponent-risk-tranching","Exponent Risk Tranching","Yield",["Solana"],13424399,-1.5552,122,2667778,-1.6158],[169,"paimon","Paimon","RWA",["Binance"],14099539,0.0075,270,2662394,-1.6669],[170,"predict-fun","Predict Fun","Prediction Market",["Binance","Blast"],10662527,9.4025,795,2569231,-1.4231],[171,"bouncebit-prime","BounceBit Prime","Basis Trading",["Binance","Ethereum"],11443356,0.0165,369,2521122,-1.5127],[172,"sx-rollup-bridge","SX Rollup Bridge","Canonical Bridge",["Ethereum"],13735209,1.5766,null,2506567,-1.701],[173,"tempo-stablecoin-dex","Tempo Stablecoin Dex","Dexs",["Tempo"],17043713,1.7778,226,2433859,-1.9463],[174,"drakewell","Drakewell","Basis Trading",["Arbitrum","Ethereum","Aleo"],28230939,3.2554,43,2352829,-2.4848],[175,"pangolins","Pangolins","Risk Curators",["Base","Binance"],8184353,-3.0776,71,2270671,-1.2821],[176,"liminal-basis","Liminal Basis","Basis Trading",["Hyperliquid L1"],25662087,21.2736,476,2148629,-2.4802],[177,"vena-finance","Vena Finance","Lending",["Fluent"],9223143,0.3217,178,1723990,-1.6771],[178,"valantis-sthype-restaking","Valantis stHYPE Restaking","Restaking",["Hyperliquid L1"],8193911,-1.3102,15,1703057,-1.571],[179,"waterline","Waterline","Risk Curators",["Ethereum"],22598710,5.0287,72,1700310,-2.5871],[180,"pacifica-bridge","Pacifica Bridge","Bridge",["Solana"],24557221,5.0591,32,1692197,-2.675],[181,"icarus-cl","Icarus CL","Dexs",["RISE"],8023861,-0.0588,85,1495384,-1.68],[182,"manifest-trade","Manifest Trade","Dexs",["Solana"],9084105,73.6522,731,1458007,-1.8295],[183,"bulk","BULK","Derivatives",["Solana"],7473241,0.4638,159,1427697,-1.6553],[184,"fira","Fira","Lending",["Ethereum"],19999009,11.6361,291,1255418,-2.7682],[185,"superearn","SuperEarn","Yield",["Klaytn"],9764948,5.3326,319,1245446,-2.0593],[186,"shift-defi","Shift DeFi","Yield",["Ethereum"],47599147,4448.4747,45,1117688,-3.7516],[187,"t3tris-finance","T3tris Finance","Onchain Capital Allocator",["Arbitrum","Robinhood Chain"],13863510,6.7145,142,1049850,-2.5806],[188,"3jane-lending","3Jane Lending","Uncollateralized Lending",["Ethereum"],14030807,26.3009,437,989579,-2.6517],[189,"theo-network-thbill","Theo Network thBill","RWA",["Stable","Ethereum","Arbitrum","Base","Monad","Solana"],11810283,94.0117,430,795435,-2.6978],[190,"august-digital","August Digital","Risk Curators",["Monad","Ethereum"],22373995,77.9812,73,547331,-3.7106],[191,"gamma-research","Gamma Research","Risk Curators",["Monad"],21709938,21.2903,72,530695,-3.7113],[192,"japan-staked-sol","Japan Staked SOL","Liquid Staking",["Solana"],19655590,20.3675,58,458214,-3.7588],[193,"nuva","NUVA","Yield",["Provenance","Ethereum"],15864571,160.8009,130,451347,-3.5596],[194,"communityv3","CommunityV3","Dexs",["Ethereum"],17407286,18.2229,26,366402,-3.8609]],"live":[["rain","Rain","Prediction Market",["Arbitrum"],6612528,2646363290,-36.6488],["aave-v2","Aave V2","Lending",["Ethereum","Polygon","Avalanche"],90919562,1723499485,-7.8689],["mantle-bridge","Mantle Bridge","Canonical Bridge",["Ethereum"],91611319,1332654362,-14.5449],["bitway-earn","Bitway Earn","Basis Trading",["Binance"],33419734,1208793873,-0.4055],["polygon-bridge","Polygon Bridge","Canonical Bridge",["Ethereum"],2561365424,901671433,-4.6646],["falcon-finance","Falcon Finance","Basis Trading",["Ethereum"],1557707205,318146200,-6.1005],["starknet-bridge","Starknet Bridge","Canonical Bridge",["Ethereum"],213051107,286418424,-10.4613],["lido","Lido","Liquid Staking",["Ethereum","Solana","Terra","Moonriver","Moonbeam"],18721539391,251037363,-13.9722],["flokifi-locker","FlokiFi Locker","Token Locker",["Binance","Ethereum","Base","Cronos","Arbitrum","Optimism","Avalanche","Fantom","Polygon","Kucoin","Op_Bnb","OKExChain","Evmos","Dogechain","Blast"],10045588,190621074,-10.5477],["thorchain-dex","THORChain DEX","Dexs",["Thorchain","Bitcoin","Ethereum","Binance","Bitcoincash","Ripple","Avalanche","Doge","Litecoin","Tron","Base","Cosmos","Solana"],56421343,179551766,-7.662],["cap","cap","Lending",["Ethereum"],159772077,166714858,-12.0202],["anvil","Anvil","Collateral Management",["Ethereum"],13125243,159606035,-8.6811],["eigencloud","EigenCloud","Restaking",["Ethereum"],4903633832,155971221,-14.3731],["convex-finance","Convex Finance","Yield",["Ethereum","Fraxtal","Arbitrum","Polygon"],461947766,148210942,-9.0571],["zama","Zama","Privacy",["Ethereum"],90279448,147586329,-17.4161],["railgun","Railgun","Privacy",["Ethereum","Arbitrum","Binance","Polygon"],107702928,104378062,0.4841],["reserve-protocol","Reserve Protocol","Indexes",["Ethereum","Base","Binance","Arbitrum"],43278603,89351713,-6.3309],["chutes","Chutes","Decentralized AI",["Bittensor"],40658464,83774453,-10.3038],["portal","Portal","Bridge",["Ethereum","Algorand","Binance","Solana","Polygon","Near","Avalanche","Sui","Base","Arbitrum","Optimism","Aptos","Celo","Klaytn","Terra","Oasis","Aurora","Fantom","Karura","Acala","Moonbeam","Terra2","Injective","XPLA"],1285806408,66593224,-5.8427],["usd-ai","USD AI","RWA",["Arbitrum"],157258085,63408224,-0.5488],["flying-tulip-lend","Flying Tulip Lend","Lending",["Ethereum","Sonic","Binance"],10077743,51699732,-9.7513],["babylon-protocol","Babylon Protocol","Restaking",["Bitcoin"],2790066912,48746633,-9.9953],["sushiswap","SushiSwap","Dexs",["Ethereum","Polygon","Arbitrum","Base","Boba","xDai","Binance","Celo","Arbitrum Nova","Avalanche","Fantom","Fuse","Scroll","Optimism","Katana","Linea","Filecoin","CORE","RSK","Hemi","Bittorrent","Europa","Telos","Arc","ZetaChain","Sonic","Metis","Kava","HAQQ","Palm","Moonriver","OKExChain","Harmony","Heco","Boba_Bnb","Blast","Moonbeam","Polygon zkEVM","ThunderCore"],31730814,48362138,-10.5038],["merlins-seal","Merlins Seal","Bridge",["Bitcoin","Ethereum","Arbitrum","Zkfair"],350240199,43782431,-10.5131],["astar-dapps-staking","Astar dApps Staking","Chain",["Astar"],14189397,42943403,-8.4416],["re","Re","RWA",["Ethereum","Base","Arbitrum","Avalanche"],487561390,39968695,0.581],["pumpbtc","PumpBTC","Bridge",["Bitcoin","Binance","Base","Ethereum","Arbitrum","Sei","Mantle","BOB"],23447007,37592530,-9.8582],["sdai","sDAI","Yield",["xDai"],37353080,37389910,-0.8074],["hydration-dex","Hydration DEX","Dexs",["HydraDX"],20870492,36596424,-12.4906],["api3","Api3","Risk Curators",["Ethereum","Base"],11776271,35031165,-11.1115]]};
+window.RADAR = {
+  "asOf": "2026-11-14",
+  "source": "DefiLlama https://api.llama.fi/protocols, fetched 2026-11-14T01:18:33.201Z",
+  "floorUsd": 50000000,
+  "counts": {
+    "board": 134,
+    "watchlist": 40,
+    "early": 94,
+    "live": 128
+  },
+  "model": {
+    "target": "log(mcap / TVL)",
+    "features": [
+      "const",
+      "logTVL",
+      "ch7d (winsorised +/-15%)",
+      "age (days)",
+      "logChains",
+      "ch7d^2",
+      "ch7d*logTVL",
+      "ch7d*age",
+      "logTVL*age"
+    ],
+    "delta": 1.345,
+    "coefficients": [
+      -1.457302,
+      -0.305527,
+      -52.616766,
+      -0.000486,
+      -0.004983,
+      1.417598,
+      2.372913,
+      0.012938,
+      0.000092
+    ],
+    "centers": [
+      17.70947,
+      -0.083234,
+      840.09375,
+      1.070954,
+      0.009907,
+      -1.480959,
+      -74.062813,
+      14815.686857
+    ],
+    "liveN": 128,
+    "looMedian": 1.202,
+    "looMean": 1.6479,
+    "baselineMedian": 1.6233,
+    "medianLiveMultiple": 0.2136
+  },
+  "medianImpliedUsd": 7278040.5,
+  "topImpliedUsd": 154659118,
+  "rows": [
+    {
+      "slug": "steakhouse-financial",
+      "name": "Steakhouse Financial",
+      "category": "Risk Curators",
+      "chains": [
+        "Base",
+        "Ethereum",
+        "Robinhood Chain",
+        "Arbitrum",
+        "Solana",
+        "Monad",
+        "Arc",
+        "Katana",
+        "Polygon",
+        "Unichain",
+        "Corn"
+      ],
+      "tvl": 2753981495,
+      "ch7d": -2.1935,
+      "age": 543,
+      "multiple": 0.0562,
+      "implied": 154659118,
+      "rank": 1,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open Steakhouse Financial on Base and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to deposit into its curated risk vault on Base; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Steakhouse Financial lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Steakhouse Financial's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "gauntlet",
+      "name": "Gauntlet",
+      "category": "Risk Curators",
+      "chains": [
+        "Base",
+        "Binance",
+        "Ethereum",
+        "Arbitrum",
+        "Stable",
+        "Morph",
+        "Solana",
+        "Hyperliquid L1",
+        "Polygon",
+        "Optimism",
+        "Unichain",
+        "Katana",
+        "Arc",
+        "Tempo"
+      ],
+      "tvl": 1577685462,
+      "ch7d": 5.645,
+      "age": 543,
+      "multiple": 0.0963,
+      "implied": 151980982,
+      "rank": 2,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open Gauntlet on Base and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to deposit into its curated risk vault on Base; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Gauntlet lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Gauntlet's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "upshift",
+      "name": "Upshift",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum",
+        "Stellar",
+        "Flare",
+        "Monad",
+        "Hyperliquid L1",
+        "Avalanche",
+        "Solana",
+        "Fluent",
+        "Base",
+        "Citrea",
+        "Sui",
+        "Plasma",
+        "Binance",
+        "Mezo",
+        "Ink"
+      ],
+      "tvl": 499083733,
+      "ch7d": 8.3117,
+      "age": 710,
+      "multiple": 0.1761,
+      "implied": 87894331,
+      "rank": 3,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open Upshift on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Upshift lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Upshift's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "usdd",
+      "name": "USDD",
+      "category": "CDP",
+      "chains": [
+        "Tron",
+        "Ethereum",
+        "Binance"
+      ],
+      "tvl": 1055793606,
+      "ch7d": -2.8062,
+      "age": 611,
+      "multiple": 0.0798,
+      "implied": 84271384,
+      "rank": 4,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open USDD on Tron and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to open a collateralised debt position on Tron; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cdp product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task USDD lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch USDD's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "veda",
+      "name": "Veda",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ink",
+        "Ethereum",
+        "Optimism",
+        "Monad",
+        "Plasma",
+        "Hyperliquid L1",
+        "Arbitrum",
+        "Base",
+        "Berachain",
+        "Sonic",
+        "Binance",
+        "BOB",
+        "Scroll"
+      ],
+      "tvl": 1563415482,
+      "ch7d": -8.2898,
+      "age": 632,
+      "multiple": 0.0526,
+      "implied": 82217928,
+      "rank": 5,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open Veda on Ink and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to use its core product on Ink; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Veda lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Veda's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "lofty",
+      "name": "Lofty",
+      "category": "RWA",
+      "chains": [
+        "Algorand"
+      ],
+      "tvl": 101135900,
+      "ch7d": 0.025,
+      "age": 1563,
+      "multiple": 0.5213,
+      "implied": 52722082,
+      "rank": 6,
+      "steps": [
+        "Fund a fresh wallet you control with $5,000 plus about $45 for gas and bridging, then open Lofty on Algorand and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $5,000 to use its core product on Algorand; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$5,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Lofty lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Lofty's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "nonce-capital",
+      "name": "Nonce Capital",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Optimism"
+      ],
+      "tvl": 513783671,
+      "ch7d": -9.7377,
+      "age": 45,
+      "multiple": 0.0785,
+      "implied": 40312864,
+      "rank": 7,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Nonce Capital on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Nonce Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Nonce Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "opentrade",
+      "name": "OpenTrade",
+      "category": "RWA",
+      "chains": [
+        "Avalanche",
+        "Ethereum",
+        "Plume Mainnet"
+      ],
+      "tvl": 241501527,
+      "ch7d": -1.642,
+      "age": 708,
+      "multiple": 0.143,
+      "implied": 34522666,
+      "rank": 8,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open OpenTrade on Avalanche and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Avalanche; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task OpenTrade lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch OpenTrade's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "onre",
+      "name": "OnRe",
+      "category": "RWA",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 308882355,
+      "ch7d": 0.1082,
+      "age": 488,
+      "multiple": 0.1053,
+      "implied": 32540515,
+      "rank": 9,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open OnRe on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task OnRe lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch OnRe's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "plume-vaults",
+      "name": "Plume Vaults",
+      "category": "RWA",
+      "chains": [
+        "Ethereum",
+        "Plume Mainnet",
+        "Solana",
+        "Binance",
+        "Avalanche"
+      ],
+      "tvl": 211537977,
+      "ch7d": -3.081,
+      "age": 749,
+      "multiple": 0.1491,
+      "implied": 31548914,
+      "rank": 10,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Plume Vaults on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Plume Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Plume Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "bittensor-dtao",
+      "name": "Bittensor dTAO",
+      "category": "Dexs",
+      "chains": [
+        "Bittensor"
+      ],
+      "tvl": 376026255,
+      "ch7d": -6.5592,
+      "age": 56,
+      "multiple": 0.0787,
+      "implied": 29592322,
+      "rank": 11,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Bittensor dTAO on Bittensor and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to provide liquidity to its main trading pool on Bittensor; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Bittensor dTAO lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Bittensor dTAO's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "lightning-network",
+      "name": "Lightning Network",
+      "category": "Payments",
+      "chains": [
+        "Bitcoin"
+      ],
+      "tvl": 217862346,
+      "ch7d": -10.1445,
+      "age": 365,
+      "multiple": 0.1267,
+      "implied": 27597165,
+      "rank": 12,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Lightning Network on Bitcoin and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Bitcoin; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the payments product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Lightning Network lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Lightning Network's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "symbiotic",
+      "name": "Symbiotic",
+      "category": "Collateral Markets",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 253923299,
+      "ch7d": -12.0318,
+      "age": 886,
+      "multiple": 0.1069,
+      "implied": 27150369,
+      "rank": 13,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Symbiotic on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the collateral markets product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Symbiotic lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Symbiotic's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "hyperithm",
+      "name": "Hyperithm",
+      "category": "Risk Curators",
+      "chains": [
+        "Monad",
+        "Ethereum",
+        "Arbitrum",
+        "Plasma",
+        "Solana",
+        "Hyperliquid L1",
+        "Katana",
+        "Stable",
+        "XRPL EVM",
+        "Binance"
+      ],
+      "tvl": 221638535,
+      "ch7d": -4.375,
+      "age": 543,
+      "multiple": 0.1222,
+      "implied": 27074891,
+      "rank": 14,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Hyperithm on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to deposit into its curated risk vault on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Hyperithm lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Hyperithm's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "k3-capital",
+      "name": "K3 Capital",
+      "category": "Risk Curators",
+      "chains": [
+        "Monad",
+        "Ethereum",
+        "Optimism",
+        "Hyperliquid L1",
+        "Plasma",
+        "Arbitrum",
+        "Binance",
+        "Unichain",
+        "Avalanche"
+      ],
+      "tvl": 207711162,
+      "ch7d": -8.9024,
+      "age": 543,
+      "multiple": 0.127,
+      "implied": 26381910,
+      "rank": 15,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open K3 Capital on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to deposit into its curated risk vault on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task K3 Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch K3 Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "hive-protocol",
+      "name": "Hive Protocol",
+      "category": "Chain",
+      "chains": [
+        "BSquared"
+      ],
+      "tvl": 198776765,
+      "ch7d": -10.181,
+      "age": 925,
+      "multiple": 0.1299,
+      "implied": 25824887,
+      "rank": 16,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Hive Protocol on BSquared and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on BSquared; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the chain product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Hive Protocol lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Hive Protocol's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "rockawayx",
+      "name": "RockawayX",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Solana",
+        "Pharos",
+        "Monad",
+        "Sei",
+        "Base",
+        "Binance",
+        "Citrea",
+        "Etherlink",
+        "Plume Mainnet"
+      ],
+      "tvl": 292506628,
+      "ch7d": -2.5459,
+      "age": 233,
+      "multiple": 0.0824,
+      "implied": 24096444,
+      "rank": 17,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open RockawayX on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task RockawayX lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch RockawayX's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "lagoon",
+      "name": "Lagoon",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Base",
+        "Binance",
+        "Avalanche",
+        "Plasma",
+        "Hyperliquid L1",
+        "TAC",
+        "Hemi",
+        "Linea",
+        "Rayls",
+        "Monad",
+        "Robinhood Chain",
+        "Optimism",
+        "Katana",
+        "Sonic",
+        "Mantle",
+        "Arc",
+        "Berachain",
+        "Flare",
+        "Polygon",
+        "Unichain",
+        "World Chain"
+      ],
+      "tvl": 151263522,
+      "ch7d": -3.2955,
+      "age": 691,
+      "multiple": 0.156,
+      "implied": 23592272,
+      "rank": 18,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Lagoon on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Lagoon lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Lagoon's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "clearstar",
+      "name": "Clearstar",
+      "category": "Risk Curators",
+      "chains": [
+        "Flare",
+        "Base",
+        "Ethereum",
+        "Monad",
+        "Hyperliquid L1",
+        "Starknet",
+        "Katana",
+        "Arbitrum",
+        "Hemi",
+        "Unichain",
+        "Polygon"
+      ],
+      "tvl": 161773491,
+      "ch7d": -10.0936,
+      "age": 543,
+      "multiple": 0.1443,
+      "implied": 23345135,
+      "rank": 19,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Clearstar on Flare and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to deposit into its curated risk vault on Flare; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Clearstar lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Clearstar's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "b14g",
+      "name": "b14g",
+      "category": "Restaking",
+      "chains": [
+        "Bitcoin",
+        "CORE",
+        "Babylon Genesis"
+      ],
+      "tvl": 173941404,
+      "ch7d": -28.5327,
+      "age": 694,
+      "multiple": 0.1324,
+      "implied": 23026078,
+      "rank": 20,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open b14g on Bitcoin and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to restake through its vault on Bitcoin; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the restaking product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task b14g lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch b14g's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "flux-finance",
+      "name": "Flux Finance",
+      "category": "Lending",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 43614505,
+      "ch7d": -0.0568,
+      "age": 1368,
+      "multiple": 0.4752,
+      "implied": 20724018,
+      "rank": 21,
+      "steps": [
+        "Fund a fresh wallet you control with $2,000 plus about $45 for gas and bridging, then open Flux Finance on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $2,000 to supply assets to its lending market on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$2,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Flux Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Flux Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "flowdesk",
+      "name": "Flowdesk",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 28044836,
+      "ch7d": -27.6485,
+      "age": 73,
+      "multiple": 0.6691,
+      "implied": 18766167,
+      "rank": 22,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Flowdesk on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Flowdesk lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Flowdesk's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "doppler-finance",
+      "name": "Doppler Finance",
+      "category": "CeDeFi",
+      "chains": [
+        "Ripple",
+        "Ethereum"
+      ],
+      "tvl": 93316487,
+      "ch7d": -14.4873,
+      "age": 638,
+      "multiple": 0.1992,
+      "implied": 18592219,
+      "rank": 23,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Doppler Finance on Ripple and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ripple; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cedefi product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Doppler Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Doppler Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "firelight",
+      "name": "Firelight",
+      "category": "Insurance",
+      "chains": [
+        "Flare"
+      ],
+      "tvl": 51272081,
+      "ch7d": -14.4069,
+      "age": 340,
+      "multiple": 0.3513,
+      "implied": 18012850,
+      "rank": 24,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Firelight on Flare and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Flare; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the insurance product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Firelight lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Firelight's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "mezo-earn",
+      "name": "Mezo Earn",
+      "category": "Governance Incentives",
+      "chains": [
+        "Mezo"
+      ],
+      "tvl": 53638061,
+      "ch7d": -12.2175,
+      "age": 186,
+      "multiple": 0.3174,
+      "implied": 17022543,
+      "rank": 25,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Mezo Earn on Mezo and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Mezo; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the governance incentives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Mezo Earn lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Mezo Earn's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tydro",
+      "name": "Tydro",
+      "category": "Lending",
+      "chains": [
+        "Ink"
+      ],
+      "tvl": 111314194,
+      "ch7d": -4.8885,
+      "age": 394,
+      "multiple": 0.1462,
+      "implied": 16278052,
+      "rank": 26,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Tydro on Ink and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Ink; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Tydro lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Tydro's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "r25",
+      "name": "R25",
+      "category": "RWA",
+      "chains": [
+        "Pharos",
+        "Sui"
+      ],
+      "tvl": 198206607,
+      "ch7d": 0.2987,
+      "age": 199,
+      "multiple": 0.0803,
+      "implied": 15925663,
+      "rank": 27,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open R25 on Pharos and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Pharos; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task R25 lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch R25's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "ember",
+      "name": "Ember",
+      "category": "RWA",
+      "chains": [
+        "Ethereum",
+        "Sui",
+        "Base",
+        "Pharos",
+        "Monad",
+        "Arbitrum"
+      ],
+      "tvl": 90012351,
+      "ch7d": -5.9593,
+      "age": 423,
+      "multiple": 0.1666,
+      "implied": 14998359,
+      "rank": 28,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Ember on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Ember lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Ember's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "reti-pooling",
+      "name": "Reti Pooling",
+      "category": "Staking Pool",
+      "chains": [
+        "Algorand"
+      ],
+      "tvl": 65254391,
+      "ch7d": -10.6865,
+      "age": 659,
+      "multiple": 0.2277,
+      "implied": 14857377,
+      "rank": 29,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Reti Pooling on Algorand and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Algorand; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the staking pool product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Reti Pooling lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Reti Pooling's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "curvance",
+      "name": "Curvance",
+      "category": "Lending",
+      "chains": [
+        "Monad"
+      ],
+      "tvl": 136345059,
+      "ch7d": 0.6775,
+      "age": 352,
+      "multiple": 0.1074,
+      "implied": 14648390,
+      "rank": 30,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Curvance on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Curvance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Curvance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "re7-labs",
+      "name": "Re7 Labs",
+      "category": "Risk Curators",
+      "chains": [
+        "World Chain",
+        "Ethereum",
+        "Starknet",
+        "Avalanche",
+        "Optimism",
+        "Base",
+        "Plume Mainnet",
+        "Linea",
+        "Binance",
+        "Sonic",
+        "Unichain",
+        "TAC",
+        "BOB",
+        "Berachain",
+        "Arc",
+        "Polygon",
+        "Plasma"
+      ],
+      "tvl": 46889655,
+      "ch7d": -13.9104,
+      "age": 543,
+      "multiple": 0.3099,
+      "implied": 14528766,
+      "rank": 31,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Re7 Labs on World Chain and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on World Chain; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Re7 Labs lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Re7 Labs's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "saturn",
+      "name": "Saturn",
+      "category": "Stablecoin Wrapper",
+      "chains": [
+        "Ethereum",
+        "Monad",
+        "Binance"
+      ],
+      "tvl": 154313682,
+      "ch7d": -0.7486,
+      "age": 219,
+      "multiple": 0.0931,
+      "implied": 14359669,
+      "rank": 32,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Saturn on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the stablecoin wrapper product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Saturn lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Saturn's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "noble",
+      "name": "Noble",
+      "category": "Chain",
+      "chains": [
+        "Noble"
+      ],
+      "tvl": 83040073,
+      "ch7d": -5.2314,
+      "age": 365,
+      "multiple": 0.1637,
+      "implied": 13594422,
+      "rank": 33,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Noble on Noble and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Noble; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the chain product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Noble lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Noble's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "hylo-protocol",
+      "name": "Hylo Protocol",
+      "category": "Dual-Token Stablecoin",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 29173196,
+      "ch7d": -15.3091,
+      "age": 473,
+      "multiple": 0.4658,
+      "implied": 13588781,
+      "rank": 34,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Hylo Protocol on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dual-token stablecoin product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Hylo Protocol lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Hylo Protocol's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "yuzu-money",
+      "name": "Yuzu Money",
+      "category": "Yield",
+      "chains": [
+        "Plasma",
+        "Monad",
+        "Ethereum"
+      ],
+      "tvl": 57346091,
+      "ch7d": -9.0455,
+      "age": 365,
+      "multiple": 0.2344,
+      "implied": 13439302,
+      "rank": 35,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Yuzu Money on Plasma and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Plasma; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Yuzu Money lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Yuzu Money's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "project-0",
+      "name": "Project 0",
+      "category": "Lending",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 48867055,
+      "ch7d": -9.8516,
+      "age": 325,
+      "multiple": 0.269,
+      "implied": 13146731,
+      "rank": 36,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Project 0 on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Project 0 lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Project 0's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "vishwa",
+      "name": "Vishwa",
+      "category": "Anchor BTC",
+      "chains": [
+        "Bitcoin",
+        "Sui"
+      ],
+      "tvl": 45307916,
+      "ch7d": -10.645,
+      "age": 418,
+      "multiple": 0.2878,
+      "implied": 13040767,
+      "rank": 37,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Vishwa on Bitcoin and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Bitcoin; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the anchor btc product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Vishwa lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Vishwa's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "strato-cdp",
+      "name": "STRATO CDP",
+      "category": "CDP",
+      "chains": [
+        "Strato"
+      ],
+      "tvl": 12637917,
+      "ch7d": -18.4478,
+      "age": 183,
+      "multiple": 1.0193,
+      "implied": 12882045,
+      "rank": 38,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open STRATO CDP on Strato and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a collateralised debt position on Strato; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cdp product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task STRATO CDP lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch STRATO CDP's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tulipa-capital",
+      "name": "Tulipa Capital",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Berachain",
+        "Avalanche",
+        "BOB",
+        "Binance",
+        "Monad",
+        "TAC"
+      ],
+      "tvl": 52404471,
+      "ch7d": -9.3511,
+      "age": 543,
+      "multiple": 0.2457,
+      "implied": 12875062,
+      "rank": 39,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Tulipa Capital on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Tulipa Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Tulipa Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "adrastea-validator",
+      "name": "Adrastea Validator",
+      "category": "Staking Pool",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 22106682,
+      "ch7d": -16.7108,
+      "age": 425,
+      "multiple": 0.5764,
+      "implied": 12741232,
+      "rank": 40,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Adrastea Validator on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the staking pool product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Adrastea Validator lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Adrastea Validator's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "infinifi",
+      "name": "infiniFi",
+      "category": "Yield",
+      "chains": [
+        "Ethereum",
+        "Monad",
+        "Base"
+      ],
+      "tvl": 70716524,
+      "ch7d": -3.2771,
+      "age": 535,
+      "multiple": 0.1785,
+      "implied": 12625523,
+      "rank": 41,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open infiniFi on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task infiniFi lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch infiniFi's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "arrakis-modular",
+      "name": "Arrakis Modular",
+      "category": "Liquidity Manager",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Plasma",
+        "Robinhood Chain",
+        "Binance"
+      ],
+      "tvl": 48488073,
+      "ch7d": -9.91,
+      "age": 752,
+      "multiple": 0.2536,
+      "implied": 12297726,
+      "rank": 42,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Arrakis Modular on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the liquidity manager product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Arrakis Modular lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Arrakis Modular's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "ultrayield-curator",
+      "name": "UltraYield Curator",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Hyperliquid L1",
+        "Etherlink",
+        "Base",
+        "Monad",
+        "Plasma",
+        "Plume Mainnet",
+        "TAC",
+        "Linea",
+        "Arbitrum",
+        "Optimism"
+      ],
+      "tvl": 40359035,
+      "ch7d": -10.3636,
+      "age": 386,
+      "multiple": 0.3001,
+      "implied": 12110052,
+      "rank": 43,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open UltraYield Curator on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task UltraYield Curator lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch UltraYield Curator's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "rocksolid-network",
+      "name": "RockSolid Network",
+      "category": "Yield",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 18161180,
+      "ch7d": -14.49,
+      "age": 374,
+      "multiple": 0.6524,
+      "implied": 11848349,
+      "rank": 44,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open RockSolid Network on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task RockSolid Network lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch RockSolid Network's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "avant-aveth",
+      "name": "Avant avETH",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 23890230,
+      "ch7d": -12.9245,
+      "age": 386,
+      "multiple": 0.484,
+      "implied": 11562357,
+      "rank": 45,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Avant avETH on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Avant avETH lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Avant avETH's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "current",
+      "name": "Current",
+      "category": "Lending",
+      "chains": [
+        "Sui"
+      ],
+      "tvl": 49631964,
+      "ch7d": -7.8161,
+      "age": 228,
+      "multiple": 0.2302,
+      "implied": 11425401,
+      "rank": 46,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Current on Sui and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Sui; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Current lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Current's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "anemoy-capital",
+      "name": "Anemoy Capital",
+      "category": "RWA",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Celo"
+      ],
+      "tvl": 27927845,
+      "ch7d": -72.7093,
+      "age": 705,
+      "multiple": 0.3912,
+      "implied": 10924786,
+      "rank": 47,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Anemoy Capital on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Anemoy Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Anemoy Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "zoo-finance",
+      "name": "Zoo Finance",
+      "category": "Yield",
+      "chains": [
+        "Binance",
+        "Story",
+        "Sei",
+        "Arbitrum",
+        "Base",
+        "Berachain"
+      ],
+      "tvl": 24557589,
+      "ch7d": -13.1939,
+      "age": 642,
+      "multiple": 0.4108,
+      "implied": 10088972,
+      "rank": 48,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Zoo Finance on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Zoo Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Zoo Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "exponent-yield-exchange",
+      "name": "Exponent Yield Exchange",
+      "category": "Yield",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 45177163,
+      "ch7d": -1.3185,
+      "age": 649,
+      "multiple": 0.2156,
+      "implied": 9739555,
+      "rank": 49,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Exponent Yield Exchange on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Exponent Yield Exchange lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Exponent Yield Exchange's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "xrpl-dex",
+      "name": "XRPL DEX",
+      "category": "Dexs",
+      "chains": [
+        "Ripple"
+      ],
+      "tvl": 27708356,
+      "ch7d": -12.4626,
+      "age": 842,
+      "multiple": 0.3393,
+      "implied": 9400259,
+      "rank": 50,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open XRPL DEX on Ripple and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to provide liquidity to its main trading pool on Ripple; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task XRPL DEX lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch XRPL DEX's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "bitlayer-ybtc-family",
+      "name": "Bitlayer YBTC Family",
+      "category": "Anchor BTC",
+      "chains": [
+        "Bitcoin",
+        "Ethereum"
+      ],
+      "tvl": 27174703,
+      "ch7d": -10.4927,
+      "age": 723,
+      "multiple": 0.3427,
+      "implied": 9312317,
+      "rank": 51,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Bitlayer YBTC Family on Bitcoin and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Bitcoin; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the anchor btc product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Bitlayer YBTC Family lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Bitlayer YBTC Family's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "origami-finance",
+      "name": "Origami Finance",
+      "category": "Leveraged Farming",
+      "chains": [
+        "Ethereum",
+        "Plasma",
+        "Berachain"
+      ],
+      "tvl": 28834258,
+      "ch7d": -27.5934,
+      "age": 915,
+      "multiple": 0.3216,
+      "implied": 9272671,
+      "rank": 52,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Origami Finance on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the leveraged farming product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Origami Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Origami Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "valos",
+      "name": "Valos",
+      "category": "RWA",
+      "chains": [
+        "Monad"
+      ],
+      "tvl": 106328133,
+      "ch7d": 0.1453,
+      "age": 113,
+      "multiple": 0.0871,
+      "implied": 9263366,
+      "rank": 53,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Valos on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Valos lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Valos's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "vfat.io",
+      "name": "vfat.io",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Base",
+        "Ethereum",
+        "Hyperliquid L1",
+        "Robinhood Chain",
+        "Arbitrum",
+        "Monad",
+        "Binance",
+        "Optimism",
+        "Avalanche",
+        "Polygon",
+        "Arc",
+        "Unichain",
+        "Ink",
+        "Sonic",
+        "Hemi",
+        "Cronos",
+        "Elysium Kinetiq",
+        "Celo",
+        "Linea",
+        "Plasma",
+        "Katana",
+        "Berachain",
+        "World Chain",
+        "Mantle",
+        "Peaq",
+        "MegaETH",
+        "Pulse",
+        "Soneium",
+        "Fraxtal",
+        "Scroll",
+        "Mode",
+        "BOT Chain",
+        "Tempo",
+        "Telos",
+        "Etherlink",
+        "MetalL2",
+        "ZetaChain",
+        "Fantom",
+        "Lisk"
+      ],
+      "tvl": 28071625,
+      "ch7d": -11.1034,
+      "age": 914,
+      "multiple": 0.3169,
+      "implied": 8896687,
+      "rank": 54,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open vfat.io on Base and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Base; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task vfat.io lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch vfat.io's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "ultrayield-vaults",
+      "name": "UltraYield Vaults",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 18404824,
+      "ch7d": -10.6883,
+      "age": 389,
+      "multiple": 0.4672,
+      "implied": 8598254,
+      "rank": 55,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open UltraYield Vaults on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task UltraYield Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch UltraYield Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "manta-cedefi",
+      "name": "Manta CeDeFi",
+      "category": "Basis Trading",
+      "chains": [
+        "Manta"
+      ],
+      "tvl": 26526263,
+      "ch7d": -0.6679,
+      "age": 905,
+      "multiple": 0.3154,
+      "implied": 8367664,
+      "rank": 56,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Manta CeDeFi on Manta and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small basis position on Manta; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Manta CeDeFi lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Manta CeDeFi's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "apex-omni",
+      "name": "Apex Omni",
+      "category": "Derivatives",
+      "chains": [
+        "Arbitrum",
+        "Ethereum",
+        "Base",
+        "Binance",
+        "Mantle"
+      ],
+      "tvl": 26834758,
+      "ch7d": -1.262,
+      "age": 870,
+      "multiple": 0.3027,
+      "implied": 8123128,
+      "rank": 57,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Apex Omni on Arbitrum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small hedged position on Arbitrum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the derivatives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Apex Omni lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Apex Omni's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "felix-cdp",
+      "name": "Felix CDP",
+      "category": "CDP",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 18895180,
+      "ch7d": -10.387,
+      "age": 585,
+      "multiple": 0.4253,
+      "implied": 8035676,
+      "rank": 58,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Felix CDP on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a collateralised debt position on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cdp product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Felix CDP lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Felix CDP's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "noon",
+      "name": "Noon",
+      "category": "Yield",
+      "chains": [
+        "Ethereum",
+        "Sophon",
+        "zkSync Era",
+        "TAC"
+      ],
+      "tvl": 38329220,
+      "ch7d": 1.1384,
+      "age": 649,
+      "multiple": 0.2092,
+      "implied": 8020143,
+      "rank": 59,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Noon on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Noon lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Noon's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "set-protocol",
+      "name": "Set Protocol",
+      "category": "Indexes",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 10110428,
+      "ch7d": -12.6978,
+      "age": 365,
+      "multiple": 0.7879,
+      "implied": 7965524,
+      "rank": 60,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Set Protocol on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the indexes product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Set Protocol lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Set Protocol's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "keyrock",
+      "name": "Keyrock",
+      "category": "Risk Curators",
+      "chains": [
+        "Arc",
+        "Ethereum"
+      ],
+      "tvl": 83070632,
+      "ch7d": -0.5971,
+      "age": 73,
+      "multiple": 0.0946,
+      "implied": 7858441,
+      "rank": 61,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Keyrock on Arc and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Arc; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Keyrock lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Keyrock's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "mystic-finance-lending",
+      "name": "Mystic Finance Lending",
+      "category": "Lending",
+      "chains": [
+        "Flare",
+        "Citrea",
+        "Plume Mainnet"
+      ],
+      "tvl": 30236632,
+      "ch7d": -4.6056,
+      "age": 584,
+      "multiple": 0.2595,
+      "implied": 7847690,
+      "rank": 62,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Mystic Finance Lending on Flare and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Flare; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Mystic Finance Lending lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Mystic Finance Lending's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "syntetika",
+      "name": "Syntetika",
+      "category": "Risk Curators",
+      "chains": [
+        "Base"
+      ],
+      "tvl": 14612979,
+      "ch7d": -9.956,
+      "age": 87,
+      "multiple": 0.5336,
+      "implied": 7797660,
+      "rank": 63,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Syntetika on Base and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Base; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Syntetika lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Syntetika's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "lulo",
+      "name": "Lulo",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 24457058,
+      "ch7d": -4.7863,
+      "age": 819,
+      "multiple": 0.317,
+      "implied": 7751785,
+      "rank": 64,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Lulo on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Lulo lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Lulo's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "marginfi-lending",
+      "name": "marginfi Lending",
+      "category": "Lending",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 27713022,
+      "ch7d": -11.9875,
+      "age": 1361,
+      "multiple": 0.266,
+      "implied": 7370335,
+      "rank": 65,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open marginfi Lending on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task marginfi Lending lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch marginfi Lending's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "d2-finance",
+      "name": "D2 Finance",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Hyperliquid L1",
+        "Arbitrum",
+        "Base",
+        "Ethereum",
+        "Robinhood Chain",
+        "Berachain",
+        "Optimism"
+      ],
+      "tvl": 22590871,
+      "ch7d": -3.939,
+      "age": 862,
+      "multiple": 0.3251,
+      "implied": 7343723,
+      "rank": 66,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open D2 Finance on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task D2 Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch D2 Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "chain-fusion",
+      "name": "Chain Fusion",
+      "category": "Decentralized BTC",
+      "chains": [
+        "Bitcoin",
+        "Ethereum"
+      ],
+      "tvl": 20121715,
+      "ch7d": -9.4223,
+      "age": 1059,
+      "multiple": 0.3624,
+      "implied": 7292564,
+      "rank": 67,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Chain Fusion on Bitcoin and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Bitcoin; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the decentralized btc product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Chain Fusion lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Chain Fusion's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "project-x",
+      "name": "Project X",
+      "category": "Dexs",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 34354598,
+      "ch7d": -2.4436,
+      "age": 486,
+      "multiple": 0.2114,
+      "implied": 7263517,
+      "rank": 68,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Project X on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to provide liquidity to its main trading pool on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Project X lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Project X's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "aegis-yusd",
+      "name": "Aegis YUSD",
+      "category": "Basis Trading",
+      "chains": [
+        "Ethereum",
+        "Binance"
+      ],
+      "tvl": 34465848,
+      "ch7d": 0.0465,
+      "age": 583,
+      "multiple": 0.2063,
+      "implied": 7109130,
+      "rank": 69,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Aegis YUSD on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small basis position on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Aegis YUSD lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Aegis YUSD's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "templar-lending",
+      "name": "Templar Lending",
+      "category": "Lending",
+      "chains": [
+        "Stellar",
+        "Ethereum",
+        "Bitcoin",
+        "Near",
+        "Zcash",
+        "Ripple",
+        "Solana",
+        "Flare",
+        "Doge",
+        "Cardano",
+        "Litecoin"
+      ],
+      "tvl": 27210513,
+      "ch7d": -5.153,
+      "age": 459,
+      "multiple": 0.2604,
+      "implied": 7085789,
+      "rank": 70,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Templar Lending on Stellar and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Stellar; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Templar Lending lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Templar Lending's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "native-credit-pool",
+      "name": "Native Credit Pool",
+      "category": "Lending",
+      "chains": [
+        "Morph",
+        "Ethereum",
+        "Binance",
+        "Base",
+        "Arbitrum",
+        "Robinhood Chain",
+        "X Layer"
+      ],
+      "tvl": 19086720,
+      "ch7d": -7.0851,
+      "age": 905,
+      "multiple": 0.3658,
+      "implied": 6981048,
+      "rank": 71,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Native Credit Pool on Morph and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to supply assets to its lending market on Morph; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Native Credit Pool lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Native Credit Pool's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "armitage-by-wintermute",
+      "name": "Armitage by Wintermute",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 103480212,
+      "ch7d": 5.7711,
+      "age": 178,
+      "multiple": 0.0662,
+      "implied": 6854734,
+      "rank": 72,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Armitage by Wintermute on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Armitage by Wintermute lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Armitage by Wintermute's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "agni-finance",
+      "name": "Agni Finance",
+      "category": "Dexs",
+      "chains": [
+        "Mantle"
+      ],
+      "tvl": 15126696,
+      "ch7d": -4.0995,
+      "age": 1212,
+      "multiple": 0.4475,
+      "implied": 6769420,
+      "rank": 73,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Agni Finance on Mantle and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to provide liquidity to its main trading pool on Mantle; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Agni Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Agni Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "rif-on-chain",
+      "name": "RIF ON CHAIN",
+      "category": "Dual-Token Stablecoin",
+      "chains": [
+        "RSK"
+      ],
+      "tvl": 16676100,
+      "ch7d": -9.7195,
+      "age": 1037,
+      "multiple": 0.3959,
+      "implied": 6601606,
+      "rank": 74,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open RIF ON CHAIN on RSK and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on RSK; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dual-token stablecoin product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task RIF ON CHAIN lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch RIF ON CHAIN's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "neutral-trade",
+      "name": "Neutral Trade",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Solana",
+        "Robinhood Chain",
+        "Ethereum",
+        "Monad"
+      ],
+      "tvl": 21380669,
+      "ch7d": -4.2692,
+      "age": 691,
+      "multiple": 0.3051,
+      "implied": 6524267,
+      "rank": 75,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Neutral Trade on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Neutral Trade lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Neutral Trade's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "9summits",
+      "name": "9Summits",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Avalanche",
+        "Base",
+        "Unichain"
+      ],
+      "tvl": 16040161,
+      "ch7d": -7.948,
+      "age": 543,
+      "multiple": 0.3962,
+      "implied": 6354796,
+      "rank": 76,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open 9Summits on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task 9Summits lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch 9Summits's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tau-labs",
+      "name": "TAU Labs",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Flow",
+        "Plasma"
+      ],
+      "tvl": 10548591,
+      "ch7d": -10.0236,
+      "age": 332,
+      "multiple": 0.5926,
+      "implied": 6250812,
+      "rank": 77,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open TAU Labs on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task TAU Labs lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch TAU Labs's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "exponent-strategy-vaults",
+      "name": "Exponent Strategy Vaults",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 16952539,
+      "ch7d": -7.5244,
+      "age": 150,
+      "multiple": 0.3678,
+      "implied": 6235387,
+      "rank": 78,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Exponent Strategy Vaults on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Exponent Strategy Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Exponent Strategy Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "makina",
+      "name": "Makina",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum",
+        "Base"
+      ],
+      "tvl": 38711093,
+      "ch7d": -0.066,
+      "age": 374,
+      "multiple": 0.1593,
+      "implied": 6165603,
+      "rank": 79,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Makina on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Makina lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Makina's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "galaxy-curation",
+      "name": "Galaxy Curation",
+      "category": "Risk Curators",
+      "chains": [
+        "Arc",
+        "Ethereum",
+        "Base"
+      ],
+      "tvl": 129994276,
+      "ch7d": 11.2334,
+      "age": 177,
+      "multiple": 0.0464,
+      "implied": 6029490,
+      "rank": 80,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Galaxy Curation on Arc and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Arc; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Galaxy Curation lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Galaxy Curation's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "steer-protocol",
+      "name": "Steer Protocol",
+      "category": "Liquidity Manager",
+      "chains": [
+        "Binance",
+        "Katana",
+        "Base",
+        "Flare",
+        "Ethereum",
+        "Bittensor EVM",
+        "Polygon",
+        "Manta",
+        "Nibiru",
+        "Robinhood Chain",
+        "Avalanche",
+        "Metis",
+        "Mode",
+        "Arbitrum",
+        "Linea",
+        "Hyperliquid L1",
+        "Sonic",
+        "Zircuit",
+        "Sei",
+        "Optimism",
+        "Celo",
+        "Scroll",
+        "RSK",
+        "Berachain",
+        "X Layer",
+        "Mantle",
+        "Telos",
+        "Fantom",
+        "Filecoin",
+        "Unichain",
+        "ApeChain",
+        "Taiko",
+        "zkLink",
+        "Evmos",
+        "ThunderCore",
+        "Kava",
+        "Polygon zkEVM",
+        "Astar",
+        "Blast",
+        "Moonbeam",
+        "ZetaChain",
+        "Hemi",
+        "Saga",
+        "Ronin",
+        "Soneium"
+      ],
+      "tvl": 13740727,
+      "ch7d": -7.725,
+      "age": 1264,
+      "multiple": 0.4222,
+      "implied": 5801432,
+      "rank": 81,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Steer Protocol on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the liquidity manager product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Steer Protocol lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Steer Protocol's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "xion-finance",
+      "name": "XION Finance",
+      "category": "Chain",
+      "chains": [
+        "XION"
+      ],
+      "tvl": 22019898,
+      "ch7d": -3.5701,
+      "age": 491,
+      "multiple": 0.2623,
+      "implied": 5776418,
+      "rank": 82,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open XION Finance on XION and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on XION; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the chain product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task XION Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch XION Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "gmx-solana",
+      "name": "GMX Solana",
+      "category": "Derivatives",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 22620052,
+      "ch7d": -4.5855,
+      "age": 295,
+      "multiple": 0.2518,
+      "implied": 5695386,
+      "rank": 83,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open GMX Solana on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small hedged position on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the derivatives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task GMX Solana lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch GMX Solana's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "hyperbeat-earn",
+      "name": "Hyperbeat Earn",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 17615173,
+      "ch7d": -4.9692,
+      "age": 565,
+      "multiple": 0.3212,
+      "implied": 5657648,
+      "rank": 84,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Hyperbeat Earn on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its yield vault on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Hyperbeat Earn lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Hyperbeat Earn's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "fstswap",
+      "name": "FstSwap",
+      "category": "Dexs",
+      "chains": [
+        "Binance"
+      ],
+      "tvl": 11751516,
+      "ch7d": -7.0751,
+      "age": 1516,
+      "multiple": 0.4744,
+      "implied": 5574664,
+      "rank": 85,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open FstSwap on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to provide liquidity to its main trading pool on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task FstSwap lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch FstSwap's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "axis",
+      "name": "Axis",
+      "category": "Basis Trading",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 70145354,
+      "ch7d": 2.3316,
+      "age": 86,
+      "multiple": 0.0789,
+      "implied": 5534632,
+      "rank": 86,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Axis on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small basis position on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Axis lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Axis's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "bucket-cdp",
+      "name": "Bucket CDP",
+      "category": "CDP",
+      "chains": [
+        "Sui"
+      ],
+      "tvl": 12689880,
+      "ch7d": -8.7832,
+      "age": 1227,
+      "multiple": 0.4343,
+      "implied": 5511453,
+      "rank": 87,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Bucket CDP on Sui and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a collateralised debt position on Sui; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cdp product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Bucket CDP lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Bucket CDP's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "plasma-saving-vaults",
+      "name": "Plasma Saving Vaults",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Plasma"
+      ],
+      "tvl": 31744697,
+      "ch7d": 0.2368,
+      "age": 414,
+      "multiple": 0.173,
+      "implied": 5490917,
+      "rank": 88,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Plasma Saving Vaults on Plasma and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Plasma; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Plasma Saving Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Plasma Saving Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tori-finance",
+      "name": "Tori Finance",
+      "category": "Basis Trading",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 77392441,
+      "ch7d": 4.6366,
+      "age": 143,
+      "multiple": 0.0705,
+      "implied": 5452929,
+      "rank": 89,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Tori Finance on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a small basis position on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Tori Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Tori Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "qearn",
+      "name": "Qearn",
+      "category": "Staking Pool",
+      "chains": [
+        "Qubic"
+      ],
+      "tvl": 10991952,
+      "ch7d": -8.5249,
+      "age": 604,
+      "multiple": 0.4895,
+      "implied": 5380240,
+      "rank": 90,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Qearn on Qubic and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Qubic; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the staking pool product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Qearn lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Qearn's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "plasma-one",
+      "name": "Plasma One",
+      "category": "Crypto Card Issuer",
+      "chains": [
+        "Plasma"
+      ],
+      "tvl": 31926318,
+      "ch7d": 0.202,
+      "age": 365,
+      "multiple": 0.1637,
+      "implied": 5227379,
+      "rank": 91,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Plasma One on Plasma and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Plasma; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the crypto card issuer product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Plasma One lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Plasma One's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "sharpbyte-capital",
+      "name": "SharpByte Capital",
+      "category": "Risk Curators",
+      "chains": [
+        "Monad",
+        "Ethereum",
+        "Fluent"
+      ],
+      "tvl": 10649873,
+      "ch7d": -8.0812,
+      "age": 72,
+      "multiple": 0.4895,
+      "implied": 5212871,
+      "rank": 92,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open SharpByte Capital on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to deposit into its curated risk vault on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task SharpByte Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch SharpByte Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "kava-mint",
+      "name": "Kava Mint",
+      "category": "CDP",
+      "chains": [
+        "Kava"
+      ],
+      "tvl": 10497149,
+      "ch7d": -8.1034,
+      "age": 365,
+      "multiple": 0.4909,
+      "implied": 5153344,
+      "rank": 93,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Kava Mint on Kava and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to open a collateralised debt position on Kava; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cdp product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Kava Mint lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Kava Mint's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "3f",
+      "name": "3F",
+      "category": "Leveraged Farming",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 40368186,
+      "ch7d": -0.0399,
+      "age": 173,
+      "multiple": 0.1258,
+      "implied": 5079865,
+      "rank": 94,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open 3F on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the leveraged farming product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task 3F lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch 3F's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "agua",
+      "name": "Agua",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum",
+        "Monad"
+      ],
+      "tvl": 20194381,
+      "ch7d": -4.984,
+      "age": 103,
+      "multiple": 0.2507,
+      "implied": 5062278,
+      "rank": 95,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Agua on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Agua lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Agua's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "felix-vaults",
+      "name": "Felix Vaults",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 31906510,
+      "ch7d": 5.3279,
+      "age": 535,
+      "multiple": 0.1567,
+      "implied": 5000910,
+      "rank": 96,
+      "steps": [
+        "Fund a fresh wallet you control with $1,000 plus about $45 for gas and bridging, then open Felix Vaults on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $1,000 to use its core product on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$1,000 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Felix Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Felix Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "katana-pre-launch",
+      "name": "Katana Pre-Launch",
+      "category": "Farm",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 17633413,
+      "ch7d": -3.1255,
+      "age": 510,
+      "multiple": 0.2782,
+      "implied": 4906255,
+      "rank": 97,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Katana Pre-Launch on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the farm product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Katana Pre-Launch lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Katana Pre-Launch's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "y10k-capital",
+      "name": "Y10K Capital",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Monad",
+        "Sei"
+      ],
+      "tvl": 28339301,
+      "ch7d": -2.411,
+      "age": 122,
+      "multiple": 0.1677,
+      "implied": 4752301,
+      "rank": 98,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Y10K Capital on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Y10K Capital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Y10K Capital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "phoenix-perp",
+      "name": "Phoenix Perp",
+      "category": "Derivatives",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 22522562,
+      "ch7d": -2.6199,
+      "age": 231,
+      "multiple": 0.2027,
+      "implied": 4564375,
+      "rank": 99,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Phoenix Perp on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small hedged position on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the derivatives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Phoenix Perp lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Phoenix Perp's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "sygnum-fiusd-liquidity-fund",
+      "name": "Sygnum FIUSD Liquidity Fund",
+      "category": "RWA",
+      "chains": [
+        "zkSync Era"
+      ],
+      "tvl": 14194453,
+      "ch7d": 0.0759,
+      "age": 780,
+      "multiple": 0.3169,
+      "implied": 4498726,
+      "rank": 100,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Sygnum FIUSD Liquidity Fund on zkSync Era and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on zkSync Era; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Sygnum FIUSD Liquidity Fund lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Sygnum FIUSD Liquidity Fund's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "stellar-dex",
+      "name": "Stellar DEX",
+      "category": "Dexs",
+      "chains": [
+        "Stellar"
+      ],
+      "tvl": 13370320,
+      "ch7d": -4.1027,
+      "age": 528,
+      "multiple": 0.3302,
+      "implied": 4414828,
+      "rank": 101,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Stellar DEX on Stellar and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to provide liquidity to its main trading pool on Stellar; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Stellar DEX lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Stellar DEX's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "estate-protocol",
+      "name": "Estate Protocol",
+      "category": "RWA",
+      "chains": [
+        "Arbitrum"
+      ],
+      "tvl": 13945568,
+      "ch7d": null,
+      "age": 766,
+      "multiple": 0.3145,
+      "implied": 4385964,
+      "rank": 102,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Estate Protocol on Arbitrum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Arbitrum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Estate Protocol lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Estate Protocol's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "strata-markets",
+      "name": "Strata Markets",
+      "category": "Yield",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 14899908,
+      "ch7d": -3.9707,
+      "age": 394,
+      "multiple": 0.2936,
+      "implied": 4374787,
+      "rank": 103,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Strata Markets on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Strata Markets lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Strata Markets's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "decibel",
+      "name": "Decibel",
+      "category": "Derivatives",
+      "chains": [
+        "Aptos"
+      ],
+      "tvl": 29253135,
+      "ch7d": 0.2216,
+      "age": 261,
+      "multiple": 0.1488,
+      "implied": 4353818,
+      "rank": 104,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Decibel on Aptos and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small hedged position on Aptos; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the derivatives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Decibel lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Decibel's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "risex",
+      "name": "RISEx",
+      "category": "Derivatives",
+      "chains": [
+        "RISE"
+      ],
+      "tvl": 21553525,
+      "ch7d": -2.5101,
+      "age": 192,
+      "multiple": 0.1978,
+      "implied": 4262383,
+      "rank": 105,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open RISEx on RISE and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small hedged position on RISE; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the derivatives product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task RISEx lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch RISEx's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "bisonfi",
+      "name": "BisonFi",
+      "category": "Dexs",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 20001683,
+      "ch7d": -3.095,
+      "age": 80,
+      "multiple": 0.2001,
+      "implied": 4002861,
+      "rank": 106,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open BisonFi on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to provide liquidity to its main trading pool on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task BisonFi lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch BisonFi's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "yieldfi",
+      "name": "YieldFi",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Plume Mainnet",
+        "Sonic",
+        "Binance",
+        "Optimism",
+        "Plasma",
+        "Katana",
+        "TAC",
+        "Saga",
+        "Avalanche",
+        "Linea"
+      ],
+      "tvl": 10760030,
+      "ch7d": -3.4931,
+      "age": 677,
+      "multiple": 0.3654,
+      "implied": 3932084,
+      "rank": 107,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open YieldFi on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task YieldFi lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch YieldFi's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "goose",
+      "name": "Goose",
+      "category": "CeDeFi",
+      "chains": [
+        "Binance",
+        "Op_Bnb",
+        "Arbitrum",
+        "Ethereum"
+      ],
+      "tvl": 12798539,
+      "ch7d": 0.0103,
+      "age": 730,
+      "multiple": 0.307,
+      "implied": 3929569,
+      "rank": 108,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Goose on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the cedefi product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Goose lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Goose's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "defindex",
+      "name": "DeFindex",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Stellar"
+      ],
+      "tvl": 18508985,
+      "ch7d": -1.637,
+      "age": 276,
+      "multiple": 0.2043,
+      "implied": 3780932,
+      "rank": 109,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open DeFindex on Stellar and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Stellar; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task DeFindex lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch DeFindex's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "perena-vaults",
+      "name": "Perena Vaults",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 17232534,
+      "ch7d": -1.1868,
+      "age": 318,
+      "multiple": 0.2079,
+      "implied": 3582343,
+      "rank": 110,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Perena Vaults on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Perena Vaults lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Perena Vaults's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "gami-labs",
+      "name": "Gami Labs",
+      "category": "Risk Curators",
+      "chains": [
+        "Stellar",
+        "Ethereum",
+        "Base",
+        "Flare",
+        "Avalanche",
+        "Robinhood Chain",
+        "Hemi"
+      ],
+      "tvl": 63109489,
+      "ch7d": 9.0271,
+      "age": 169,
+      "multiple": 0.0543,
+      "implied": 3425345,
+      "rank": 111,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Gami Labs on Stellar and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Stellar; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Gami Labs lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Gami Labs's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "growihf",
+      "name": "GrowiHF",
+      "category": "Yield",
+      "chains": [
+        "Hyperliquid L1",
+        "Hibachi"
+      ],
+      "tvl": 12818453,
+      "ch7d": 0.9833,
+      "age": 614,
+      "multiple": 0.2584,
+      "implied": 3312147,
+      "rank": 112,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open GrowiHF on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task GrowiHF lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch GrowiHF's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "hakutora",
+      "name": "Hakutora",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 16194180,
+      "ch7d": 2.6714,
+      "age": 543,
+      "multiple": 0.204,
+      "implied": 3303679,
+      "rank": 113,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Hakutora on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Hakutora lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Hakutora's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tessera-v",
+      "name": "Tessera V",
+      "category": "Dexs",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 11128196,
+      "ch7d": -3.7732,
+      "age": 77,
+      "multiple": 0.2717,
+      "implied": 3023333,
+      "rank": 114,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Tessera V on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to provide liquidity to its main trading pool on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Tessera V lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Tessera V's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "nemo-trading",
+      "name": "NEMO Trading",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 20088275,
+      "ch7d": -0.7307,
+      "age": 56,
+      "multiple": 0.1479,
+      "implied": 2971309,
+      "rank": 115,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open NEMO Trading on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task NEMO Trading lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch NEMO Trading's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "syntropia",
+      "name": "Syntropia",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 13588961,
+      "ch7d": -0.0228,
+      "age": 395,
+      "multiple": 0.2164,
+      "implied": 2940834,
+      "rank": 116,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Syntropia on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield aggregator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Syntropia lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Syntropia's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "snuggle",
+      "name": "Snuggle",
+      "category": "Liquidity Manager",
+      "chains": [
+        "Robinhood Chain",
+        "Base",
+        "Arbitrum"
+      ],
+      "tvl": 10681820,
+      "ch7d": -2.7551,
+      "age": 273,
+      "multiple": 0.2723,
+      "implied": 2909064,
+      "rank": 117,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Snuggle on Robinhood Chain and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Robinhood Chain; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the liquidity manager product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Snuggle lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Snuggle's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "exponent-risk-tranching",
+      "name": "Exponent Risk Tranching",
+      "category": "Yield",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 13424399,
+      "ch7d": -1.5552,
+      "age": 122,
+      "multiple": 0.1976,
+      "implied": 2652703,
+      "rank": 118,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Exponent Risk Tranching on Solana and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Solana; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Exponent Risk Tranching lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Exponent Risk Tranching's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "paimon",
+      "name": "Paimon",
+      "category": "RWA",
+      "chains": [
+        "Binance"
+      ],
+      "tvl": 14099539,
+      "ch7d": 0.0075,
+      "age": 270,
+      "multiple": 0.1878,
+      "implied": 2648184,
+      "rank": 119,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Paimon on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Paimon lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Paimon's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "predict-fun",
+      "name": "Predict Fun",
+      "category": "Prediction Market",
+      "chains": [
+        "Binance",
+        "Blast"
+      ],
+      "tvl": 10662527,
+      "ch7d": 9.4025,
+      "age": 795,
+      "multiple": 0.2405,
+      "implied": 2564167,
+      "rank": 120,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Predict Fun on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the prediction market product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Predict Fun lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Predict Fun's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "bouncebit-prime",
+      "name": "BounceBit Prime",
+      "category": "Basis Trading",
+      "chains": [
+        "Binance",
+        "Ethereum"
+      ],
+      "tvl": 11443356,
+      "ch7d": 0.0165,
+      "age": 369,
+      "multiple": 0.2192,
+      "implied": 2508815,
+      "rank": 121,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open BounceBit Prime on Binance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small basis position on Binance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task BounceBit Prime lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch BounceBit Prime's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "tempo-stablecoin-dex",
+      "name": "Tempo Stablecoin Dex",
+      "category": "Dexs",
+      "chains": [
+        "Tempo"
+      ],
+      "tvl": 17043713,
+      "ch7d": 1.7778,
+      "age": 226,
+      "multiple": 0.1421,
+      "implied": 2421296,
+      "rank": 122,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Tempo Stablecoin Dex on Tempo and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to provide liquidity to its main trading pool on Tempo; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Tempo Stablecoin Dex lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Tempo Stablecoin Dex's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "drakewell",
+      "name": "Drakewell",
+      "category": "Basis Trading",
+      "chains": [
+        "Arbitrum",
+        "Ethereum",
+        "Aleo"
+      ],
+      "tvl": 28230939,
+      "ch7d": 3.2554,
+      "age": 43,
+      "multiple": 0.083,
+      "implied": 2343495,
+      "rank": 123,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Drakewell on Arbitrum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small basis position on Arbitrum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Drakewell lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Drakewell's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "liminal-basis",
+      "name": "Liminal Basis",
+      "category": "Basis Trading",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 25662087,
+      "ch7d": 21.2736,
+      "age": 476,
+      "multiple": 0.0838,
+      "implied": 2149424,
+      "rank": 124,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Liminal Basis on Hyperliquid L1 and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to open a small basis position on Hyperliquid L1; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the basis trading product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Liminal Basis lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Liminal Basis's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "waterline",
+      "name": "Waterline",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 22598710,
+      "ch7d": 5.0287,
+      "age": 72,
+      "multiple": 0.0749,
+      "implied": 1692180,
+      "rank": 125,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Waterline on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Waterline lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Waterline's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "fira",
+      "name": "Fira",
+      "category": "Lending",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 19999009,
+      "ch7d": 11.6361,
+      "age": 291,
+      "multiple": 0.0626,
+      "implied": 1252348,
+      "rank": 126,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Fira on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to supply assets to its lending market on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Fira lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Fira's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "shift-defi",
+      "name": "Shift DeFi",
+      "category": "Yield",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 47599147,
+      "ch7d": 4448.4747,
+      "age": 45,
+      "multiple": 0.0235,
+      "implied": 1117807,
+      "rank": 127,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Shift DeFi on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Shift DeFi lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Shift DeFi's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "t3tris-finance",
+      "name": "T3tris Finance",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Arbitrum",
+        "Robinhood Chain"
+      ],
+      "tvl": 13863510,
+      "ch7d": 6.7145,
+      "age": 142,
+      "multiple": 0.0754,
+      "implied": 1044969,
+      "rank": 128,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open T3tris Finance on Arbitrum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Arbitrum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the onchain capital allocator product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task T3tris Finance lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch T3tris Finance's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "3jane-lending",
+      "name": "3Jane Lending",
+      "category": "Uncollateralized Lending",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 14030807,
+      "ch7d": 26.3009,
+      "age": 437,
+      "multiple": 0.0705,
+      "implied": 988618,
+      "rank": 129,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open 3Jane Lending on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the uncollateralized lending product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task 3Jane Lending lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch 3Jane Lending's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "theo-network-thbill",
+      "name": "Theo Network thBill",
+      "category": "RWA",
+      "chains": [
+        "Stable",
+        "Ethereum",
+        "Arbitrum",
+        "Base",
+        "Monad",
+        "Solana"
+      ],
+      "tvl": 11810283,
+      "ch7d": 94.0117,
+      "age": 430,
+      "multiple": 0.0673,
+      "implied": 795337,
+      "rank": 130,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Theo Network thBill on Stable and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to use its core product on Stable; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the rwa product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Theo Network thBill lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Theo Network thBill's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "august-digital",
+      "name": "August Digital",
+      "category": "Risk Curators",
+      "chains": [
+        "Monad",
+        "Ethereum"
+      ],
+      "tvl": 22373995,
+      "ch7d": 77.9812,
+      "age": 73,
+      "multiple": 0.0244,
+      "implied": 546762,
+      "rank": 131,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open August Digital on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task August Digital lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch August Digital's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "gamma-research",
+      "name": "Gamma Research",
+      "category": "Risk Curators",
+      "chains": [
+        "Monad"
+      ],
+      "tvl": 21709938,
+      "ch7d": 21.2903,
+      "age": 72,
+      "multiple": 0.0244,
+      "implied": 529855,
+      "rank": 132,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open Gamma Research on Monad and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its curated risk vault on Monad; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the risk curators product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task Gamma Research lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch Gamma Research's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "nuva",
+      "name": "NUVA",
+      "category": "Yield",
+      "chains": [
+        "Provenance",
+        "Ethereum"
+      ],
+      "tvl": 15864571,
+      "ch7d": 160.8009,
+      "age": 130,
+      "multiple": 0.0284,
+      "implied": 450636,
+      "rank": 133,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open NUVA on Provenance and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to deposit into its yield vault on Provenance; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the yield product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task NUVA lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch NUVA's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    },
+    {
+      "slug": "communityv3",
+      "name": "CommunityV3",
+      "category": "Dexs",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 17407286,
+      "ch7d": 18.2229,
+      "age": 26,
+      "multiple": 0.021,
+      "implied": 365567,
+      "rank": 134,
+      "steps": [
+        "Fund a fresh wallet you control with $500 plus about $45 for gas and bridging, then open CommunityV3 on Ethereum and check the app address against the project's own docs before connecting (~$45 setup, 60 min).",
+        "Deposit the $500 to provide liquidity to its main trading pool on Ethereum; keep the transaction receipt and note the position id, vault address and deposit date in one place (~$500 + about $3 gas, 10 min).",
+        "Return at least once a week and use the dexs product again with a small amount, so the address shows repeated activity instead of a single deposit (~$5 gas a week, 10 min a week).",
+        "Work through every points, quest or leaderboard task CommunityV3 lists in its app or docs, and save a screenshot of each completed task with the date (~$0, 20 min).",
+        "Hold the position for at least 30 days without withdrawing; early exits often reset farming progress or points, and a snapshot can happen with no warning (~$0, no extra time).",
+        "Watch CommunityV3's own announcements for a token or points snapshot; when a claim opens, claim promptly and leave the position in place until after the snapshot (~$5 gas, 15 min)."
+      ]
+    }
+  ],
+  "live": [
+    {
+      "slug": "rain",
+      "name": "Rain",
+      "category": "Prediction Market",
+      "chains": [
+        "Arbitrum"
+      ],
+      "tvl": 6612528,
+      "mcap": 2646363290,
+      "multiple": 400.2045,
+      "ch7d": -36.6488,
+      "age": 382
+    },
+    {
+      "slug": "okx",
+      "name": "OKX",
+      "category": "CEX",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "X Layer",
+        "Solana",
+        "Doge",
+        "Tron",
+        "Ripple",
+        "Litecoin",
+        "Filecoin",
+        "Bitcoincash",
+        "EthereumClassic",
+        "TON",
+        "Aptos",
+        "Polkadot",
+        "Arbitrum",
+        "Optimism",
+        "Sui",
+        "Avalanche",
+        "Base",
+        "zkSync Era",
+        "Linea",
+        "Scroll",
+        "Starknet",
+        "Polygon"
+      ],
+      "tvl": 26324198228,
+      "mcap": 1969858392,
+      "multiple": 0.0748,
+      "ch7d": -7.5149,
+      "age": 1464
+    },
+    {
+      "slug": "aave-v2",
+      "name": "Aave V2",
+      "category": "Lending",
+      "chains": [
+        "Ethereum",
+        "Polygon",
+        "Avalanche"
+      ],
+      "tvl": 90919562,
+      "mcap": 1723499485,
+      "multiple": 18.9563,
+      "ch7d": -7.8689,
+      "age": 365
+    },
+    {
+      "slug": "mantle-bridge",
+      "name": "Mantle Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 91611319,
+      "mcap": 1332654362,
+      "multiple": 14.5468,
+      "ch7d": -14.5449,
+      "age": 365
+    },
+    {
+      "slug": "bitway-earn",
+      "name": "Bitway Earn",
+      "category": "Basis Trading",
+      "chains": [
+        "Binance"
+      ],
+      "tvl": 33419734,
+      "mcap": 1208793873,
+      "multiple": 36.1701,
+      "ch7d": -0.4055,
+      "age": 247
+    },
+    {
+      "slug": "gate",
+      "name": "Gate",
+      "category": "CEX",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "Binance",
+        "Solana",
+        "Doge",
+        "Tron",
+        "Ripple",
+        "Fetch Hub",
+        "Base",
+        "Zcash",
+        "Plasma",
+        "Hyperliquid L1",
+        "Bittensor",
+        "Aptos",
+        "Arbitrum",
+        "Sui",
+        "Litecoin",
+        "Pi Network",
+        "Kaspa",
+        "TON",
+        "Avalanche",
+        "Near",
+        "Filecoin",
+        "Polygon",
+        "Cardano",
+        "Optimism",
+        "EthereumClassic",
+        "Manta",
+        "Bitcoincash",
+        "Robinhood Chain",
+        "BSV Blockchain",
+        "X Layer",
+        "Linea",
+        "Stellar",
+        "Qubic",
+        "Polkadot",
+        "Aleo",
+        "Akash",
+        "Monad",
+        "ICP",
+        "Celo",
+        "Arweave",
+        "Klaytn",
+        "Injective",
+        "Hedera",
+        "Dash",
+        "XDC",
+        "Canton",
+        "WEMIX",
+        "Cronos",
+        "Algorand",
+        "Conflux",
+        "Starknet",
+        "Peaq",
+        "MemeCore",
+        "World Chain",
+        "Cosmos",
+        "Sei",
+        "Theta",
+        "Celestia",
+        "Stable",
+        "VeChain",
+        "HashKey Chain",
+        "Nervos",
+        "Flare",
+        "EOS",
+        "Ergo",
+        "Allora",
+        "zkSync Era",
+        "Sonic",
+        "Proton",
+        "Casper",
+        "Mantle",
+        "Merlin",
+        "Plume Mainnet",
+        "Stacks",
+        "Metis",
+        "Mina",
+        "Kava",
+        "dYdX",
+        "Terra",
+        "MegaETH",
+        "Ontology",
+        "CORE",
+        "Alephium",
+        "Oasis",
+        "Coti",
+        "Taiko",
+        "Berachain",
+        "Supra",
+        "LUKSO",
+        "Zilliqa",
+        "Scroll",
+        "Neo3",
+        "IOTA",
+        "Flux",
+        "ZIGChain",
+        "Story",
+        "Kusama",
+        "IoTeX",
+        "ZetaChain",
+        "Elrond",
+        "Thorchain",
+        "Chiliz",
+        "Osmosis",
+        "Agoric",
+        "Constellation",
+        "Ronin",
+        "Tezos",
+        "Astar",
+        "Mantra",
+        "Xai",
+        "RSK",
+        "Babylon Genesis",
+        "Vana",
+        "Bitkub",
+        "0G",
+        "Dymension",
+        "Etherlink",
+        "Radix",
+        "Decred",
+        "Shibarium",
+        "Oasys",
+        "ApeChain",
+        "Somnia",
+        "BandChain",
+        "Fuse",
+        "XPLA",
+        "Arc",
+        "Bifrost",
+        "Fogo",
+        "Aura Network",
+        "Bitlayer",
+        "Mode",
+        "Boba",
+        "Matchain",
+        "Op_Bnb",
+        "Zircuit",
+        "Aurora",
+        "Arbitrum Nova",
+        "EnergyWeb",
+        "Fantom",
+        "BSquared",
+        "Abstract",
+        "Bittorrent",
+        "AirDAO",
+        "Blast",
+        "BEVM Canary",
+        "Cube",
+        "ENULS",
+        "EOS EVM",
+        "Evmos",
+        "Bahamut",
+        "Fuel",
+        "GateLayer",
+        "Gravity",
+        "Heco",
+        "Kadena",
+        "Kardia",
+        "Kroma",
+        "Meter",
+        "Moonbeam",
+        "Moonriver",
+        "Neon",
+        "Neutron",
+        "OKExChain",
+        "Polygon zkEVM",
+        "REI",
+        "Saga",
+        "Taraxa",
+        "ThunderCore",
+        "Umee",
+        "zkLink",
+        "Initia",
+        "TomoChain",
+        "HAQQ"
+      ],
+      "tvl": 5458552782,
+      "mcap": 919670267,
+      "multiple": 0.1685,
+      "ch7d": -7.5143,
+      "age": 1447
+    },
+    {
+      "slug": "polygon-bridge",
+      "name": "Polygon Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 2561365424,
+      "mcap": 901671433,
+      "multiple": 0.352,
+      "ch7d": -4.6646,
+      "age": 365
+    },
+    {
+      "slug": "nexo",
+      "name": "Nexo",
+      "category": "CEX",
+      "chains": [
+        "Ethereum",
+        "Binance",
+        "Polygon",
+        "Avalanche",
+        "Arbitrum",
+        "Optimism",
+        "Fantom"
+      ],
+      "tvl": 10168509,
+      "mcap": 705918665,
+      "multiple": 69.422,
+      "ch7d": -37.0695,
+      "age": 1400
+    },
+    {
+      "slug": "falcon-finance",
+      "name": "Falcon Finance",
+      "category": "Basis Trading",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 1557707205,
+      "mcap": 318146200,
+      "multiple": 0.2042,
+      "ch7d": -6.1005,
+      "age": 410
+    },
+    {
+      "slug": "starknet-bridge",
+      "name": "Starknet Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 213051107,
+      "mcap": 286418424,
+      "multiple": 1.3444,
+      "ch7d": -10.4613,
+      "age": 365
+    },
+    {
+      "slug": "lido",
+      "name": "Lido",
+      "category": "Liquid Staking",
+      "chains": [
+        "Ethereum",
+        "Solana",
+        "Terra",
+        "Moonriver",
+        "Moonbeam"
+      ],
+      "tvl": 18721539391,
+      "mcap": 251037363,
+      "multiple": 0.0134,
+      "ch7d": -13.9722,
+      "age": 365
+    },
+    {
+      "slug": "backpack",
+      "name": "Backpack",
+      "category": "CEX",
+      "chains": [
+        "Solana",
+        "Bitcoin",
+        "Ethereum",
+        "Hyperliquid L1",
+        "Zcash",
+        "Near",
+        "Ripple",
+        "Sui",
+        "Base",
+        "Arbitrum",
+        "Monad",
+        "Binance",
+        "Optimism",
+        "Doge",
+        "Aptos",
+        "Sei",
+        "Polygon",
+        "Arc",
+        "Tron",
+        "Plasma",
+        "Robinhood Chain",
+        "Tempo",
+        "Stable",
+        "Fogo",
+        "0G",
+        "Avalanche",
+        "Eclipse",
+        "Litecoin",
+        "Bitcoincash"
+      ],
+      "tvl": 473943961,
+      "mcap": 210972043,
+      "multiple": 0.4451,
+      "ch7d": -9.1581,
+      "age": 365
+    },
+    {
+      "slug": "flokifi-locker",
+      "name": "FlokiFi Locker",
+      "category": "Token Locker",
+      "chains": [
+        "Binance",
+        "Ethereum",
+        "Base",
+        "Cronos",
+        "Arbitrum",
+        "Optimism",
+        "Avalanche",
+        "Fantom",
+        "Polygon",
+        "Kucoin",
+        "Op_Bnb",
+        "OKExChain",
+        "Evmos",
+        "Dogechain",
+        "Blast"
+      ],
+      "tvl": 10045588,
+      "mcap": 190621074,
+      "multiple": 18.9756,
+      "ch7d": -10.5477,
+      "age": 1410
+    },
+    {
+      "slug": "thorchain-dex",
+      "name": "THORChain DEX",
+      "category": "Dexs",
+      "chains": [
+        "Thorchain",
+        "Bitcoin",
+        "Ethereum",
+        "Binance",
+        "Bitcoincash",
+        "Ripple",
+        "Avalanche",
+        "Doge",
+        "Litecoin",
+        "Tron",
+        "Base",
+        "Cosmos",
+        "Solana"
+      ],
+      "tvl": 56421343,
+      "mcap": 179551766,
+      "multiple": 3.1823,
+      "ch7d": -7.662,
+      "age": 365
+    },
+    {
+      "slug": "cap",
+      "name": "cap",
+      "category": "Lending",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 159772077,
+      "mcap": 166714858,
+      "multiple": 1.0435,
+      "ch7d": -12.0202,
+      "age": 457
+    },
+    {
+      "slug": "anvil",
+      "name": "Anvil",
+      "category": "Collateral Management",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 13125243,
+      "mcap": 159606035,
+      "multiple": 12.1602,
+      "ch7d": -8.6811,
+      "age": 591
+    },
+    {
+      "slug": "eigencloud",
+      "name": "EigenCloud",
+      "category": "Restaking",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 4903633832,
+      "mcap": 155971221,
+      "multiple": 0.0318,
+      "ch7d": -14.3731,
+      "age": 1249
+    },
+    {
+      "slug": "convex-finance",
+      "name": "Convex Finance",
+      "category": "Yield",
+      "chains": [
+        "Ethereum",
+        "Fraxtal",
+        "Arbitrum",
+        "Polygon"
+      ],
+      "tvl": 461947766,
+      "mcap": 148210942,
+      "multiple": 0.3208,
+      "ch7d": -9.0571,
+      "age": 365
+    },
+    {
+      "slug": "zama",
+      "name": "Zama",
+      "category": "Privacy",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 90279448,
+      "mcap": 147586329,
+      "multiple": 1.6348,
+      "ch7d": -17.4161,
+      "age": 194
+    },
+    {
+      "slug": "swissborg",
+      "name": "SwissBorg",
+      "category": "CEX",
+      "chains": [
+        "Bitcoin",
+        "Ethereum",
+        "Solana",
+        "Ripple",
+        "Binance",
+        "Hyperliquid L1",
+        "Bittensor",
+        "Polygon",
+        "Near",
+        "Cardano",
+        "Hedera",
+        "Avalanche",
+        "Doge",
+        "Sui",
+        "Optimism",
+        "Polkadot",
+        "Tron",
+        "Injective",
+        "Stellar",
+        "Arbitrum",
+        "Cosmos",
+        "TON",
+        "Algorand",
+        "Celestia",
+        "Sei",
+        "Sonic",
+        "Berachain",
+        "xDai",
+        "Chiliz",
+        "Osmosis",
+        "Moonbeam"
+      ],
+      "tvl": 724872836,
+      "mcap": 131787774,
+      "multiple": 0.1818,
+      "ch7d": -10.5877,
+      "age": 1457
+    },
+    {
+      "slug": "mexc",
+      "name": "MEXC",
+      "category": "CEX",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "Solana",
+        "Tron",
+        "Binance",
+        "Ripple",
+        "Arbitrum",
+        "TON",
+        "Polygon",
+        "Base",
+        "Avalanche",
+        "Aptos",
+        "Optimism",
+        "Starknet",
+        "Klaytn",
+        "Zcash",
+        "Sui",
+        "Near",
+        "Hedera",
+        "Hyperliquid L1",
+        "Dash",
+        "Cardano",
+        "Stellar"
+      ],
+      "tvl": 3847796100,
+      "mcap": 129118224,
+      "multiple": 0.0336,
+      "ch7d": -13.6162,
+      "age": 1256
+    },
+    {
+      "slug": "railgun",
+      "name": "Railgun",
+      "category": "Privacy",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Binance",
+        "Polygon"
+      ],
+      "tvl": 107702928,
+      "mcap": 104378062,
+      "multiple": 0.9691,
+      "ch7d": 0.4841,
+      "age": 1752
+    },
+    {
+      "slug": "reserve-protocol",
+      "name": "Reserve Protocol",
+      "category": "Indexes",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Binance",
+        "Arbitrum"
+      ],
+      "tvl": 43278603,
+      "mcap": 89351713,
+      "multiple": 2.0646,
+      "ch7d": -6.3309,
+      "age": 365
+    },
+    {
+      "slug": "chutes",
+      "name": "Chutes",
+      "category": "Decentralized AI",
+      "chains": [
+        "Bittensor"
+      ],
+      "tvl": 40658464,
+      "mcap": 83774453,
+      "multiple": 2.0604,
+      "ch7d": -10.3038,
+      "age": 284
+    },
+    {
+      "slug": "portal",
+      "name": "Portal",
+      "category": "Bridge",
+      "chains": [
+        "Ethereum",
+        "Algorand",
+        "Binance",
+        "Solana",
+        "Polygon",
+        "Near",
+        "Avalanche",
+        "Sui",
+        "Base",
+        "Arbitrum",
+        "Optimism",
+        "Aptos",
+        "Celo",
+        "Klaytn",
+        "Terra",
+        "Oasis",
+        "Aurora",
+        "Fantom",
+        "Karura",
+        "Acala",
+        "Moonbeam",
+        "Terra2",
+        "Injective",
+        "XPLA"
+      ],
+      "tvl": 1285806408,
+      "mcap": 66593224,
+      "multiple": 0.0518,
+      "ch7d": -5.8427,
+      "age": 1707
+    },
+    {
+      "slug": "usd-ai",
+      "name": "USD AI",
+      "category": "RWA",
+      "chains": [
+        "Arbitrum"
+      ],
+      "tvl": 157258085,
+      "mcap": 63408224,
+      "multiple": 0.4032,
+      "ch7d": -0.5488,
+      "age": 544
+    },
+    {
+      "slug": "flying-tulip-lend",
+      "name": "Flying Tulip Lend",
+      "category": "Lending",
+      "chains": [
+        "Ethereum",
+        "Sonic",
+        "Binance"
+      ],
+      "tvl": 10077743,
+      "mcap": 51699732,
+      "multiple": 5.1301,
+      "ch7d": -9.7513,
+      "age": 292
+    },
+    {
+      "slug": "babylon-protocol",
+      "name": "Babylon Protocol",
+      "category": "Restaking",
+      "chains": [
+        "Bitcoin"
+      ],
+      "tvl": 2790066912,
+      "mcap": 48746633,
+      "multiple": 0.0175,
+      "ch7d": -9.9953,
+      "age": 753
+    },
+    {
+      "slug": "sushiswap",
+      "name": "SushiSwap",
+      "category": "Dexs",
+      "chains": [
+        "Ethereum",
+        "Polygon",
+        "Arbitrum",
+        "Base",
+        "Boba",
+        "xDai",
+        "Binance",
+        "Celo",
+        "Arbitrum Nova",
+        "Avalanche",
+        "Fantom",
+        "Fuse",
+        "Scroll",
+        "Optimism",
+        "Katana",
+        "Linea",
+        "Filecoin",
+        "CORE",
+        "RSK",
+        "Hemi",
+        "Bittorrent",
+        "Europa",
+        "Telos",
+        "Arc",
+        "ZetaChain",
+        "Sonic",
+        "Metis",
+        "Kava",
+        "HAQQ",
+        "Palm",
+        "Moonriver",
+        "OKExChain",
+        "Harmony",
+        "Heco",
+        "Boba_Bnb",
+        "Blast",
+        "Moonbeam",
+        "Polygon zkEVM",
+        "ThunderCore"
+      ],
+      "tvl": 31730814,
+      "mcap": 48362138,
+      "multiple": 1.5241,
+      "ch7d": -10.5038,
+      "age": 365
+    },
+    {
+      "slug": "merlins-seal",
+      "name": "Merlins Seal",
+      "category": "Bridge",
+      "chains": [
+        "Bitcoin",
+        "Ethereum",
+        "Arbitrum",
+        "Zkfair"
+      ],
+      "tvl": 350240199,
+      "mcap": 43782431,
+      "multiple": 0.125,
+      "ch7d": -10.5131,
+      "age": 1009
+    },
+    {
+      "slug": "astar-dapps-staking",
+      "name": "Astar dApps Staking",
+      "category": "Chain",
+      "chains": [
+        "Astar"
+      ],
+      "tvl": 14189397,
+      "mcap": 42943403,
+      "multiple": 3.0264,
+      "ch7d": -8.4416,
+      "age": 1750
+    },
+    {
+      "slug": "re",
+      "name": "Re",
+      "category": "RWA",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Avalanche"
+      ],
+      "tvl": 487561390,
+      "mcap": 39968695,
+      "multiple": 0.082,
+      "ch7d": 0.581,
+      "age": 327
+    },
+    {
+      "slug": "pumpbtc",
+      "name": "PumpBTC",
+      "category": "Bridge",
+      "chains": [
+        "Bitcoin",
+        "Binance",
+        "Base",
+        "Ethereum",
+        "Arbitrum",
+        "Sei",
+        "Mantle",
+        "BOB"
+      ],
+      "tvl": 23447007,
+      "mcap": 37592530,
+      "multiple": 1.6033,
+      "ch7d": -9.8582,
+      "age": 842
+    },
+    {
+      "slug": "sdai",
+      "name": "sDAI",
+      "category": "Yield",
+      "chains": [
+        "xDai"
+      ],
+      "tvl": 37353080,
+      "mcap": 37389910,
+      "multiple": 1.001,
+      "ch7d": -0.8074,
+      "age": 1135
+    },
+    {
+      "slug": "hydration-dex",
+      "name": "Hydration DEX",
+      "category": "Dexs",
+      "chains": [
+        "HydraDX"
+      ],
+      "tvl": 20870492,
+      "mcap": 36596424,
+      "multiple": 1.7535,
+      "ch7d": -12.4906,
+      "age": 1179
+    },
+    {
+      "slug": "api3",
+      "name": "Api3",
+      "category": "Risk Curators",
+      "chains": [
+        "Ethereum",
+        "Base"
+      ],
+      "tvl": 11776271,
+      "mcap": 35031165,
+      "multiple": 2.9747,
+      "ch7d": -11.1115,
+      "age": 1747
+    },
+    {
+      "slug": "ankr",
+      "name": "Ankr",
+      "category": "Liquid Staking",
+      "chains": [
+        "Ethereum",
+        "Flow",
+        "Binance",
+        "Avalanche",
+        "Fantom",
+        "xDai",
+        "Polkadot",
+        "Kusama"
+      ],
+      "tvl": 20855587,
+      "mcap": 34514051,
+      "multiple": 1.6549,
+      "ch7d": -12.522,
+      "age": 365
+    },
+    {
+      "slug": "bitkub",
+      "name": "Bitkub",
+      "category": "CEX",
+      "chains": [
+        "Bitcoin",
+        "Ethereum",
+        "Ripple",
+        "Binance",
+        "Solana",
+        "Cardano",
+        "Optimism",
+        "Arbitrum",
+        "Doge",
+        "Avalanche",
+        "Tron",
+        "Polygon",
+        "Base",
+        "Scroll",
+        "Algorand",
+        "Aptos",
+        "Mantle",
+        "zkSync Era",
+        "Litecoin",
+        "CORE",
+        "TON",
+        "Fantom"
+      ],
+      "tvl": 1219276691,
+      "mcap": 33120071,
+      "multiple": 0.0272,
+      "ch7d": -11.0521,
+      "age": 695
+    },
+    {
+      "slug": "veranta",
+      "name": "Veranta",
+      "category": "Derivatives",
+      "chains": [
+        "Base"
+      ],
+      "tvl": 10839155,
+      "mcap": 31945934,
+      "multiple": 2.9473,
+      "ch7d": 1.8121,
+      "age": 1012
+    },
+    {
+      "slug": "across",
+      "name": "Across",
+      "category": "Cross Chain Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 13897958,
+      "mcap": 30644040,
+      "multiple": 2.2049,
+      "ch7d": -9.5894,
+      "age": 1772
+    },
+    {
+      "slug": "rocket-pool",
+      "name": "Rocket Pool",
+      "category": "Liquid Staking",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 930898234,
+      "mcap": 30147126,
+      "multiple": 0.0324,
+      "ch7d": -14.4232,
+      "age": 1816
+    },
+    {
+      "slug": "ston.fi",
+      "name": "STON.fi",
+      "category": "Dexs",
+      "chains": [
+        "TON"
+      ],
+      "tvl": 20854866,
+      "mcap": 30102154,
+      "multiple": 1.4434,
+      "ch7d": -0.3978,
+      "age": 1439
+    },
+    {
+      "slug": "renzo",
+      "name": "Renzo",
+      "category": "Liquid Restaking",
+      "chains": [
+        "Ethereum",
+        "Linea",
+        "Arbitrum",
+        "Solana",
+        "Zircuit",
+        "Mode",
+        "Base",
+        "Optimism",
+        "Fraxtal",
+        "Binance",
+        "Monad",
+        "Sei",
+        "Blast"
+      ],
+      "tvl": 85927581,
+      "mcap": 29651025,
+      "multiple": 0.3451,
+      "ch7d": -14.3955,
+      "age": 1061
+    },
+    {
+      "slug": "ssv-network",
+      "name": "SSV Network",
+      "category": "Staking Pool",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 10193945903,
+      "mcap": 29460958,
+      "multiple": 0.0029,
+      "ch7d": -12.6251,
+      "age": 365
+    },
+    {
+      "slug": "synapse-cross-chain-bridge",
+      "name": "Synapse Cross Chain Bridge",
+      "category": "Cross Chain Bridge",
+      "chains": [
+        "Ethereum",
+        "Avalanche",
+        "Arbitrum",
+        "Binance",
+        "Polygon",
+        "Optimism",
+        "Boba",
+        "Metis",
+        "Klaytn",
+        "Fantom",
+        "Base",
+        "Cronos",
+        "Terra",
+        "Aurora",
+        "Harmony",
+        "Moonriver",
+        "Moonbeam",
+        "Canto",
+        "Blast"
+      ],
+      "tvl": 7139951,
+      "mcap": 25847462,
+      "multiple": 3.6201,
+      "ch7d": -7.0179,
+      "age": 365
+    },
+    {
+      "slug": "osmosis-dex",
+      "name": "Osmosis DEX",
+      "category": "Dexs",
+      "chains": [
+        "Osmosis"
+      ],
+      "tvl": 7960647,
+      "mcap": 24209676,
+      "multiple": 3.0412,
+      "ch7d": -15.4451,
+      "age": 365
+    },
+    {
+      "slug": "tornado-cash",
+      "name": "Tornado Cash",
+      "category": "Privacy",
+      "chains": [
+        "Ethereum",
+        "Binance",
+        "Arbitrum",
+        "xDai",
+        "Avalanche",
+        "Polygon",
+        "Optimism",
+        "EthereumClassic"
+      ],
+      "tvl": 662508266,
+      "mcap": 22508774,
+      "multiple": 0.034,
+      "ch7d": -15.0925,
+      "age": 365
+    },
+    {
+      "slug": "manta-pacific",
+      "name": "Manta Pacific",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 19883796,
+      "mcap": 22390680,
+      "multiple": 1.1261,
+      "ch7d": -11.2859,
+      "age": 365
+    },
+    {
+      "slug": "usual-usd0",
+      "name": "Usual USD0",
+      "category": "RWA",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 79306636,
+      "mcap": 21791881,
+      "multiple": 0.2748,
+      "ch7d": -3.2534,
+      "age": 852
+    },
+    {
+      "slug": "concrete",
+      "name": "Concrete",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Ethereum",
+        "Stable",
+        "Arbitrum",
+        "Berachain",
+        "Katana"
+      ],
+      "tvl": 1097985819,
+      "mcap": 20992334,
+      "multiple": 0.0191,
+      "ch7d": -9.2218,
+      "age": 645
+    },
+    {
+      "slug": "blur-bids",
+      "name": "Blur Bids",
+      "category": "NFT Marketplace",
+      "chains": [
+        "Ethereum",
+        "Blast"
+      ],
+      "tvl": 9556892,
+      "mcap": 19130162,
+      "multiple": 2.0017,
+      "ch7d": -22.4718,
+      "age": 1408
+    },
+    {
+      "slug": "zerobase-cedefi",
+      "name": "ZEROBASE CeDeFi",
+      "category": "Basis Trading",
+      "chains": [
+        "Binance",
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Optimism",
+        "Polygon",
+        "Avalanche"
+      ],
+      "tvl": 60029438,
+      "mcap": 18611233,
+      "multiple": 0.31,
+      "ch7d": -0.6743,
+      "age": 528
+    },
+    {
+      "slug": "pinksale",
+      "name": "PinkSale",
+      "category": "Launchpad",
+      "chains": [
+        "Binance",
+        "Ethereum",
+        "Polygon",
+        "Cronos",
+        "Avalanche",
+        "Fantom"
+      ],
+      "tvl": 138597079,
+      "mcap": 18098374,
+      "multiple": 0.1306,
+      "ch7d": -6.9917,
+      "age": 1622
+    },
+    {
+      "slug": "b2-buzz",
+      "name": "B2 Buzz",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Bitcoin"
+      ],
+      "tvl": 53957600,
+      "mcap": 17089636,
+      "multiple": 0.3167,
+      "ch7d": -10.1405,
+      "age": 1000
+    },
+    {
+      "slug": "cbridge",
+      "name": "cBridge",
+      "category": "Bridge",
+      "chains": [
+        "Ethereum",
+        "Binance",
+        "Polygon",
+        "Arbitrum",
+        "Optimism",
+        "Avalanche",
+        "zkSync Era",
+        "Linea",
+        "Aurora",
+        "Boba",
+        "Scroll",
+        "Metis",
+        "Fantom",
+        "xDai",
+        "Celo",
+        "Heco",
+        "OKExChain",
+        "Polygon zkEVM",
+        "Moonriver",
+        "Moonbeam",
+        "CLV",
+        "Conflux",
+        "Harmony",
+        "Milkomeda",
+        "Oasis",
+        "REI",
+        "Shiden",
+        "Syscoin",
+        "Astar"
+      ],
+      "tvl": 11042622,
+      "mcap": 16860215,
+      "multiple": 1.5268,
+      "ch7d": -5.6492,
+      "age": 1833
+    },
+    {
+      "slug": "hyperlane",
+      "name": "Hyperlane",
+      "category": "Cross Chain Bridge",
+      "chains": [
+        "Binance",
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Optimism",
+        "Hyperliquid L1",
+        "Ink",
+        "Polygon",
+        "Unichain",
+        "Avalanche",
+        "Linea",
+        "BSquared",
+        "Metis",
+        "Mantle",
+        "Scroll",
+        "Mode",
+        "xDai",
+        "Plasma",
+        "Zora",
+        "Blast",
+        "Celo",
+        "Sei",
+        "Sonic",
+        "Swellchain",
+        "Plume",
+        "Vana",
+        "Mint"
+      ],
+      "tvl": 65978518,
+      "mcap": 15570424,
+      "multiple": 0.236,
+      "ch7d": -7.8409,
+      "age": 261
+    },
+    {
+      "slug": "taiko-bridge",
+      "name": "Taiko Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 10785829,
+      "mcap": 15467736,
+      "multiple": 1.4341,
+      "ch7d": -10.8456,
+      "age": 900
+    },
+    {
+      "slug": "kaio",
+      "name": "KAIO",
+      "category": "RWA",
+      "chains": [
+        "Sei",
+        "Immutable zkEVM",
+        "Aptos",
+        "Near",
+        "Avalanche",
+        "Solana",
+        "Polygon",
+        "Ethereum",
+        "Injective",
+        "Sui",
+        "Mantra",
+        "Hedera",
+        "Cardano",
+        "XDC"
+      ],
+      "tvl": 34656970,
+      "mcap": 14364555,
+      "multiple": 0.4145,
+      "ch7d": 0.0026,
+      "age": 654
+    },
+    {
+      "slug": "yield-basis",
+      "name": "Yield Basis",
+      "category": "Leveraged Farming",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 81947316,
+      "mcap": 14132031,
+      "multiple": 0.1725,
+      "ch7d": -12.4313,
+      "age": 415
+    },
+    {
+      "slug": "huma",
+      "name": "Huma",
+      "category": "RWA",
+      "chains": [
+        "Solana",
+        "Ethereum",
+        "Stellar",
+        "Monad"
+      ],
+      "tvl": 369103931,
+      "mcap": 13257716,
+      "multiple": 0.0359,
+      "ch7d": 0.6476,
+      "age": 171
+    },
+    {
+      "slug": "xsy",
+      "name": "XSY",
+      "category": "Basis Trading",
+      "chains": [
+        "Base",
+        "Avalanche"
+      ],
+      "tvl": 12995829,
+      "mcap": 12974827,
+      "multiple": 0.9984,
+      "ch7d": 0.0822,
+      "age": 424
+    },
+    {
+      "slug": "hegic",
+      "name": "Hegic",
+      "category": "Options",
+      "chains": [
+        "Arbitrum",
+        "Ethereum"
+      ],
+      "tvl": 8160658,
+      "mcap": 12359368,
+      "multiple": 1.5145,
+      "ch7d": -11.2398,
+      "age": 365
+    },
+    {
+      "slug": "benqi-lending",
+      "name": "Benqi Lending",
+      "category": "Lending",
+      "chains": [
+        "Avalanche"
+      ],
+      "tvl": 95008001,
+      "mcap": 12244356,
+      "multiple": 0.1289,
+      "ch7d": -5.3184,
+      "age": 365
+    },
+    {
+      "slug": "aquarius-stellar",
+      "name": "Aquarius Stellar",
+      "category": "Dexs",
+      "chains": [
+        "Stellar"
+      ],
+      "tvl": 37172687,
+      "mcap": 10897579,
+      "multiple": 0.2932,
+      "ch7d": -2.231,
+      "age": 814
+    },
+    {
+      "slug": "dolomite",
+      "name": "Dolomite",
+      "category": "Lending",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Berachain",
+        "Mantle",
+        "X Layer",
+        "Botanix",
+        "Polygon zkEVM"
+      ],
+      "tvl": 128252575,
+      "mcap": 10516958,
+      "multiple": 0.082,
+      "ch7d": -10.6273,
+      "age": 1489
+    },
+    {
+      "slug": "stusdt",
+      "name": "stUSDT",
+      "category": "RWA",
+      "chains": [
+        "Tron",
+        "Ethereum"
+      ],
+      "tvl": 47373718,
+      "mcap": 9707096,
+      "multiple": 0.2049,
+      "ch7d": -15.7563,
+      "age": 1229
+    },
+    {
+      "slug": "wise-token",
+      "name": "Wise Token",
+      "category": "Yield",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 54446633,
+      "mcap": 9205988,
+      "multiple": 0.1691,
+      "ch7d": -14.4385,
+      "age": 88
+    },
+    {
+      "slug": "uranium.io",
+      "name": "Uranium.io",
+      "category": "RWA",
+      "chains": [
+        "Etherlink"
+      ],
+      "tvl": 10406697,
+      "mcap": 9051242,
+      "multiple": 0.8698,
+      "ch7d": -0.9698,
+      "age": 582
+    },
+    {
+      "slug": "metalx-lending",
+      "name": "MetalX Lending",
+      "category": "Lending",
+      "chains": [
+        "Proton"
+      ],
+      "tvl": 27341274,
+      "mcap": 8876695,
+      "multiple": 0.3247,
+      "ch7d": -11.4519,
+      "age": 1710
+    },
+    {
+      "slug": "equilibria",
+      "name": "Equilibria",
+      "category": "Yield",
+      "chains": [
+        "Ethereum",
+        "Binance",
+        "Arbitrum",
+        "Sonic",
+        "Mantle",
+        "Base",
+        "Hyperliquid L1",
+        "Plasma",
+        "Berachain",
+        "Optimism"
+      ],
+      "tvl": 8396549,
+      "mcap": 8872092,
+      "multiple": 1.0566,
+      "ch7d": -10.5288,
+      "age": 1254
+    },
+    {
+      "slug": "solstice",
+      "name": "Solstice",
+      "category": "Basis Trading",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 201014549,
+      "mcap": 8870078,
+      "multiple": 0.0441,
+      "ch7d": -0.0245,
+      "age": 410
+    },
+    {
+      "slug": "frankencoin",
+      "name": "Frankencoin",
+      "category": "CDP",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 49977940,
+      "mcap": 8431344,
+      "multiple": 0.1687,
+      "ch7d": -15.954,
+      "age": 1096
+    },
+    {
+      "slug": "gains-network",
+      "name": "Gains Network",
+      "category": "Derivatives",
+      "chains": [
+        "Arbitrum",
+        "Base",
+        "Polygon",
+        "ApeChain",
+        "MegaETH"
+      ],
+      "tvl": 5999311,
+      "mcap": 8257733,
+      "multiple": 1.3764,
+      "ch7d": -11.8791,
+      "age": 1797
+    },
+    {
+      "slug": "ekubo",
+      "name": "Ekubo",
+      "category": "Dexs",
+      "chains": [
+        "Starknet",
+        "Ethereum",
+        "Robinhood Chain"
+      ],
+      "tvl": 22628585,
+      "mcap": 7748814,
+      "multiple": 0.3424,
+      "ch7d": -15.1741,
+      "age": 1163
+    },
+    {
+      "slug": "stader",
+      "name": "Stader",
+      "category": "Liquid Staking",
+      "chains": [
+        "Ethereum",
+        "Hedera",
+        "Fantom",
+        "Terra2",
+        "Binance",
+        "Near"
+      ],
+      "tvl": 154377360,
+      "mcap": 7359993,
+      "multiple": 0.0477,
+      "ch7d": -17.1139,
+      "age": 1792
+    },
+    {
+      "slug": "evaa-protocol",
+      "name": "EVAA Protocol",
+      "category": "Lending",
+      "chains": [
+        "TON"
+      ],
+      "tvl": 7022402,
+      "mcap": 7210372,
+      "multiple": 1.0268,
+      "ch7d": 2.6879,
+      "age": 989
+    },
+    {
+      "slug": "fuel-bridge",
+      "name": "Fuel Bridge",
+      "category": "Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 7085071,
+      "mcap": 7003273,
+      "multiple": 0.9885,
+      "ch7d": -7.7571,
+      "age": 365
+    },
+    {
+      "slug": "resolv-usr",
+      "name": "Resolv USR",
+      "category": "Basis Trading",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 6085254,
+      "mcap": 6786418,
+      "multiple": 1.1152,
+      "ch7d": -1.1353,
+      "age": 660
+    },
+    {
+      "slug": "morpheusai",
+      "name": "MorpheusAI",
+      "category": "AI Agents",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Base"
+      ],
+      "tvl": 7577571,
+      "mcap": 6729517,
+      "multiple": 0.8881,
+      "ch7d": -34.0333,
+      "age": 927
+    },
+    {
+      "slug": "inverse-finance-firm",
+      "name": "Inverse Finance FiRM",
+      "category": "CDP",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 27257098,
+      "mcap": 6704911,
+      "multiple": 0.246,
+      "ch7d": -13.9395,
+      "age": 1401
+    },
+    {
+      "slug": "grove-finance",
+      "name": "Grove Finance",
+      "category": "Onchain Capital Allocator",
+      "chains": [
+        "Base",
+        "Ethereum",
+        "Avalanche",
+        "Plume Mainnet",
+        "Robinhood Chain"
+      ],
+      "tvl": 1105503667,
+      "mcap": 6477692,
+      "multiple": 0.0059,
+      "ch7d": -0.5937,
+      "age": 233
+    },
+    {
+      "slug": "cronos-zkevm-bridge",
+      "name": "Cronos zkEVM Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 17033550,
+      "mcap": 6246345,
+      "multiple": 0.3667,
+      "ch7d": -5.2354,
+      "age": 365
+    },
+    {
+      "slug": "brickken",
+      "name": "Brickken",
+      "category": "RWA",
+      "chains": [
+        "Binance",
+        "Ethereum",
+        "Base",
+        "Avalanche",
+        "Polygon"
+      ],
+      "tvl": 42545788,
+      "mcap": 5951929,
+      "multiple": 0.1399,
+      "ch7d": 0.2948,
+      "age": 1025
+    },
+    {
+      "slug": "solomon-usdv",
+      "name": "Solomon USDv",
+      "category": "Basis Trading",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 8727712,
+      "mcap": 5711574,
+      "multiple": 0.6544,
+      "ch7d": 0.4793,
+      "age": 571
+    },
+    {
+      "slug": "mansory",
+      "name": "Mansory",
+      "category": "RWA",
+      "chains": [
+        "Binance",
+        "Solana"
+      ],
+      "tvl": 5502874,
+      "mcap": 5538701,
+      "multiple": 1.0065,
+      "ch7d": -6.015,
+      "age": 432
+    },
+    {
+      "slug": "badger-dao",
+      "name": "Badger DAO",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Polygon",
+        "Binance",
+        "Fantom"
+      ],
+      "tvl": 10650997,
+      "mcap": 5104554,
+      "multiple": 0.4793,
+      "ch7d": -10.5684,
+      "age": 365
+    },
+    {
+      "slug": "looped-hype",
+      "name": "Looped Hype",
+      "category": "Yield",
+      "chains": [
+        "Hyperliquid L1"
+      ],
+      "tvl": 5045118,
+      "mcap": 5042491,
+      "multiple": 0.9995,
+      "ch7d": -15.0918,
+      "age": 617
+    },
+    {
+      "slug": "treehouse-protocol",
+      "name": "Treehouse Protocol",
+      "category": "DOR",
+      "chains": [
+        "Ethereum",
+        "Avalanche",
+        "Mantle"
+      ],
+      "tvl": 52470276,
+      "mcap": 4710002,
+      "multiple": 0.0898,
+      "ch7d": -12.5652,
+      "age": 795
+    },
+    {
+      "slug": "beefy",
+      "name": "Beefy",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Binance",
+        "Arbitrum",
+        "Fraxtal",
+        "Monad",
+        "Polygon",
+        "Optimism",
+        "Avalanche",
+        "Robinhood Chain",
+        "Plasma",
+        "Hyperliquid L1",
+        "Metis",
+        "Sonic",
+        "Linea",
+        "MegaETH",
+        "zkSync Era",
+        "Sei",
+        "Arc",
+        "xDai",
+        "Mantle",
+        "Berachain",
+        "Cronos",
+        "RSK",
+        "Fuse",
+        "Heco",
+        "Manta",
+        "Fantom",
+        "Polygon zkEVM",
+        "Lisk",
+        "Moonbeam",
+        "Moonriver",
+        "Kava",
+        "Saga",
+        "Canto",
+        "Mode",
+        "Celo",
+        "Oasis",
+        "re.al",
+        "Scroll",
+        "Aurora",
+        "Harmony"
+      ],
+      "tvl": 88242646,
+      "mcap": 4446468,
+      "multiple": 0.0504,
+      "ch7d": -9.1681,
+      "age": 365
+    },
+    {
+      "slug": "enzyme-finance",
+      "name": "Enzyme Finance",
+      "category": "Indexes",
+      "chains": [
+        "Ethereum",
+        "Polygon",
+        "Arbitrum"
+      ],
+      "tvl": 79509819,
+      "mcap": 4089825,
+      "multiple": 0.0514,
+      "ch7d": -10.9966,
+      "age": 365
+    },
+    {
+      "slug": "hipo",
+      "name": "Hipo",
+      "category": "Liquid Staking",
+      "chains": [
+        "TON"
+      ],
+      "tvl": 9655113,
+      "mcap": 3712184,
+      "multiple": 0.3845,
+      "ch7d": -6.9344,
+      "age": 1110
+    },
+    {
+      "slug": "harvest-finance",
+      "name": "Harvest Finance",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Base",
+        "Ethereum",
+        "Arbitrum",
+        "Polygon",
+        "zkSync Era"
+      ],
+      "tvl": 14464506,
+      "mcap": 3638254,
+      "multiple": 0.2515,
+      "ch7d": -17.3268,
+      "age": 365
+    },
+    {
+      "slug": "liqwid",
+      "name": "Liqwid",
+      "category": "Lending",
+      "chains": [
+        "Cardano"
+      ],
+      "tvl": 8390942,
+      "mcap": 3547973,
+      "multiple": 0.4228,
+      "ch7d": -4.757,
+      "age": 1380
+    },
+    {
+      "slug": "team-finance",
+      "name": "Team Finance",
+      "category": "Token Locker",
+      "chains": [
+        "Ethereum",
+        "Binance",
+        "Base",
+        "Robinhood Chain",
+        "Avalanche",
+        "Polygon",
+        "Flare",
+        "Pulse",
+        "Cronos",
+        "Arbitrum",
+        "Arc",
+        "Fantom",
+        "Kava",
+        "Unichain",
+        "Klaytn",
+        "Blast",
+        "Mantle",
+        "Odyssey",
+        "LUKSO",
+        "Berachain",
+        "X Layer",
+        "Monad"
+      ],
+      "tvl": 51190122,
+      "mcap": 3337137,
+      "multiple": 0.0652,
+      "ch7d": -10.0371,
+      "age": 1599
+    },
+    {
+      "slug": "gearbox",
+      "name": "Gearbox",
+      "category": "Lending",
+      "chains": [
+        "Ethereum",
+        "Etherlink",
+        "Monad",
+        "Plasma",
+        "Hemi",
+        "Arbitrum",
+        "Optimism",
+        "Somnia",
+        "Sonic",
+        "Binance",
+        "Lisk"
+      ],
+      "tvl": 19646374,
+      "mcap": 3312621,
+      "multiple": 0.1686,
+      "ch7d": -11.0715,
+      "age": 1783
+    },
+    {
+      "slug": "zyfai",
+      "name": "ZyFAI",
+      "category": "AI Agents",
+      "chains": [
+        "Base",
+        "Arbitrum",
+        "Ethereum",
+        "Sonic",
+        "Plasma"
+      ],
+      "tvl": 8281620,
+      "mcap": 2660574,
+      "multiple": 0.3213,
+      "ch7d": -6.4429,
+      "age": 569
+    },
+    {
+      "slug": "fx-protocol",
+      "name": "fx Protocol",
+      "category": "Dual-Token Stablecoin",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 79817906,
+      "mcap": 2523453,
+      "multiple": 0.0316,
+      "ch7d": -13.8004,
+      "age": 1198
+    },
+    {
+      "slug": "bitkan",
+      "name": "BitKan",
+      "category": "CEX",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "Tron",
+        "Binance",
+        "Solana",
+        "Polygon"
+      ],
+      "tvl": 37937448,
+      "mcap": 2351618,
+      "multiple": 0.062,
+      "ch7d": 26.7014,
+      "age": 401
+    },
+    {
+      "slug": "quickswap-dex",
+      "name": "Quickswap Dex",
+      "category": "Dexs",
+      "chains": [
+        "Polygon",
+        "Base"
+      ],
+      "tvl": 41723251,
+      "mcap": 2086559,
+      "multiple": 0.05,
+      "ch7d": -4.6394,
+      "age": 365
+    },
+    {
+      "slug": "meth-protocol",
+      "name": "mETH Protocol",
+      "category": "Liquid Staking",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 455231965,
+      "mcap": 1823351,
+      "multiple": 0.004,
+      "ch7d": -13.0122,
+      "age": 1076
+    },
+    {
+      "slug": "tectonic",
+      "name": "Tectonic",
+      "category": "Lending",
+      "chains": [
+        "Cronos"
+      ],
+      "tvl": 13421078,
+      "mcap": 1776879,
+      "multiple": 0.1324,
+      "ch7d": -26.4637,
+      "age": 1783
+    },
+    {
+      "slug": "symbiosis",
+      "name": "Symbiosis",
+      "category": "Cross Chain Bridge",
+      "chains": [
+        "Ethereum",
+        "Tron",
+        "TON",
+        "Binance",
+        "Polygon",
+        "Robinhood Chain",
+        "Arbitrum",
+        "Base",
+        "zkSync Era",
+        "Hyperliquid L1",
+        "RSK",
+        "Boba",
+        "xDai",
+        "Katana",
+        "BSquared",
+        "Mantle",
+        "Cronos",
+        "Cronos zkEVM",
+        "Quai",
+        "Merlin",
+        "Manta",
+        "Avalanche",
+        "Linea",
+        "Sei",
+        "Scroll",
+        "X Layer",
+        "Metis",
+        "Optimism",
+        "Berachain",
+        "Op_Bnb",
+        "Arc",
+        "Bitcoin",
+        "Taiko",
+        "Soneium",
+        "Monad",
+        "Plasma",
+        "Tempo",
+        "Stable",
+        "Sonic",
+        "Mode",
+        "Fraxtal",
+        "Arbitrum Nova",
+        "ApeChain",
+        "ZetaChain",
+        "Unichain",
+        "Kava",
+        "Abstract",
+        "Morph",
+        "CORE",
+        "Telos",
+        "Polygon zkEVM",
+        "Bahamut",
+        "Blast",
+        "zkLink",
+        "Gravity",
+        "Aurora",
+        "Boba_Avax",
+        "Goat"
+      ],
+      "tvl": 7930429,
+      "mcap": 1549406,
+      "multiple": 0.1954,
+      "ch7d": -3.5529,
+      "age": 1690
+    },
+    {
+      "slug": "index-coop",
+      "name": "Index Coop",
+      "category": "Indexes",
+      "chains": [
+        "Ethereum",
+        "Arbitrum",
+        "Base"
+      ],
+      "tvl": 10414124,
+      "mcap": 1537936,
+      "multiple": 0.1477,
+      "ch7d": -17.8558,
+      "age": 365
+    },
+    {
+      "slug": "serum",
+      "name": "Serum",
+      "category": "Dexs",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 14959585,
+      "mcap": 1519676,
+      "multiple": 0.1016,
+      "ch7d": -4.1564,
+      "age": 365
+    },
+    {
+      "slug": "aura",
+      "name": "Aura",
+      "category": "Yield",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Optimism",
+        "Polygon",
+        "xDai",
+        "Polygon zkEVM",
+        "Avalanche",
+        "Fraxtal"
+      ],
+      "tvl": 7933344,
+      "mcap": 1518557,
+      "multiple": 0.1914,
+      "ch7d": -11.5799,
+      "age": 1576
+    },
+    {
+      "slug": "resupply",
+      "name": "Resupply",
+      "category": "Lending",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 42980278,
+      "mcap": 1434821,
+      "multiple": 0.0334,
+      "ch7d": -10.611,
+      "age": 596
+    },
+    {
+      "slug": "streamflow",
+      "name": "Streamflow",
+      "category": "Payments",
+      "chains": [
+        "Solana",
+        "Aptos",
+        "Binance",
+        "Polygon",
+        "Ethereum",
+        "Sui"
+      ],
+      "tvl": 8841188,
+      "mcap": 1236716,
+      "multiple": 0.1399,
+      "ch7d": -15.8161,
+      "age": 1355
+    },
+    {
+      "slug": "veno-finance",
+      "name": "Veno Finance",
+      "category": "Liquid Staking",
+      "chains": [
+        "Cronos",
+        "Ethereum",
+        "Cronos zkEVM",
+        "zkSync Era"
+      ],
+      "tvl": 28264700,
+      "mcap": 1147339,
+      "multiple": 0.0406,
+      "ch7d": -7.3043,
+      "age": 1412
+    },
+    {
+      "slug": "superfluid",
+      "name": "Superfluid",
+      "category": "Payments",
+      "chains": [
+        "Base",
+        "Optimism",
+        "Polygon",
+        "Ethereum",
+        "Celo",
+        "Arbitrum",
+        "xDai",
+        "Avalanche",
+        "Scroll",
+        "Binance"
+      ],
+      "tvl": 5131538,
+      "mcap": 1142803,
+      "multiple": 0.2227,
+      "ch7d": -4.0617,
+      "age": 1850
+    },
+    {
+      "slug": "waterneuron",
+      "name": "WaterNeuron",
+      "category": "Liquid Staking",
+      "chains": [
+        "ICP"
+      ],
+      "tvl": 5926765,
+      "mcap": 1100868,
+      "multiple": 0.1857,
+      "ch7d": 0.8789,
+      "age": 843
+    },
+    {
+      "slug": "fables",
+      "name": "Fables",
+      "category": "Dexs",
+      "chains": [
+        "Robinhood Chain"
+      ],
+      "tvl": 13050097,
+      "mcap": 889485,
+      "multiple": 0.0682,
+      "ch7d": -40.0977,
+      "age": 80
+    },
+    {
+      "slug": "reservoir-protocol",
+      "name": "Reservoir Protocol",
+      "category": "CDP",
+      "chains": [
+        "Monad",
+        "Pharos",
+        "Ethereum",
+        "Plasma",
+        "World Chain",
+        "Berachain",
+        "Binance",
+        "Arbitrum",
+        "Base",
+        "Optimism",
+        "Mantle",
+        "Hyperliquid L1",
+        "Katana",
+        "Tempo",
+        "Sei",
+        "Solana",
+        "Plume Mainnet"
+      ],
+      "tvl": 91691917,
+      "mcap": 728976,
+      "multiple": 0.008,
+      "ch7d": 2.1377,
+      "age": 733
+    },
+    {
+      "slug": "obol",
+      "name": "Obol",
+      "category": "Staking Pool",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 1146359386,
+      "mcap": 717446,
+      "multiple": 0.0006,
+      "ch7d": -7.5657,
+      "age": 375
+    },
+    {
+      "slug": "harmonix-finance",
+      "name": "Harmonix Finance",
+      "category": "Yield",
+      "chains": [
+        "Hyperliquid L1",
+        "Arbitrum",
+        "Ethereum",
+        "Base"
+      ],
+      "tvl": 5258119,
+      "mcap": 634108,
+      "multiple": 0.1206,
+      "ch7d": -9.0042,
+      "age": 859
+    },
+    {
+      "slug": "biconomy.com",
+      "name": "Biconomy.com",
+      "category": "CEX",
+      "chains": [
+        "Bitcoin",
+        "Ethereum",
+        "Polygon",
+        "Tron"
+      ],
+      "tvl": 89837790,
+      "mcap": 581751,
+      "multiple": 0.0065,
+      "ch7d": -8.5238,
+      "age": 799
+    },
+    {
+      "slug": "belt-finance",
+      "name": "Belt Finance",
+      "category": "Yield",
+      "chains": [
+        "Binance",
+        "Klaytn",
+        "Heco"
+      ],
+      "tvl": 11828381,
+      "mcap": 471137,
+      "multiple": 0.0398,
+      "ch7d": -7.6894,
+      "age": 365
+    },
+    {
+      "slug": "exactly",
+      "name": "Exactly",
+      "category": "Lending",
+      "chains": [
+        "Base",
+        "Optimism",
+        "Ethereum"
+      ],
+      "tvl": 11075107,
+      "mcap": 456289,
+      "multiple": 0.0412,
+      "ch7d": -8.8443,
+      "age": 1421
+    },
+    {
+      "slug": "infrared-finance",
+      "name": "Infrared Finance",
+      "category": "Liquid Staking",
+      "chains": [
+        "Berachain"
+      ],
+      "tvl": 11409175,
+      "mcap": 391774,
+      "multiple": 0.0343,
+      "ch7d": -9.4336,
+      "age": 639
+    },
+    {
+      "slug": "yield-yak-aggregator",
+      "name": "Yield Yak Aggregator",
+      "category": "Yield Aggregator",
+      "chains": [
+        "Avalanche",
+        "Arbitrum",
+        "Base",
+        "Mantle"
+      ],
+      "tvl": 11725362,
+      "mcap": 367627,
+      "multiple": 0.0314,
+      "ch7d": -8.3768,
+      "age": 365
+    },
+    {
+      "slug": "kinetic",
+      "name": "Kinetic",
+      "category": "Lending",
+      "chains": [
+        "Flare"
+      ],
+      "tvl": 25055189,
+      "mcap": 286940,
+      "multiple": 0.0115,
+      "ch7d": -16.8278,
+      "age": 844
+    },
+    {
+      "slug": "kyros",
+      "name": "Kyros",
+      "category": "Liquid Restaking",
+      "chains": [
+        "Solana"
+      ],
+      "tvl": 10265592,
+      "mcap": 209941,
+      "multiple": 0.0205,
+      "ch7d": -9.3181,
+      "age": 746
+    },
+    {
+      "slug": "merlinswap",
+      "name": "MerlinSwap",
+      "category": "Dexs",
+      "chains": [
+        "Merlin"
+      ],
+      "tvl": 7296111,
+      "mcap": 159377,
+      "multiple": 0.0218,
+      "ch7d": -5.2731,
+      "age": 990
+    },
+    {
+      "slug": "acryptos",
+      "name": "ACryptoS",
+      "category": "Liquidity Manager",
+      "chains": [
+        "Binance",
+        "Arbitrum",
+        "Avalanche",
+        "Base",
+        "Astar",
+        "Linea",
+        "Ethereum",
+        "Optimism",
+        "Cronos",
+        "xDai",
+        "Polygon",
+        "Fantom",
+        "Moonbeam",
+        "Moonriver",
+        "Kava",
+        "Canto",
+        "Harmony"
+      ],
+      "tvl": 10529600,
+      "mcap": 158430,
+      "multiple": 0.015,
+      "ch7d": 0.0381,
+      "age": 365
+    },
+    {
+      "slug": "bifi",
+      "name": "BiFi",
+      "category": "Lending",
+      "chains": [
+        "Bifrost Network",
+        "Binance",
+        "Ethereum",
+        "Klaytn",
+        "Avalanche"
+      ],
+      "tvl": 8116884,
+      "mcap": 101615,
+      "multiple": 0.0125,
+      "ch7d": -4.1991,
+      "age": 365
+    },
+    {
+      "slug": "concentrator",
+      "name": "Concentrator",
+      "category": "Yield",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 61654134,
+      "mcap": 79509,
+      "multiple": 0.0013,
+      "ch7d": -9.3095,
+      "age": 1706
+    },
+    {
+      "slug": "kava-lend",
+      "name": "Kava Lend",
+      "category": "Lending",
+      "chains": [
+        "Kava"
+      ],
+      "tvl": 7291374,
+      "mcap": 60672,
+      "multiple": 0.0083,
+      "ch7d": -3.0013,
+      "age": 365
+    },
+    {
+      "slug": "xdai-stake-bridge",
+      "name": "xDAI Stake Bridge",
+      "category": "Canonical Bridge",
+      "chains": [
+        "Ethereum"
+      ],
+      "tvl": 223431568,
+      "mcap": 56296,
+      "multiple": 0.0003,
+      "ch7d": -10.7348,
+      "age": 365
+    },
+    {
+      "slug": "gravity-bridge",
+      "name": "Gravity Bridge",
+      "category": "Bridge",
+      "chains": [
+        "GravityBridge",
+        "Ethereum"
+      ],
+      "tvl": 6040499,
+      "mcap": 48331,
+      "multiple": 0.008,
+      "ch7d": -15.919,
+      "age": 1207
+    }
+  ]
+};
